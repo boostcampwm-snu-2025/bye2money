@@ -1,11 +1,13 @@
-import InputDate from "./pages/InputDate";
+import InputDate from "./pages/form/InputDate";
+import SignToggleButton from "./pages/form/SignToggleButton";
 
 const App = () => {
     return (
         <>
             <header></header>
-            <form className="w-300 h-32 border border-black mx-auto">
+            <form className="flex w-300 h-32 border border-black mx-auto">
                 <InputDate />
+                <SignToggleButton />
             </form>
             <body></body>
         </>

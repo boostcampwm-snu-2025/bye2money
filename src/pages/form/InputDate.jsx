@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const InputDate = () => {
     const today = new Date().toISOString().slice(0, 10);
     const [date, setDate] = useState(today);
 
     return (
-        <>
+        <div>
             <p className="text-xl text-gray-600">일자</p>
             <input
                 type="date"
@@ -14,7 +14,7 @@ const InputDate = () => {
                 onChange={(e) => setDate(e.target.value)}
                 className="bg-transparent border-none text-xl text-black focus:outline-none"
             />
-        </>
+        </div>
     );
 };
 

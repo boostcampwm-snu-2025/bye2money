@@ -40,34 +40,27 @@ export function Header() {
   };
 
   return (
-    <Box 
-        sx={{ 
-            display: "flex",
-            justifyContent: "center", 
-            width: "1440px", 
-            height: "216px", 
-            backgroundColor: "#73A4D0"}}>
-        <Box 
-            sx={{ 
-                width: "846px", 
-                height: "112px",
-                mt: "40px"}}>
-            <Toolbar 
-                sx={{ 
-                    justifyContent: "space-between", 
-                    height: "100%"}}>
-                <Logo />
-                <YearMonth 
-                    year={year} 
-                    month={month} 
-                    monthName={monthNames[month - 1]} 
-                    onMonthChange={monthChangeHandler}/>
-                <ViewTabs 
-                    view={view} 
-                    onViewChange={viewChangeHandler}/>
-            </Toolbar>
-        </Box>
-    </Box>
+      <Box 
+          sx={{ 
+              position: "absolute",
+              width: "846px", 
+              height: "112px",
+              mt: "40px"}}>
+          <Toolbar 
+              sx={{ 
+                  justifyContent: "space-between", 
+                  height: "100%"}}>
+              <Logo />
+              <YearMonth 
+                  year={year} 
+                  month={month} 
+                  monthName={monthNames[month - 1]} 
+                  onMonthChange={monthChangeHandler}/>
+              <ViewTabs 
+                  view={view} 
+                  onViewChange={viewChangeHandler}/>
+          </Toolbar>
+      </Box>
   );
 }
 

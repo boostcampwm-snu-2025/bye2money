@@ -8,6 +8,7 @@ export function Layout({ children }) {
       <CssBaseline />
       <Box 
         sx={{
+          position: "relative",
           width: "1440px",
           height: "100vh",
           display: "flex",
@@ -15,6 +16,13 @@ export function Layout({ children }) {
           alignItems: "center",
           justifyContent: "flex-start",
         }}>
+        <Box 
+          sx={{ 
+              display: "flex",
+              justifyContent: "center", 
+              width: "1440px", 
+              height: "216px", 
+              backgroundColor: "#73A4D0"}}></Box>
         {children}
       </Box>
     </>

@@ -1,7 +1,7 @@
 const InputDate = ({ value, onChange }) => {
     return (
         <div>
-            <p className="text-xl text-gray-600">일자</p>
+            <div className="text-xl text-gray-600">일자</div>
             <input
                 type="date"
                 id="currentDate"

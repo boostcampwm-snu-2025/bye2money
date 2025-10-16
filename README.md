@@ -17,12 +17,15 @@ src/
 ├── main.tsx -> Entry point.
 ├── pages -> Main, Calendar, Graph pages.
 ├── store -> Zustand store for state management.
+├── themes -> Tailwind themes corresponding to design system.
 └── types -> Type definitions.
 ```
 
 ## To Do
 
 - [x] 프로젝트 구조 Init.
+- [x] 정적 Asset 적재
+- [x] 디자인 Foundation 에 맞는 Tailwind Theme 구현
 - [ ] 소비 내역 Type 설계
 - 공통 컴포넌트 구현
   - [ ] Button

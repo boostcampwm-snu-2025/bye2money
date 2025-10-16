@@ -1,1 +1,27 @@
+@font-face {
+  font-family: "Chosun Ilbo Myungjo";
+  src: url("/fonts/ChosunNm.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
+@import "./themes/primitives.css";
+@import "./themes/tokens.css";

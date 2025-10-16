@@ -1,4 +1,6 @@
-[ ] tailwindcss 사용
+- 개발 환경
+    [x] React-SWC vite 개발 환경 구축
+    [x] tailwindcss 적용
 
 - 메인화면
     - 아마도 체크박스 각각이 component가 될 예정

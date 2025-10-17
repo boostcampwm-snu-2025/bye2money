@@ -5,6 +5,9 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { useState } from "react";
 
 export function InputBar() {
@@ -44,7 +47,7 @@ function DateInput() {
     const defaultDate = `${year}.${month}.${day}`;
     const [dateInput, setDateInput] = useState(defaultDate);
 
-    const inputHandler = (event) => {
+    const dateInputHandler = (event) => {
         const prevInput = dateInput;
         const rawInput = event.target.value;
         const input = rawInput.split(".").length === 3 ? rawInput : prevInput;
@@ -52,29 +55,62 @@ function DateInput() {
     }
 
     return (
-        <Box sx={{ flex: 2, textAlign: "start", pl: 2 }}>
+        <Box sx={{ flex: 1.5, textAlign: "start", pl: 2 }}>
             <Typography variant="body2" color="text.secondary">일자</Typography>
-                <input 
-                    value={dateInput}
-                    onChange={inputHandler}
-                    style={{ 
-                        width: '100%',
-                        border: 'none', 
-                        color: "black",
-                        fontSize: '1rem',
-                        background: "transparent",
-                        outline: "none"}}/>
+            <input 
+                value={dateInput}
+                onChange={dateInputHandler}
+                style={{ 
+                    width: "100%",
+                    border: "none", 
+                    color: "black",
+                    fontSize: "1rem",
+                    background: "transparent",
+                    outline: "none"}}/>
         </Box>
     );
 }
 
 function AmountInput() {
-  return (
-    <Box sx={{ flex: 1.5, textAlign: "center" }}>
-      <Typography variant="body2" color="text.secondary">금액</Typography>
-      <Typography variant="body1">5,000</Typography>
-    </Box>
-  );
+    const [amountInput, setAmountInput] = useState("0");
+    const [isExpense, setIsExpense] = useState(true);
+
+    const amountInputHandler = (event) => {
+        const rawInput = event.target.value;
+        const numberOnlyInput = rawInput.replace(/[^0-9]/g, "") 
+        setAmountInput(numberOnlyInput);
+    }
+
+    const formattedAmount = Number(amountInput).toLocaleString("ko-KR");
+
+    return (
+        <Box sx={{ flex: 2, textAlign: "start", justifyContent: "space-between" }}>
+            <Box sx={{ justifyContent: "start" }}>
+                <Typography variant="body2" color="text.secondary">금액</Typography>
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                <IconButton 
+                    sx={{
+                        padding: 0
+                    }}
+                    onClick={() => setIsExpense(!isExpense)} 
+                    aria-label={"transcation type"}>
+                    {isExpense ? <RemoveIcon fontSize="small" /> : <AddIcon fontSize="small" />}
+                </IconButton>
+                <input 
+                    value={`${formattedAmount} 원`}
+                    onChange={amountInputHandler}
+                    style={{ 
+                        width: "100%",
+                        textAlign: "end",
+                        border: "none", 
+                        color: "black",
+                        fontSize: "1rem",
+                        background: "transparent",
+                        outline: "none"}}/>
+            </Box>
+                </Box>
+    );
 }
 
 function DescriptionInput() {

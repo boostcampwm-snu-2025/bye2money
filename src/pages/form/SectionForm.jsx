@@ -5,6 +5,7 @@ import Amount from "@/components/Amount";
 import InputContent from "./InputContent";
 import Payment from "./Payment";
 import ActionModal from "@/components/ActionModal";
+import Category from "./Category";
 
 const SectionForm = () => {
     // For InputDate
@@ -28,6 +29,22 @@ const SectionForm = () => {
         data: null,
     });
     const [newMethodName, setNewMethodName] = useState("");
+    // For Category
+    const categoryIncomes = [
+        { id: 1, name: "월급" },
+        { id: 2, name: "용돈" },
+        { id: 3, name: "기타 수입" },
+    ];
+    const categoryExpenses = [
+        { id: 1, name: "생활" },
+        { id: 2, name: "식비" },
+        { id: 3, name: "교통" },
+        { id: 4, name: "쇼핑/뷰티" },
+        { id: 5, name: "의료/건강" },
+        { id: 6, name: "문화/여가" },
+        { id: 7, name: "미분류" },
+    ];
+    const [selectedCategory, setselectedCategory] = useState(null);
     // For Payment method function
     const handleConfirm = () => {
         if (modalState.type === "add" && newMethodName.trim()) {
@@ -58,17 +75,20 @@ const SectionForm = () => {
     // Rendering
     return (
         <>
-            <form className="flex justify-between items-center space-x-4 w-[960px] h-32 p-4 border border-black mx-auto">
+            <form className="flex divide-x divide-black justify-between items-center space-x-4 w-[960px] h-32 p-4 border border-black mx-auto">
                 <InputDate value={date} onChange={setDate} />
-                <SignToggleButton isPlus={isPlus} onChange={setIsPlus} />
 
-                <div className="flex items-center">
-                    <Amount
-                        value={amount}
-                        onChange={setAmount}
-                        readOnly={false}
-                    />
-                    <span className="text-xl text-gray-600"> 원</span>
+                <div className="flex divide-x justify-between items-center">
+                    <SignToggleButton isPlus={isPlus} onChange={setIsPlus} />
+
+                    <div className="flex items-center">
+                        <Amount
+                            value={amount}
+                            onChange={setAmount}
+                            readOnly={false}
+                        />
+                        <span className="text-xl text-gray-600"> 원</span>
+                    </div>
                 </div>
 
                 <InputContent value={content} onChange={setContent} />
@@ -79,6 +99,12 @@ const SectionForm = () => {
                     onSelect={setSelectedMethod}
                     onAdd={openAddModal}
                     onDelete={openDeleteModal}
+                />
+
+                <Category
+                    options={isPlus ? categoryIncomes : categoryExpenses}
+                    selectedOption={selectedCategory}
+                    onSelect={setselectedCategory}
                 />
             </form>
             {modalState.isOpen && (

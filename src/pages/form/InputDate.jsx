@@ -1,6 +1,6 @@
 const InputDate = ({ value, onChange }) => {
     return (
-        <div>
+        <div className="w-[100px]">
             <div className="text-xl text-gray-600">일자</div>
             <input
                 type="date"

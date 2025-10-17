@@ -1,4 +1,4 @@
-// 인자로 스타일도 받을 수 있는 방법 찾기
+// 인자로 스타일(폰트, 너비)도 받을 수 있는 방법 찾기
 const Amount = ({ value, readOnly = true, onChange }) => {
     const formattedValue = Number(value).toLocaleString();
 
@@ -19,7 +19,7 @@ const Amount = ({ value, readOnly = true, onChange }) => {
             value={formattedValue}
             onChange={handleChange}
             placeholder="0"
-            className="text-xl text-gray-600"
+            className="text-xl text-gray-600 w-[120px]"
         />
     );
 };

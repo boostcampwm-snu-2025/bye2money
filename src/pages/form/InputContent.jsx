@@ -8,7 +8,7 @@ const InputContent = ({ value, onChange }) => {
     };
 
     return (
-        <div>
+        <div className="w-[160px]">
             <div className="flex justify-between">
                 <span className="text-xl text-gray-600">내용</span>
                 <span className="text-xl text-gray-600">{length}/32</span>

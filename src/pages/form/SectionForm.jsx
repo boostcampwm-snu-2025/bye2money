@@ -6,6 +6,7 @@ import InputContent from "./InputContent";
 import Payment from "./Payment";
 import ActionModal from "@/components/ActionModal";
 import Category from "./Category";
+import CircleButton from "@/components/CircleButton";
 
 const SectionForm = () => {
     // For InputDate
@@ -72,6 +73,33 @@ const SectionForm = () => {
         setModalState({ isOpen: false, type: null, data: null });
         setNewMethodName("");
     };
+    // Validation
+    const isFormValid =
+        amount.trim() !== "" &&
+        content.trim() !== "" &&
+        selectedMethod !== null &&
+        selectedCategory !== null;
+
+    const handleSubmit = (event) => {
+        event.preventDefault(); // form의 기본 제출 동작(새로고침)을 막기
+
+        if (!isFormValid) {
+            return;
+        }
+
+        const newTransaction = {
+            date,
+            type: isPlus ? "income" : "expense",
+            amount: Number(amount),
+            content,
+            paymentMethod: selectedMethod.name,
+            category: selectedCategory.name,
+        };
+
+        console.log("제출할 데이터:", newTransaction);
+        // 여기에 실제 서버로 데이터를 전송하는 로직을 추가할 수 있습니다.
+    };
+
     // Rendering
     return (
         <>
@@ -105,6 +133,14 @@ const SectionForm = () => {
                     options={isPlus ? categoryIncomes : categoryExpenses}
                     selectedOption={selectedCategory}
                     onSelect={setselectedCategory}
+                />
+
+                <CircleButton
+                    isActive={isFormValid} // 유효성 검사 결과에 따라 활성화 상태 전달
+                    activeColor="rgba(0,0,0,1)"
+                    inactiveColor="rgba(0,0,0,0)"
+                    imageUrl={"/checkLogo.png"}
+                    onClick={handleSubmit}
                 />
             </form>
             {modalState.isOpen && (

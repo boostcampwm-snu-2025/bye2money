@@ -1,4 +1,3 @@
-import { useState } from "react";
 import InputDate from "./InputDate";
 import SignToggleButton from "./SignToggleButton";
 import Amount from "@/components/Amount";
@@ -7,8 +6,9 @@ import Payment from "./Payment";
 import ActionModal from "@/components/ActionModal";
 import Category from "./Category";
 import CircleButton from "@/components/CircleButton";
+import { useState, useEffect } from "react";
 
-const SectionForm = () => {
+const SectionForm = ({ onSave, editingTransaction }) => {
     // For InputDate
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
     // For SignToggleButton
@@ -45,7 +45,7 @@ const SectionForm = () => {
         { id: 6, name: "문화/여가" },
         { id: 7, name: "미분류" },
     ];
-    const [selectedCategory, setselectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
     // For Payment method function
     const handleConfirm = () => {
         if (modalState.type === "add" && newMethodName.trim()) {
@@ -87,23 +87,42 @@ const SectionForm = () => {
             return;
         }
 
-        const newTransaction = {
+        const transactionData = {
             date,
             type: isPlus ? "income" : "expense",
-            amount: Number(amount),
+            amount: isPlus ? Number(amount) : -Number(amount),
             content,
             paymentMethod: selectedMethod.name,
             category: selectedCategory.name,
         };
 
-        console.log("제출할 데이터:", newTransaction);
-        // 여기에 실제 서버로 데이터를 전송하는 로직을 추가할 수 있습니다.
+        onSave(transactionData);
     };
-
+    // when editing mode
+    useEffect(() => {
+        if (editingTransaction) {
+            setDate(editingTransaction.date.split("T")[0]);
+            setIsPlus(editingTransaction.amount > 0);
+            setAmount(Math.abs(editingTransaction.amount).toString());
+            setContent(editingTransaction.content);
+            setSelectedMethod(editingTransaction.paymentMethod);
+            setSelectedCategory(editingTransaction.category);
+        } else {
+            setDate(new Date().toISOString().slice(0, 10));
+            setIsPlus(true);
+            setAmount("");
+            setContent("");
+            setSelectedMethod(null);
+            setSelectedCategory(null);
+        }
+    }, [editingTransaction]);
     // Rendering
     return (
         <>
-            <form className="flex divide-x divide-black justify-between items-center space-x-4 w-[960px] h-32 p-4 border border-black mx-auto">
+            <form
+                onSubmit={handleSubmit}
+                className="flex divide-x divide-black justify-between items-center space-x-4 w-[960px] h-32 p-4 border border-black mx-auto"
+            >
                 <InputDate value={date} onChange={setDate} />
 
                 <div className="flex divide-x justify-between items-center">
@@ -132,7 +151,7 @@ const SectionForm = () => {
                 <Category
                     options={isPlus ? categoryIncomes : categoryExpenses}
                     selectedOption={selectedCategory}
-                    onSelect={setselectedCategory}
+                    onSelect={setSelectedCategory}
                 />
 
                 <CircleButton

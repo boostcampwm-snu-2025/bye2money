@@ -15,8 +15,10 @@ export function InputBar() {
     return (
         <Box 
             sx={{
+                position: "absolute",
                 display: "flex", 
-                justifyContent: "center"}}>
+                justifyContent: "center",
+                top: "180px"}}>
         <Paper 
             sx={{
             width: "846px",

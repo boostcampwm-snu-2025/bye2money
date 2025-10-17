@@ -18,6 +18,7 @@ export function Layout({ children }) {
         }}>
         <Box 
           sx={{ 
+              position: "relative",
               display: "flex",
               justifyContent: "center", 
               width: "1440px", 

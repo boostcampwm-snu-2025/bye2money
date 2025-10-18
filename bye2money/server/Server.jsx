@@ -9,11 +9,30 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/paymentMethods", (req, res) => {
-    const handlePaymentMethodsRequest = (req, res) => {
+    const handleSearchPaymentMethodsRequest = (req, res) => {
         const result = DATA["PAYMENTMETHODS"]
         res.json({ paymentMethods: result ? result : {}, total: result ? result.length : 0});
     }
-    handlePaymentMethodsRequest(req, res);
+    handleSearchPaymentMethodsRequest(req, res);
+});
+
+let lastPaymentMethodID = 0;
+app.post("/api/paymentMethods", (req, res) => {
+    const handlePostPaymentMethodsRequest = (req, res) => {
+        const { paymentMethod } = req.body;
+        const newPaymentMethod = { "id": lastPaymentMethodID++, "paymentMethod": paymentMethod };
+        DATA["PAYMENTMETHODS"].push(newPaymentMethod);
+    }
+    handlePostPaymentMethodsRequest(req, res);
+});
+
+app.delete("/api/paymentMethods/:id", (req, res) => {
+    const handleDeletePaymentMethodsRequest = (req, res) => {
+        const { id } = req.params;
+        const numericID = parseInt(id, 10);
+        DATA["PAYMENTMETHODS"] = DATA["PAYMENTMETHODS"].filter(paymentMethod => paymentMethod["id"] !== numericID);
+    }
+    handleDeletePaymentMethodsRequest(req, res);
 });
 
 app.get("/api/transactions/:yearMonth", (req, res) => {

@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Old/backup files
+App_old.tsx
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

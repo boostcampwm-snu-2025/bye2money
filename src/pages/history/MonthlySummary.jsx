@@ -23,7 +23,7 @@ const MonthlySummary = ({ transactions, filter, onFilterChange }) => {
                         size="s"
                         isActive={filter === "income"}
                         onClick={() => onFilterChange("income")}
-                        imageUrl={"/checkLogo.png"}
+                        imageUrl={"/images/checkLogo.png"}
                         activeColor="rgba(0,0,0,1)"
                         inactiveColor="rgba(140,140,140,0.6)"
                     />
@@ -36,7 +36,7 @@ const MonthlySummary = ({ transactions, filter, onFilterChange }) => {
                         size="s"
                         isActive={filter === "expense"}
                         onClick={() => onFilterChange("expense")}
-                        imageUrl={"/checkLogo.png"}
+                        imageUrl={"/images/checkLogo.png"}
                         activeColor="rgba(0,0,0,1)"
                         inactiveColor="rgba(140,140,140,0.6)"
                     />

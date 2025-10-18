@@ -48,21 +48,21 @@ const Header = ({ currentDate, setCurrentDate, viewMode, setViewMode }) => {
                     <CircleButton
                         isActive={viewMode === "list"}
                         onClick={() => setViewMode("list")}
-                        imageUrl={"/listLogo.png"}
+                        imageUrl={"/images/listLogo.png"}
                         activeColor="rgba(255,255,255,1)"
                         inactiveColor="rgba(0,0,0,0)"
                     />
                     <CircleButton
                         isActive={viewMode === "calendar"}
                         onClick={() => setViewMode("calendar")}
-                        imageUrl={"/calendarLogo.png"}
+                        imageUrl={"/images/calendarLogo.png"}
                         activeColor="rgba(255,255,255,1)"
                         inactiveColor="rgba(0,0,0,0)"
                     />
                     <CircleButton
                         isActive={viewMode === "stats"}
                         onClick={() => setViewMode("stats")}
-                        imageUrl={"/statsLogo.png"}
+                        imageUrl={"/images/statsLogo.png"}
                         activeColor="rgba(255,255,255,1)"
                         inactiveColor="rgba(0,0,0,0)"
                     />

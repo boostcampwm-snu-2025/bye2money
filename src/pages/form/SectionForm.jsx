@@ -188,7 +188,7 @@ const SectionForm = ({ onSave, editingTransaction }) => {
                         isActive={isFormValid} // 유효성 검사 결과에 따라 활성화 상태 전달
                         activeColor="rgba(0,0,0,1)"
                         inactiveColor="rgba(140,140,140,1)"
-                        imageUrl={"/checkLogo.png"}
+                        imageUrl={"/images/checkLogo.png"}
                         onClick={handleSubmit}
                     />
                 </div>

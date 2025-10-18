@@ -3,57 +3,13 @@ import SectionForm from "./pages/form/SectionForm";
 import ActionModal from "@/components/ActionModal";
 import Amount from "@/components/Amount";
 import TransactionList from "./pages/history/TransactionList";
-import { useState, useMemo } from "react";
-
-// 임시 데이터
-const MOCK_TRANSACTIONS = [
-    {
-        id: 1,
-        date: "2025-08-14T10:00:00Z",
-        category: "문화/여가",
-        content: "스트리밍 서비스 정기 결제",
-        paymentMethod: "현대카드",
-        amount: -10900,
-    },
-    {
-        id: 2,
-        date: "2025-08-14T12:30:00Z",
-        category: "교통",
-        content: "후불 교통비 결제",
-        paymentMethod: "신용카드",
-        amount: -45340,
-    },
-    {
-        id: 3,
-        date: "2025-08-13T18:00:00Z",
-        category: "미분류",
-        content: "온라인 세미나 신청",
-        paymentMethod: "현대카드",
-        amount: -10000,
-    },
-    {
-        id: 4,
-        date: "2025-08-10T14:00:00Z",
-        category: "식비",
-        content: "잔치국수와 김밥",
-        paymentMethod: "현대카드",
-        amount: -9500,
-    },
-    {
-        id: 5,
-        date: "2025-08-10T09:00:00Z",
-        category: "월급",
-        content: "8월 급여",
-        paymentMethod: "현금",
-        amount: 2010580,
-    },
-];
+import { useState, useEffect, useMemo } from "react";
 
 const App = () => {
     // States shared Header and main
     const [currentDate, setCurrentDate] = useState(new Date());
     const [viewMode, setViewMode] = useState("list");
-    const [transactions, setTransactions] = useState(MOCK_TRANSACTIONS);
+    const [transactions, setTransactions] = useState([]);
     // State for saving edited transaction data (if null, 'input mode')
     const [editingTransaction, setEditingTransaction] = useState(null);
     // State for filtering expense/income ('all', 'income', 'expense')
@@ -116,6 +72,22 @@ const App = () => {
             return transactions.filter((tx) => tx.amount < 0);
         return transactions;
     }, [transactions, filter]);
+
+    useEffect(() => {
+        fetch("/mockData.json")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setTransactions(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching transactions:", error);
+            });
+    }, []);
 
     return (
         <>

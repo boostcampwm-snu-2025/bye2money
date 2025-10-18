@@ -8,17 +8,17 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import CancelIcon from '@mui/icons-material/Cancel';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import CancelIcon from "@mui/icons-material/Cancel";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
 
 import { useState } from "react";
 import { DirtyLens } from "@mui/icons-material";
@@ -250,13 +250,13 @@ function PaymentMethodSelectBox({ setPaymentMethod, paymentMethods, setIsDropdow
     return (
         <Paper
             sx={{
-                position: 'absolute',
-                top: '115%',
+                position: "absolute",
+                top: "115%",
                 left: "-10%",
                 width: "120%",
                 zIndex: 20,
                 mt: 0.5,
-                bgcolor: 'background.paper',
+                bgcolor: "background.paper",
                 boxShadow: 3,}}>
             <List dense>
                 {paymentMethodsList}
@@ -265,7 +265,7 @@ function PaymentMethodSelectBox({ setPaymentMethod, paymentMethods, setIsDropdow
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        '&hover': { bgcolor: "action.hover"},
+                        "&hover": { bgcolor: "action.hover"},
                         cursor: "pointer",
                     }}>
                     <Button
@@ -323,7 +323,8 @@ function PaymentRemovalModal({ onRemoval, setOnRemoval, paymentMethods, setPayme
     return (
         <Dialog
             open={onRemoval}
-            onClose={() => {setOnRemoval(false)}}>
+            onClose={() => {setOnRemoval(false)}}
+            BackdropProps={{style: {backgroundColor: "rgba(0, 0, 0, 0.4)"}}}>
             <DialogTitle>결제수단 삭제</DialogTitle>
             <DialogContent>
                 <DialogContentText>

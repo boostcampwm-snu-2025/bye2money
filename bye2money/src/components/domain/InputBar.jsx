@@ -36,7 +36,7 @@ export function InputBar() {
     const [paymentMethod, setPaymentMethod] = useState("선택하세요");
     const [category, setCategory] = useState("선택하세요");
     const [isValid, setIsValid] = useState(false);
-
+    
     useEffect(() => {
         const checkInputValidity = (dateInput, amountInput, descriptionInput, paymentMethod, category) => {
             const dateInputValidity = checkDateInputValidity(dateInput);
@@ -71,6 +71,16 @@ export function InputBar() {
         const inputValidity = checkInputValidity(dateInput, amountInput, descriptionInput, paymentMethod, category);
         setIsValid(inputValidity);
     })
+
+    const resetInput = () => {
+        setDateInput(defaultDate);
+        setAmountInput("0");
+        setDescriptionInput("");
+        setPaymentMethod("");
+        setCategory("");
+        setIsExpense(false);
+        setIsValid(false);
+    }
 
     return (
         <Box 
@@ -108,7 +118,14 @@ export function InputBar() {
                 category={category}
                 setCategory={setCategory}/>
             <SaveButton 
-                isValid={isValid}/>
+                dateInput={dateInput}
+                isExpense={isExpense}
+                amountInput={amountInput}
+                descriptionInput={descriptionInput}
+                paymentMethodInput={paymentMethod}
+                categoryInput={category}
+                isValid={isValid}
+                onSaveSuccess={resetInput}/>
             </Stack>
         </Paper>
         </Box>
@@ -216,16 +233,6 @@ function DescriptionInput({ descriptionInput, setDescriptionInput }) {
 }
 
 function PaymentMethodSelect({ paymentMethod, setPaymentMethod }) {
-    const requestSearchPaymentMethods = () => {
-        const url = "http://localhost:3001/api/paymentMethods";
-        fetch(url)
-            .then(res => res.json())
-            .then(response => {
-                const result = response.paymentMethods;
-                return result;
-            })
-    }
-
     const requestPostPaymentMethods = async (paymentMethod) => {
         const url = "http://localhost:3001/api/paymentMethods";
         fetch(url, {
@@ -506,10 +513,35 @@ function CategorySelectBox({ setCategory, categories, setIsDropdownActive }) {
 }
 
 
-function SaveButton({ dateInput, amountInput, descriptionInput, paymentMethod, category, isValid }) {
+function SaveButton({ dateInput, isExpense, amountInput, descriptionInput, paymentMethodInput, categoryInput, isValid, onSaveSuccess }) {
 
-    const saveHandler = (dateInput, amountInput, descriptionInput, paymentMethod, category) => {
-        
+    const saveHandler = (dateInput, amountInput, descriptionInput, paymentMethodInput, categoryInput) => {
+        const yearMonth = parseYearMonth(dateInput);
+        const transaction = {
+            date: dateInput, 
+            type: isExpense ? "expense" : "incom",
+            amount: amountInput, 
+            description: descriptionInput, 
+            paymentMethod: paymentMethodInput, 
+            category: categoryInput}
+        requestPostTransaction(yearMonth, transaction);
+    }
+
+    const parseYearMonth = (dateInput) => {
+        const parsedDate = dateInput.split(".");
+        const year = parsedDate[0];
+        const month = parsedDate[1];
+        const yearMonth = `${year}-${month}`;
+        return yearMonth;
+    }
+
+    const requestPostTransaction = async (yearMonth, transaction) => {
+        const url = `http://localhost:3001/api/transactions/${yearMonth}`;
+        fetch(url, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(transaction)
+        }).then(response => {response.ok ? onSaveSuccess() : {}})
     }
     
     return (
@@ -529,7 +561,7 @@ function SaveButton({ dateInput, amountInput, descriptionInput, paymentMethod, c
                     backgroundColor: `rgba(0, 0, 0, ${isValid ? 1.0 : 0.4})`,
                     borderRadius: "50%"}}>
                 <IconButton
-                    onClick={() => {isValid ? saveHandler(dateInput, amountInput, descriptionInput, paymentMethod, category) : {}}}>
+                    onClick={() => {isValid ? saveHandler(dateInput, amountInput, descriptionInput, paymentMethodInput, categoryInput) : {}}}>
                     <CheckIcon
                         sx={{
                             fontSize: "large",

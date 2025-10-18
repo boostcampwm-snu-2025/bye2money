@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "./Button"; // 1번 파일에서 Button을 가져옴
+import { getTodayYear, getTodayMonth, getTodayMonthName } from "../../utils";
 
 // --- 헤더 스타일 ---
 const HeaderContainer = styled.header`
@@ -56,8 +57,8 @@ export default function AppHeader() {
           ⬅️
         </Button>
         <MonthDisplay>
-          <span className="year">2023</span>
-          <span className="month">8 August</span>
+          <span className="year">{getTodayYear()}</span>
+          <span className="month">{getTodayMonth()} {getTodayMonthName()}</span>
         </MonthDisplay>
         <Button type="ghost" pattern="iconOnly" size="M">
           ➡️

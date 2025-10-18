@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Button from "./Button"; // 1번 파일에서 Button을 가져옴
+import Button from "./Button";
+import { getTodayDateString } from "../../utils";
 
 // --- 폼 스타일 ---
 const FormContainer = styled.form`
@@ -92,21 +93,20 @@ const SubmitButton = styled(Button)`
 // --- NewTransactionForm 컴포넌트 ---
 export default function Form() {
     const [type, setType] = useState("expense");
+    const todayDate = getTodayDateString();
 
     return (
         <FormContainer>
             <InputGroup>
                 <label>날짜</label>
-                <StyledInput type="date" defaultValue="2023-08-17" />
+                <StyledInput type="date" defaultValue={todayDate} />
             </InputGroup>
 
             <InputGroup>
-                <label>분류</label>
-                <StyledSelect>
-                    <option value="월급">월급</option>
-                    <option value="식비">식비</option>
-                </StyledSelect>
+                <label>금액</label>
+                <StyledInput type="number" placeholder="0" />
             </InputGroup>
+
 
             <InputGroup>
                 <label>내용</label>
@@ -121,9 +121,13 @@ export default function Form() {
                 </StyledSelect>
             </InputGroup>
 
+
             <InputGroup>
-                <label>금액</label>
-                <StyledInput type="number" placeholder="0" />
+                <label>분류</label>
+                <StyledSelect>
+                    <option value="월급">월급</option>
+                    <option value="식비">식비</option>
+                </StyledSelect>
             </InputGroup>
 
             <ToggleGroup>

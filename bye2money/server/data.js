@@ -1,4 +1,1 @@
-export const DATA = {
-    "PAYMENTMETHODS": {},       // id, paymentMethod
-    "TRANSACTIONS": {}          // YYYY-MM: id, date, type, amount, description, paymentMethod, category
-}
+export const DATA = {"PAYMENTMETHODS":["현금"],"TRANSACTIONS":{}};

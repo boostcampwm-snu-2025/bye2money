@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import fs from 'fs';
+import path from 'path';
 import { DATA } from "./data.js";
 
 const app = express();
@@ -8,31 +10,45 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
+const dataFilePath = path.resolve('./data.js');
+
+function saveDataToFile() {
+  const fileContent = `export const DATA = ${JSON.stringify(DATA, 2)};\n`;
+  
+  try {
+    fs.writeFileSync(dataFilePath, fileContent, 'utf8');
+    console.log('Data successfully saved to data.js');
+  } catch (error) {
+    console.error('Error saving data to file:', error);
+  }
+}
+
+
+
 app.get("/api/paymentMethods", (req, res) => {
     const handleSearchPaymentMethodsRequest = (req, res) => {
         const result = DATA["PAYMENTMETHODS"]
-        res.json({ paymentMethods: result ? result : {}, total: result ? result.length : 0});
+        res.json({ paymentMethods: result ? result : [], total: result ? result.length : 0});
     }
     handleSearchPaymentMethodsRequest(req, res);
 });
 
-let lastPaymentMethodID = 0;
 app.post("/api/paymentMethods", (req, res) => {
     const handlePostPaymentMethodsRequest = (req, res) => {
-        const { paymentMethod } = req.body;
-        const newPaymentMethod = { "id": lastPaymentMethodID++, "paymentMethod": paymentMethod };
+        const { newPaymentMethod } = req.body;
         DATA["PAYMENTMETHODS"].push(newPaymentMethod);
     }
     handlePostPaymentMethodsRequest(req, res);
+    saveDataToFile();
 });
 
-app.delete("/api/paymentMethods/:id", (req, res) => {
+app.delete("/api/paymentMethods", (req, res) => {
     const handleDeletePaymentMethodsRequest = (req, res) => {
-        const { id } = req.params;
-        const numericID = parseInt(id, 10);
-        DATA["PAYMENTMETHODS"] = DATA["PAYMENTMETHODS"].filter(paymentMethod => paymentMethod["id"] !== numericID);
+        const { targetPaymentMethod } = req.body;
+        DATA["PAYMENTMETHODS"] = DATA["PAYMENTMETHODS"].filter(method => method !== targetPaymentMethod);
     }
     handleDeletePaymentMethodsRequest(req, res);
+    saveDataToFile();
 });
 
 app.get("/api/transactions/:yearMonth", (req, res) => {
@@ -61,6 +77,7 @@ app.post("/api/transactions/:yearMonth", (req, res) => {
         DATA["TRANSACTION"][yearMonth].push(newTransaction);
     }
     handlePostTransactionsRequest(req, res);
+    saveDataToFile();
 })
 
 app.delete("/api/transactions/:yearMonth/:id", (req, res) => {
@@ -71,6 +88,7 @@ app.delete("/api/transactions/:yearMonth/:id", (req, res) => {
                                         .filter(transcation => transcation["id"] !== numericID);
     }
     handleDeleteTransactionsRequest(req, res);
+    saveDataToFile();
 })
 
 app.listen(PORT, () => {

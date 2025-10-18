@@ -216,11 +216,48 @@ function DescriptionInput({ descriptionInput, setDescriptionInput }) {
 }
 
 function PaymentMethodSelect({ paymentMethod, setPaymentMethod }) {
+    const requestSearchPaymentMethods = () => {
+        const url = "http://localhost:3001/api/paymentMethods";
+        fetch(url)
+            .then(res => res.json())
+            .then(response => {
+                const result = response.paymentMethods;
+                return result;
+            })
+    }
+
+    const requestPostPaymentMethods = async (paymentMethod) => {
+        const url = "http://localhost:3001/api/paymentMethods";
+        fetch(url, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({newPaymentMethod: paymentMethod})
+        })
+    }
+
+    const requestDeletePaymentMethods = async (paymentMethod) => {
+        const url = "http://localhost:3001/api/paymentMethods";
+        fetch(url, {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({targetPaymentMethod: paymentMethod})
+        })
+    }
+
     const [paymentMethods, setPaymentMethods] = useState([])
     const [isDropdownActive, setIsDropdownActive] = useState(false);
     const [onAddition, setOnAddition] = useState(false);
     const [onRemoval, setOnRemoval] = useState(false);
     const [removalTarget, setRemovalTarget] = useState("");
+
+    useEffect(() => {
+        const fetchPaymentMethods = async () => {
+            const res = await fetch("http://localhost:3001/api/paymentMethods");
+            const data = await res.json();
+            setPaymentMethods(data.paymentMethods || []);
+        };
+        fetchPaymentMethods();
+    }, []);
     
     return (
         <Box sx={{ flex: 2, textAlign: "start", alignContent: "center", position: "relative" }}>
@@ -252,7 +289,8 @@ function PaymentMethodSelect({ paymentMethod, setPaymentMethod }) {
                             onAddition={onAddition}
                             setOnAddition={setOnAddition}
                             paymentMethods={paymentMethods}
-                            setPaymentMethods={setPaymentMethods} /> 
+                            setPaymentMethods={setPaymentMethods}
+                            requestPostPaymentMethods={requestPostPaymentMethods}/> 
                         : <></>}
             {onRemoval ? <PaymentRemovalModal 
                             onRemoval={onRemoval}
@@ -260,12 +298,14 @@ function PaymentMethodSelect({ paymentMethod, setPaymentMethod }) {
                             paymentMethods={paymentMethods}
                             setPaymentMethods={setPaymentMethods}
                             removalTarget={removalTarget}
-                        /> : <></>} 
+                            requestDeletePaymentMethods={requestDeletePaymentMethods}/> : <></>} 
         </Box>
     );
 }
 
 function PaymentMethodSelectBox({ setPaymentMethod, paymentMethods, setIsDropdownActive, setOnAddition, setOnRemoval, setRemovalTarget }) {
+    console.log(paymentMethods);
+    
     const paymentMethodsList = paymentMethods.map((paymentMethod) => {
         return (
             <React.Fragment key={paymentMethod}>
@@ -328,7 +368,7 @@ function PaymentMethodSelectBox({ setPaymentMethod, paymentMethods, setIsDropdow
     )
 }
 
-function PaymentAdditionModal({ onAddition, setOnAddition, paymentMethods, setPaymentMethods }) {
+function PaymentAdditionModal({ onAddition, setOnAddition, paymentMethods, setPaymentMethods, requestPostPaymentMethods }) {
     const [paymentMethodInput, setPaymentMethodInput] = useState("");
 
     return (
@@ -358,8 +398,9 @@ function PaymentAdditionModal({ onAddition, setOnAddition, paymentMethods, setPa
                 </Button>
                 <Button
                     onClick={() => {
-                        setPaymentMethods([...paymentMethods, paymentMethodInput])
-                        setOnAddition(false)
+                        requestPostPaymentMethods(paymentMethodInput);
+                        setPaymentMethods([...paymentMethods, paymentMethodInput]);
+                        setOnAddition(false);
                     }}>
                     추가
                 </Button>
@@ -368,7 +409,7 @@ function PaymentAdditionModal({ onAddition, setOnAddition, paymentMethods, setPa
     )
 }
 
-function PaymentRemovalModal({ onRemoval, setOnRemoval, paymentMethods, setPaymentMethods, removalTarget }) {
+function PaymentRemovalModal({ onRemoval, setOnRemoval, paymentMethods, setPaymentMethods, removalTarget, requestDeletePaymentMethods }) {
     return (
         <Dialog
             open={onRemoval}
@@ -383,6 +424,7 @@ function PaymentRemovalModal({ onRemoval, setOnRemoval, paymentMethods, setPayme
             <DialogActions>
                 <Button
                     onClick={() => {
+                        requestDeletePaymentMethods(removalTarget);
                         setPaymentMethods(paymentMethods.filter(method => method !== removalTarget));
                         setOnRemoval(false);
                     }}>

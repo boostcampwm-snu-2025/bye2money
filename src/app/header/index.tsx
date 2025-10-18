@@ -14,21 +14,19 @@ interface Props {
   onTabChange?: (tab: "Analytics" | "Calendar" | "List") => void
 }
 
-// TODO: font family 적용
-
 function Header({ currentTab, date, onNextMonth, onPrevMonth, onTabChange }: Props) {
   return (
     <header className="flex justify-between w-[846px] items-center bg-[#73A4D0]">
       <h1 className="flex gap-[4px] w-[132px]">
-        <span className="text-[24px] leading-1.5 tracking-normal font-normal">Wise</span>
-        <span className="text-[24px] leading-1.5 tracking-normal font-normal">Wallet</span>
+        <span className="text-[24px] leading-1.5 tracking-normal font-normal font-[ChosunNM]">Wise</span>
+        <span className="text-[24px] leading-1.5 tracking-normal font-normal font-[ChosunNM]">Wallet</span>
       </h1>
       <div className="flex gap-[24px] items-center">
         <img alt="Previous Month" className="w-[32px] h-[32px]" onClick={onPrevMonth} src={ChevronLeft}/>
         <div className="flex flex-col gap-[4px] items-center">
-          <span className="w-[120px] text-[14px] leading-[24px] tracking-normal font-light text-center">{date.format("YYYY")}</span>
-          <span className="text-[48px] leading-[56px] tracking-normal font-normal">{date.format("M")}</span>
-          <span className="w-[120px] text-[14px] leading-[24px] tracking-normal font-light text-center">{date.format("MMMM")}</span>
+          <span className="w-[120px] text-[14px] leading-[24px] tracking-normal font-light text-center font-[Pretendard]">{date.format("YYYY")}</span>
+          <span className="text-[48px] leading-[56px] tracking-normal font-normal font-[ChosunNM]">{date.format("M")}</span>
+          <span className="w-[120px] text-[14px] leading-[24px] tracking-normal font-light text-center font-[Pretendard]">{date.format("MMMM")}</span>
         </div>
         <img alt="Next Month" className="w-[32px] h-[32px]" onClick={onNextMonth} src={ChevronRight}/>
       </div>

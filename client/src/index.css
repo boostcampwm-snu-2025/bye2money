@@ -1,14 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
-  font-family: 'Chosunilbo_myungjo';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2101@1.1/Chosunilbo_myungjo.woff') format('woff');
-  font-weight: normal;
+  font-family: 'Pretendard Variable';
+  src: local('Pretendard Variable'),
+       url('/fonts/PretendardVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ChosunNm';
+  src:
+    local('ChosunNm'),
+    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/ChosunNm.woff') format('woff'),
+    url('/fonts/ChosunNm.ttf') format('truetype'); /* 선택: CDN 실패시 로컬 TTF 폴백 */
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@font-face {
+  font-family: 'Chosunilbo_myungjo';
+  src:
+    local('Chosunilbo_myungjo'),
+    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Base */
 @layer base {
@@ -75,4 +96,4 @@
 }
 
 /* focus-visible 보강 */
-:focus-visible { outline: 2px solid theme('colors.brand-surface'); outline-offset: 2px; }
+:focus-visible { outline: 2px solid theme('colors.neutral-text'); outline-offset: 2px; }

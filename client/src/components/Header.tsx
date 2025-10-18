@@ -15,7 +15,7 @@ export function Header({ year, month, tab, onPrev, onNext, onTab }:{
           </button>
           <div className="mx-3 w-28 text-center">
             <div className="text-xs opacity-90">{year}</div>
-            <div className="text-xl leading-none">{month}</div>
+            <div className="text-xl leading-none font-serif">{month}</div> {/* ← 추가 */}
             <div className="text-xs opacity-80">August</div>
           </div>
           <button onClick={onNext} className="btn btn-ghost rounded px-2 text-neutral-text-rev/90" aria-label="다음 달">

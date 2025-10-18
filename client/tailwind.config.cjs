@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Pretendard', 'ui-sans-serif', 'system-ui', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Inter', 'Segoe UI', 'Arial', 'sans-serif'],
-        serif: ['"Chosunilbo_myungjo"', 'Iowan Old Style', 'Times New Roman', 'serif'],
+        sans: ['Pretendard Variable', 'Pretendard', 'ui-sans-serif', 'system-ui', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Inter', 'Segoe UI', 'Arial', 'sans-serif'],
+        serif: ['ChosunNm', 'Chosunilbo_myungjo', 'Iowan Old Style', 'Times New Roman', 'serif'],
       },
       colors: {
         // --- Primitives ---
@@ -32,7 +32,7 @@ module.exports = {
           chestnut:    '#C04646',
         },
 
-        // --- Tokens (flattened names for Tailwind class usage) ---
+        // --- Tokens ---
         'neutral-surface-weak':   '#FBFCFD',
         'neutral-surface':        '#FFFFFF',
         'neutral-surface-point':  '#F1F4F8',
@@ -44,6 +44,7 @@ module.exports = {
         'brand-surface':          '#FFFFFF',
         'brand-text-income':      '#79B2CA',
         'brand-text-expense':     '#C04646',
+        'brand-accent':           '#7BA1C6', // 헤더 배경 컬러
 
         'danger-surface':         '#E93B5A',
         'danger-text':            '#E93B5A',

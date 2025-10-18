@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react"
 
 import Header from "./header";
+import InputBar from "./input-bar";
 
 const initialDate = dayjs().startOf("month");
 
@@ -29,7 +30,11 @@ function App() {
   return (
     <>
       <Header currentTab={tab} date={date} onNextMonth={setNextMonth} onPrevMonth={setPrevMonth} onTabChange={setTab}/>
-      {/* <Tab /> */}
+      {tab === "List" && (
+        <>
+          <InputBar />
+        </>
+      )}
     </>
   )
 }

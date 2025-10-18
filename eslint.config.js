@@ -11,11 +11,18 @@ export default defineConfig([
   {
     extends: [
       js.configs.recommended,
+      tseslint.configs.recommended,
       tseslint.configs.stylisticTypeChecked,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
       perfectionist.configs["recommended-natural"],
     ],
+    rules: 
+      {
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+      }
+    ,
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,

@@ -19,8 +19,7 @@ const useMonthlyDate = () => {
   return { date, setNextMonth, setPrevMonth };
 }
 
-const tabs = ["List", "Calendar", "Analytics"] as const;
-type Tab = (typeof tabs)[number];
+type Tab = "Analytics" | "Calendar" | "List";
 const initialTab: Tab = "List";
 
 function App() {

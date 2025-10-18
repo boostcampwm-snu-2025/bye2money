@@ -1,7 +1,7 @@
 export const fontFamily = {
   serif: ["Joseon Ilbo Myeongjo", "serif"],
   sans: ["Pretendard", "sans-serif"],
-} as const;
+};
 
 export const typography = {
   serif: {

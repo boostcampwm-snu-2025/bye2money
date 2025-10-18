@@ -1,6 +1,8 @@
 import Header from "./pages/header/Header";
 import SectionForm from "./pages/form/SectionForm";
-import TransactionList from "./pages/main/TransactionList";
+import ActionModal from "@/components/ActionModal";
+import Amount from "@/components/Amount";
+import TransactionList from "./pages/history/TransactionList";
 import { useState, useMemo } from "react";
 
 // 임시 데이터
@@ -18,7 +20,7 @@ const MOCK_TRANSACTIONS = [
         date: "2025-08-14T12:30:00Z",
         category: "교통",
         content: "후불 교통비 결제",
-        paymentMethod: "현대카드",
+        paymentMethod: "신용카드",
         amount: -45340,
     },
     {
@@ -56,6 +58,11 @@ const App = () => {
     const [editingTransaction, setEditingTransaction] = useState(null);
     // State for filtering expense/income ('all', 'income', 'expense')
     const [filter, setFilter] = useState("all");
+    // State for delete modal
+    const [deleteModalState, setDeleteModalState] = useState({
+        isOpen: false,
+        data: null,
+    });
 
     const handleSaveTransaction = (newTransactionData) => {
         if (editingTransaction) {
@@ -63,16 +70,15 @@ const App = () => {
             setTransactions(
                 transactions.map((tx) =>
                     tx.id === editingTransaction.id
-                        ? { ...tx, ...newTransactionData }
+                        ? { ...tx, ...newTransactionData, id: tx.id }
                         : tx
                 )
             );
         } else {
             // 입력 모드: 새 id를 부여하여 배열에 추가
-            setTransactions([
-                ...transactions,
-                { ...newTransactionData, id: Date.now() },
-            ]);
+            const newTx = { ...newTransactionData, id: Date.now() };
+            setTransactions([...transactions, newTx]);
+            console.log("Added Transaction:", newTx);
         }
         setEditingTransaction(null); // 폼을 '입력 모드'로 초기화
     };
@@ -81,12 +87,25 @@ const App = () => {
         setEditingTransaction(transactionToEdit);
     };
 
-    const handleDelete = (transactionToDelete) => {
-        if (window.confirm("정말로 이 내역을 삭제하시겠습니까?")) {
+    // 내역 삭제 관련 함수
+    const openDeleteConfirmationModal = (transactionToDelete) => {
+        setDeleteModalState({ isOpen: true, data: transactionToDelete });
+    };
+    const closeDeleteConfirmationModal = () => {
+        setDeleteModalState({ isOpen: false, data: null });
+    };
+    const handleConfirmDelete = () => {
+        if (deleteModalState.data) {
             setTransactions(
-                transactions.filter((tx) => tx.id !== transactionToDelete.id)
+                transactions.filter((tx) => tx.id !== deleteModalState.data.id)
             );
+            console.log("Deleted Transaction ID:", deleteModalState.data.id);
+            // 만약 삭제한 항목이 수정 중인 항목이었다면 수정 모드 취소
+            if (editingTransaction?.id === deleteModalState.data.id) {
+                setEditingTransaction(null);
+            }
         }
+        closeDeleteConfirmationModal();
     };
 
     const filteredTransactions = useMemo(() => {
@@ -109,6 +128,7 @@ const App = () => {
             <main className="relative mx-auto">
                 <div className="-mt-16 z-10 relative">
                     <SectionForm
+                        key={editingTransaction ? editingTransaction.id : "new"}
                         onSave={handleSaveTransaction}
                         editingTransaction={editingTransaction}
                     />
@@ -116,10 +136,46 @@ const App = () => {
                 <TransactionList
                     transactions={filteredTransactions}
                     onEdit={handleEdit}
-                    onDelete={handleDelete}
+                    onDelete={openDeleteConfirmationModal}
                     filter={filter}
                     onFilterChange={setFilter}
                 />
+                {deleteModalState.isOpen && (
+                    <ActionModal
+                        size="l"
+                        title="해당 내역을 삭제하시겠습니까?"
+                        confirmText="삭제"
+                        onConfirm={handleConfirmDelete}
+                        onClose={closeDeleteConfirmationModal}
+                    >
+                        <div className="space-y-1 text-lg text-gray-600">
+                            <p>
+                                <strong>카테고리:</strong>{" "}
+                                {deleteModalState.data?.category} (
+                                {deleteModalState.data?.amount > 0
+                                    ? "수입"
+                                    : "지출"}
+                                )
+                            </p>
+                            <p>
+                                <strong>내용:</strong>{" "}
+                                {deleteModalState.data?.content}
+                            </p>
+                            <p>
+                                <strong>결제수단:</strong>{" "}
+                                {deleteModalState.data?.paymentMethod}
+                            </p>
+                            <p>
+                                <strong>금액:</strong>{" "}
+                                <Amount
+                                    value={deleteModalState.data?.amount || 0}
+                                    readOnly={true}
+                                />{" "}
+                                원
+                            </p>
+                        </div>
+                    </ActionModal>
+                )}
             </main>
         </>
     );

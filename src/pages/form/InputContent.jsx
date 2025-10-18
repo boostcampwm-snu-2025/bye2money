@@ -24,7 +24,7 @@ const InputContent = ({ value, onChange }) => {
                 value={value}
                 onChange={handleChange}
                 placeholder="입력하세요"
-                className="text-xl font-semibold text-black"
+                className="w-full truncate text-xl font-semibold text-black"
             />
         </div>
     );

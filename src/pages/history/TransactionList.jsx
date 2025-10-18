@@ -24,7 +24,7 @@ const TransactionList = ({
     );
 
     return (
-        <section className="mt-8">
+        <section className="mt-12 w-[900px] mx-auto">
             <MonthlySummary
                 transactions={transactions}
                 filter={filter}

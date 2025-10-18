@@ -21,6 +21,4 @@ body {
 #root {
     width: 1440px;
     margin: 0 auto;
-    border: rgba(0, 0, 0, 0.5) 1px solid;
-    border-radius: 8px;
 }

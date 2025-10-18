@@ -6,23 +6,43 @@ import Payment from "./Payment";
 import ActionModal from "@/components/ActionModal";
 import Category from "./Category";
 import CircleButton from "@/components/CircleButton";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const SectionForm = ({ onSave, editingTransaction }) => {
     // For InputDate
-    const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+    const [date, setDate] = useState(() =>
+        editingTransaction
+            ? editingTransaction.date.split("T")[0]
+            : new Date().toISOString().slice(0, 10)
+    );
     // For SignToggleButton
-    const [isPlus, setIsPlus] = useState(true);
+    const [isPlus, setIsPlus] = useState(() =>
+        // ✅ 초기값 함수 사용
+        editingTransaction ? editingTransaction.amount > 0 : true
+    );
     // For Amount
-    const [amount, setAmount] = useState("");
+    const [amount, setAmount] = useState(() =>
+        // ✅ 초기값 함수 사용
+        editingTransaction ? Math.abs(editingTransaction.amount).toString() : ""
+    );
     // For InputContent
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState(() =>
+        editingTransaction ? editingTransaction.content : ""
+    );
     // For Payment method
     const [paymentMethods, setPaymentMethods] = useState([
         { id: 1, name: "현금" },
         { id: 2, name: "신용카드" },
     ]);
-    const [selectedMethod, setSelectedMethod] = useState(null);
+    const [selectedMethod, setSelectedMethod] = useState(() => {
+        // ✅ 초기값 함수 사용
+        if (!editingTransaction) return null;
+        return (
+            paymentMethods.find(
+                (m) => m.name === editingTransaction.paymentMethod
+            ) || null
+        );
+    });
     // For Payment modal
     const [modalState, setModalState] = useState({
         isOpen: false,
@@ -45,7 +65,17 @@ const SectionForm = ({ onSave, editingTransaction }) => {
         { id: 6, name: "문화/여가" },
         { id: 7, name: "미분류" },
     ];
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(() => {
+        // ✅ 초기값 함수 사용
+        if (!editingTransaction) return null;
+        const currentCategories =
+            editingTransaction.amount > 0 ? categoryIncomes : categoryExpenses;
+        return (
+            currentCategories.find(
+                (c) => c.name === editingTransaction.category
+            ) || null
+        );
+    });
     // For Payment method function
     const handleConfirm = () => {
         if (modalState.type === "add" && newMethodName.trim()) {
@@ -89,7 +119,6 @@ const SectionForm = ({ onSave, editingTransaction }) => {
 
         const transactionData = {
             date,
-            type: isPlus ? "income" : "expense",
             amount: isPlus ? Number(amount) : -Number(amount),
             content,
             paymentMethod: selectedMethod.name,
@@ -97,17 +126,10 @@ const SectionForm = ({ onSave, editingTransaction }) => {
         };
 
         onSave(transactionData);
-    };
-    // when editing mode
-    useEffect(() => {
-        if (editingTransaction) {
-            setDate(editingTransaction.date.split("T")[0]);
-            setIsPlus(editingTransaction.amount > 0);
-            setAmount(Math.abs(editingTransaction.amount).toString());
-            setContent(editingTransaction.content);
-            setSelectedMethod(editingTransaction.paymentMethod);
-            setSelectedCategory(editingTransaction.category);
-        } else {
+
+        // 저장 후 폼 초기화 (editingTranstaction이 null일 때의 초기값과 동일하게)
+        if (!editingTransaction) {
+            // 입력 모드에서 저장했을 때만 초기화
             setDate(new Date().toISOString().slice(0, 10));
             setIsPlus(true);
             setAmount("");
@@ -115,7 +137,8 @@ const SectionForm = ({ onSave, editingTransaction }) => {
             setSelectedMethod(null);
             setSelectedCategory(null);
         }
-    }, [editingTransaction]);
+    };
+
     // Rendering
     return (
         <>

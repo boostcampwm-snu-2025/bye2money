@@ -11,9 +11,9 @@ const DailyTransactionGroup = ({ date, transactions, onEdit, onDelete }) => {
     );
 
     return (
-        <div className="my-4">
+        <div className="my-14">
             {/* 일별 요약 */}
-            <div className="flex justify-between items-center text-sm text-gray-500 p-2 bg-gray-100 rounded-t-lg">
+            <div className="flex justify-between items-center text-2xl text-black pb-4">
                 <span>
                     {new Date(date).toLocaleDateString("ko-KR", {
                         month: "long",
@@ -33,7 +33,7 @@ const DailyTransactionGroup = ({ date, transactions, onEdit, onDelete }) => {
                 </div>
             </div>
             {/* 내역 리스트 */}
-            <div>
+            <div className="border-y">
                 {transactions.map((tx) => (
                     <TransactionItem
                         key={tx.id}

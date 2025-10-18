@@ -31,6 +31,7 @@ export function ListView(){
     }).sort((a,b)=> b.date.localeCompare(a.date));
   }, [monthly]);
 
+  // 삭제 모달
   const [pendingId,setPendingId] = useState<string|undefined>();
   const [busy,setBusy] = useState(false);
   const confirmDelete = ()=>{
@@ -58,6 +59,7 @@ export function ListView(){
         <div className="text-zinc-500">전체 내역 {monthly.length}건</div>
       </div>
 
+      {/* 날짜 그룹 리스트 */}
       <div className="space-y-6">
         {grouped.map(g=>{
           const wd = weekdayLabel(g.date);
@@ -101,9 +103,14 @@ function TxnItem({txn,onEdit,onDelete,methodName}:{txn:Txn;onEdit:()=>void;onDel
     <li onClick={onEdit}
         className="group flex cursor-pointer items-center justify-between gap-3 rounded-xl border bg-white p-3">
       <div className="flex min-w-0 items-center gap-3">
-        <span className="shrink-0 rounded bg-zinc-100 px-2 py-1 text-xs text-zinc-600">{txn.category}</span>
-        <span className="truncate">{txn.memo || <span className="text-zinc-400">메모 없음</span>}</span>
-        <span className="shrink-0 text-xs text-zinc-500">{methodName}</span>
+        {/* 카테고리 칩 */}
+        <span className="tag shrink-0" data-cat={txn.category}>
+          {txn.category}
+        </span>
+        {/* 메모 */}
+        <span className="truncate">{txn.memo || <span className="text-neutral-text-weak">메모 없음</span>}</span>
+        {/* 결제수단 */}
+        <span className="shrink-0 text-xs text-neutral-text-weak">{methodName}</span>
       </div>
       <div className={`shrink-0 ${pos?'text-green-600':'text-red-600'}`}>{formatCurrency(txn.amount)}</div>
       <button

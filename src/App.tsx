@@ -1,8 +1,13 @@
 import { Icon } from "./shared/ui/Icon/Icon";
+import { CheckBox } from "./shared/ui/CheckBox/CheckBox";
+import { useState } from "react";
+import { CategoryBadge } from "./entities/category/ui/categoryBadge";
 
 function App() {
+  const [checked, setChecked] = useState(false);
   return (
     <div>
+      <CheckBox checked={checked} label="CheckBox" onChange={setChecked} />
       <Icon name="doc" />
       <Icon name="calendar" />
       <Icon name="chart" />
@@ -16,6 +21,9 @@ function App() {
       <Icon name="plus" />
       <Icon name="closed" />
       <Icon name="uncheckbox" />
+      <CategoryBadge category="livingExpenses" />
+      <CategoryBadge category="shoppingBeauty" />
+      <CategoryBadge category="transportation" />
     </div>
   );
 }

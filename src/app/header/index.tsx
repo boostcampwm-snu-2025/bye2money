@@ -1,10 +1,10 @@
 import type { Dayjs } from "dayjs";
 
-import Calender from "/icons/calendar.svg";
-import Chart from "/icons/chart.svg";
-import ChevronLeft from "/icons/chevron-left.svg";
-import ChevronRight from "/icons/chevron-right.svg";
-import Doc from "/icons/doc.svg";
+import Calender from "../../assets/icons/calendar.svg";
+import Chart from "../../assets/icons/chart.svg";
+import ChevronLeft from "../../assets/icons/chevron-left.svg";
+import ChevronRight from "../../assets/icons/chevron-right.svg";
+import Doc from "../../assets/icons/doc.svg";
 
 interface Props {
   currentTab: "Analytics" | "Calendar" | "List"

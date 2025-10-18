@@ -1,1 +1,1 @@
-export const DATA = {"PAYMENTMETHODS":["현금"],"TRANSACTIONS":{}};
+export const DATA = {"PAYMENTMETHODS":[],"TRANSACTIONS":{}}

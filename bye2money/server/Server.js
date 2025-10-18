@@ -54,7 +54,7 @@ app.delete("/api/paymentMethods", (req, res) => {
 app.get("/api/transactions/:yearMonth", (req, res) => {
     const handleSearchTransactionsRequest = (req, res) => {
         const { yearMonth } = req.params;
-        const result = DATA["TRANSACTION"][yearMonth];
+        const result = DATA["TRANSACTIONS"][yearMonth];
         res.json({ transactions: result, total: result.length });
     }
     handleSearchTransactionsRequest(req, res);
@@ -74,7 +74,9 @@ app.post("/api/transactions/:yearMonth", (req, res) => {
             "description": description,
             "paymentMethod": paymentMethod,
             "category": category};
-        DATA["TRANSACTION"][yearMonth].push(newTransaction);
+        DATA["TRANSACTIONS"][yearMonth] ? DATA["TRANSACTIONS"][yearMonth].push(newTransaction)
+                                        : DATA["TRANSACTIONS"][yearMonth] = [newTransaction];
+        res.status(201).json(newTransaction);
     }
     handlePostTransactionsRequest(req, res);
     saveDataToFile();
@@ -84,7 +86,7 @@ app.delete("/api/transactions/:yearMonth/:id", (req, res) => {
     const handleDeleteTransactionsRequest = (req, res) => {
         const { yearMonth, id } = req.params;
         const numericID = parseInt(id, 10)
-        DATA["TRANSACTION"][yearMonth] = DATA["TRANSACTION"][yearMonth]
+        DATA["TRANSACTIONS"][yearMonth] = DATA["TRANSACTIONS"][yearMonth]
                                         .filter(transcation => transcation["id"] !== numericID);
     }
     handleDeleteTransactionsRequest(req, res);

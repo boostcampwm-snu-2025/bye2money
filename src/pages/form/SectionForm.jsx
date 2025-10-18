@@ -121,46 +121,54 @@ const SectionForm = ({ onSave, editingTransaction }) => {
         <>
             <form
                 onSubmit={handleSubmit}
-                className="flex divide-x divide-black justify-between items-center space-x-4 w-[960px] h-32 p-4 border border-black mx-auto"
+                className="bg-white flex divide-x divide-black items-center w-[960px] h-[100px] px-[12px] border border-black mx-auto"
             >
-                <InputDate value={date} onChange={setDate} />
+                <div className="flex items-center pr-4 w-[140px] h-[60px]">
+                    <InputDate value={date} onChange={setDate} />
+                </div>
 
-                <div className="flex divide-x justify-between items-center">
+                <div className="flex items-center px-4 w-[240px] h-[60px]">
                     <SignToggleButton isPlus={isPlus} onChange={setIsPlus} />
 
-                    <div className="flex items-center">
+                    <div className="flex items-center ml-2">
                         <Amount
                             value={amount}
                             onChange={setAmount}
                             readOnly={false}
                         />
-                        <span className="text-xl text-gray-600"> 원</span>
+                        <span className="text-xl text-black ml-1"> 원</span>
                     </div>
                 </div>
 
-                <InputContent value={content} onChange={setContent} />
+                <div className="flex items-center px-4 w-[200px] h-[60px]">
+                    <InputContent value={content} onChange={setContent} />
+                </div>
 
-                <Payment
-                    options={paymentMethods}
-                    selectedOption={selectedMethod}
-                    onSelect={setSelectedMethod}
-                    onAdd={openAddModal}
-                    onDelete={openDeleteModal}
-                />
-
-                <Category
-                    options={isPlus ? categoryIncomes : categoryExpenses}
-                    selectedOption={selectedCategory}
-                    onSelect={setSelectedCategory}
-                />
-
-                <CircleButton
-                    isActive={isFormValid} // 유효성 검사 결과에 따라 활성화 상태 전달
-                    activeColor="rgba(0,0,0,1)"
-                    inactiveColor="rgba(140,140,140,1)"
-                    imageUrl={"/checkLogo.png"}
-                    onClick={handleSubmit}
-                />
+                <div className="flex items-center px-4 w-[160px] h-[60px]">
+                    <Payment
+                        options={paymentMethods}
+                        selectedOption={selectedMethod}
+                        onSelect={setSelectedMethod}
+                        onAdd={openAddModal}
+                        onDelete={openDeleteModal}
+                    />
+                </div>
+                <div className="flex items-center px-4 w-[160px] h-[60px]">
+                    <Category
+                        options={isPlus ? categoryIncomes : categoryExpenses}
+                        selectedOption={selectedCategory}
+                        onSelect={setSelectedCategory}
+                    />
+                </div>
+                <div className="flex items-center pl-4 w-auto h-[60px]">
+                    <CircleButton
+                        isActive={isFormValid} // 유효성 검사 결과에 따라 활성화 상태 전달
+                        activeColor="rgba(0,0,0,1)"
+                        inactiveColor="rgba(140,140,140,1)"
+                        imageUrl={"/checkLogo.png"}
+                        onClick={handleSubmit}
+                    />
+                </div>
             </form>
             {modalState.isOpen && (
                 <ActionModal
@@ -169,7 +177,7 @@ const SectionForm = ({ onSave, editingTransaction }) => {
                             ? "추가하실 결제 수단을 입력해주세요."
                             : "해당 결제 수단을 삭제하시겠습니까?"
                     }
-                    confirmText={modalState.type === "add" ? "저장" : "삭제"}
+                    confirmText={modalState.type === "add" ? "추가" : "삭제"}
                     onConfirm={handleConfirm}
                     onClose={closeModal}
                 >
@@ -179,7 +187,7 @@ const SectionForm = ({ onSave, editingTransaction }) => {
                             value={newMethodName}
                             onChange={(e) => setNewMethodName(e.target.value)}
                             placeholder="예: 네이버페이"
-                            className="border p-2 rounded w-full"
+                            className="border p-2 rounded w-full mt-2"
                             autoFocus
                         />
                     )}

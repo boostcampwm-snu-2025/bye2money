@@ -3,12 +3,13 @@ const Amount = ({ value, readOnly = true, onChange }) => {
     const numericValue = Number(value) || 0;
     const isIncome = numericValue > 0;
     const isZero = numericValue === 0;
-
-    const amountColor = isZero
-        ? "text-xl text-gray-800"
+    // style
+    const baseFontStyle = "text-xl";
+    const variantFontStyle = isZero
+        ? "text-gray-800"
         : isIncome
-        ? "text-xl text-red-500"
-        : "text-xl text-blue-500";
+        ? "text-red-500"
+        : "text-blue-500";
 
     const formattedValue = `${readOnly && isIncome ? "+" : ""}${Math.abs(
         numericValue
@@ -23,7 +24,9 @@ const Amount = ({ value, readOnly = true, onChange }) => {
 
     return readOnly ? (
         // "읽기 전용"
-        <span className={amountColor}>{formattedValue}</span>
+        <span className={`${baseFontStyle} ${variantFontStyle}`}>
+            {formattedValue}
+        </span>
     ) : (
         // "편집 가능"
         <input
@@ -31,7 +34,7 @@ const Amount = ({ value, readOnly = true, onChange }) => {
             value={formattedValue}
             onChange={handleChange}
             placeholder="0"
-            className="text-xl text-gray-600 w-[120px]"
+            className="text-xl text-right font-semibold text-black w-[120px]"
         />
     );
 };

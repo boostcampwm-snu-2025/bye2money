@@ -1,23 +1,23 @@
 const ActionModal = ({ title, confirmText, children, onConfirm, onClose }) => {
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg shadow-xl w-96">
-                <h3 className="text-xs text-gray-600">{title}</h3>
+        <div className="fixed inset-0 flex justify-center items-center z-50">
+            <div className="bg-white p-6 shadow-xl border border-black w-[400px] h-[200px]">
+                <h3 className="text-xl text-black h-[40px]">{title}</h3>
 
-                <div className="text-xs text-gray-600">{children}</div>
+                <div className="text-xl text-gray-600">{children}</div>
 
-                <div className="flex justify-end space-x-2">
+                <div className="flex justify-end space-x-2 mt-16 h-[40px]">
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-4 py-2 bg-gray-200 rounded"
+                        className="px-4 py-2 bg-gray-200 rounded cursor-pointer"
                     >
                         취소
                     </button>
                     <button
                         type="button"
                         onClick={onConfirm}
-                        className="px-4 py-2 bg-blue-500 text-white rounded"
+                        className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
                     >
                         {confirmText}
                     </button>

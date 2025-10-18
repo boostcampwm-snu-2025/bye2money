@@ -106,19 +106,21 @@ const App = () => {
                 viewMode={viewMode}
                 setViewMode={setViewMode}
             />
-
-            <SectionForm
-                onSave={handleSaveTransaction}
-                editingTransaction={editingTransaction}
-            />
-
-            <TransactionList
-                transactions={filteredTransactions}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                filter={filter}
-                onFilterChange={setFilter}
-            />
+            <main className="relative mx-auto">
+                <div className="-mt-16 z-10 relative">
+                    <SectionForm
+                        onSave={handleSaveTransaction}
+                        editingTransaction={editingTransaction}
+                    />
+                </div>
+                <TransactionList
+                    transactions={filteredTransactions}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    filter={filter}
+                    onFilterChange={setFilter}
+                />
+            </main>
         </>
     );
 };

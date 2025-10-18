@@ -8,17 +8,23 @@ const InputContent = ({ value, onChange }) => {
     };
 
     return (
-        <div className="w-[160px]">
-            <div className="flex justify-between">
-                <span className="text-xl text-gray-600">내용</span>
-                <span className="text-xl text-gray-600">{length}/32</span>
+        <div className="w-full">
+            <div className="flex justify-between items-baseline mb-1">
+                <label
+                    htmlFor="contentInput"
+                    className="block text-xl text-black"
+                >
+                    내용
+                </label>
+                <span className="text-xl text-black">{length}/32</span>
             </div>
             <input
+                id="contentInput"
                 type="text"
                 value={value}
                 onChange={handleChange}
                 placeholder="입력하세요"
-                className="text-xl text-gray-600"
+                className="text-xl font-semibold text-black"
             />
         </div>
     );

@@ -4,12 +4,14 @@ const SignToggleButton = ({ isPlus, onChange }) => {
     };
 
     return (
-        <div className="w-[60px]">
-            <div className="text-xl text-gray-600">금액</div>
-            <div className="text-xl text-gray-600">{isPlus ? "+" : "-"}</div>
-            <button type="button" onClick={handleToggle}>
-                Click
-            </button>
+        <div className="pl-2">
+            <div className="text-xl text-black mb-1 pr-8">금액</div>
+            <div
+                onClick={handleToggle}
+                className="text-2xl font-semibold cursor-pointer"
+            >
+                {isPlus ? "+" : "-"}
+            </div>
         </div>
     );
 };

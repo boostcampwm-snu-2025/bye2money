@@ -1,13 +1,18 @@
 const InputDate = ({ value, onChange }) => {
     return (
-        <div className="w-[100px]">
-            <div className="text-xl text-gray-600">일자</div>
+        <div>
+            <label
+                htmlFor="currentDate"
+                className="block text-xl text-black mb-1"
+            >
+                일자
+            </label>
             <input
                 type="date"
                 id="currentDate"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="bg-transparent border-none text-xl text-black focus:outline-none"
+                className="appearance-none bg-transparent border-none w-full text-black focus:outline-none focus:ring-0 text-xl font-semibold p-0 m-0 cursor-pointer"
             />
         </div>
     );

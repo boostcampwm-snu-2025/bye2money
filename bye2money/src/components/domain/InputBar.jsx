@@ -19,12 +19,58 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
+import CheckIcon from '@mui/icons-material/Check';
 
-import { useState } from "react";
-import { DirtyLens } from "@mui/icons-material";
+import { useState, useEffect } from "react";
 
 export function InputBar() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const defaultDate = `${year}.${month}.${day}`;
+    const [dateInput, setDateInput] = useState(defaultDate);
     const [isExpense, setIsExpense] = useState(true);
+    const [amountInput, setAmountInput] = useState("0");
+    const [descriptionInput, setDescriptionInput] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("선택하세요");
+    const [category, setCategory] = useState("선택하세요");
+    const [isValid, setIsValid] = useState(false);
+
+    useEffect(() => {
+        const checkInputValidity = (dateInput, amountInput, descriptionInput, paymentMethod, category) => {
+            const dateInputValidity = checkDateInputValidity(dateInput);
+            const amountInputValidity = checkAmountInputValdity(amountInput);
+            const descriptionInputValidity = checkDescriptionInputValidity(descriptionInput);
+            const paymentMethodValidity = checkPaymentMethodValidity(paymentMethod);
+            const categoryValidity = checkCategoryValidity(category)
+            return dateInputValidity && amountInputValidity && descriptionInputValidity && paymentMethodValidity && categoryValidity;
+        }
+
+        const checkDateInputValidity = (dateInput) => {
+            if (!/^\d{4}\.\d{1,2}\.\d{1,2}$/.test(dateInput)) {
+                return false;
+            }
+            
+            const parsedDateInput = dateInput.split(".");
+            const year = Number(parsedDateInput[0]);
+            const month = Number(parsedDateInput[1]);
+            const day = Number(parsedDateInput[2]);
+
+            const monthValidity = (month >= 1 && month <= 12);    
+            const lastDayOfMonth = new Date(year, month, 0).getDate();
+            const dayValidity = (day >= 1 && day <= lastDayOfMonth);
+            return monthValidity && dayValidity
+        }
+        
+        const checkAmountInputValdity = (amountInput) => {return true};
+        const checkDescriptionInputValidity = (descriptionInput) => {return descriptionInput !== ""};
+        const checkPaymentMethodValidity = (paymentMethod) => {return paymentMethod !== "선택하세요"};
+        const checkCategoryValidity = (category) => {return category !== "선택하세요"};
+    
+        const inputValidity = checkInputValidity(dateInput, amountInput, descriptionInput, paymentMethod, category);
+        setIsValid(inputValidity);
+    })
 
     return (
         <Box 
@@ -43,29 +89,33 @@ export function InputBar() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={2}
             sx={{ height: "100%", alignItems: "center" }}>
-            <DateInput />
+            <DateInput
+                dateInput={dateInput}
+                setDateInput={setDateInput}/>
             <AmountInput 
                 isExpense={isExpense}
-                setIsExpense={setIsExpense}/>
-            <DescriptionInput />
-            <PaymentMethodSelect />
+                setIsExpense={setIsExpense}
+                amountInput={amountInput}
+                setAmountInput={setAmountInput}/>
+            <DescriptionInput
+                descriptionInput={descriptionInput}
+                setDescriptionInput={setDescriptionInput}/>
+            <PaymentMethodSelect
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}/>
             <CategorySelect
-                isExpense={isExpense}/>
-            <SaveButton />
+                isExpense={isExpense}
+                category={category}
+                setCategory={setCategory}/>
+            <SaveButton 
+                isValid={isValid}/>
             </Stack>
         </Paper>
         </Box>
     );
 }
 
-function DateInput() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-    const defaultDate = `${year}.${month}.${day}`;
-    const [dateInput, setDateInput] = useState(defaultDate);
-
+function DateInput({ dateInput, setDateInput }) {
     const dateInputHandler = (event) => {
         const prevInput = dateInput;
         const rawInput = event.target.value;
@@ -90,9 +140,7 @@ function DateInput() {
     );
 }
 
-function AmountInput({ isExpense, setIsExpense }) {
-    const [amountInput, setAmountInput] = useState("0");
-    
+function AmountInput({ isExpense, setIsExpense, amountInput, setAmountInput }) {
     const amountInputHandler = (event) => {
         const rawInput = event.target.value;
         const numberOnlyInput = rawInput.replace(/[^0-9]/g, "") 
@@ -131,9 +179,8 @@ function AmountInput({ isExpense, setIsExpense }) {
     );
 }
 
-function DescriptionInput() {
+function DescriptionInput({ descriptionInput, setDescriptionInput }) {
     const [numChar, setNumChar] = useState(0);
-    const [descriptionInput, setDescriptionInput] = useState("");
 
     const descriptionInputHandler = (event) => {
         const input = event.target.value;
@@ -168,8 +215,7 @@ function DescriptionInput() {
     );
 }
 
-function PaymentMethodSelect() {
-    const [paymentMethod, setPaymentMethod] = useState("선택하세요");
+function PaymentMethodSelect({ paymentMethod, setPaymentMethod }) {
     const [paymentMethods, setPaymentMethods] = useState([])
     const [isDropdownActive, setIsDropdownActive] = useState(false);
     const [onAddition, setOnAddition] = useState(false);
@@ -347,8 +393,7 @@ function PaymentRemovalModal({ onRemoval, setOnRemoval, paymentMethods, setPayme
     )
 }
 
-function CategorySelect({ isExpense }) {
-    const [category, setCategory] = useState("선택하세요");
+function CategorySelect({ isExpense, category, setCategory }) {
     const [isDropdownActive, setIsDropdownActive] = useState(false);
     const expenseCategories = ["생활", "식비", "교통", "쇼핑/뷰티", "의료/건강", "문화/여가", "미분류"]
     const incomeCategories = ["월급", "용돈", "기타 수입"];
@@ -419,12 +464,38 @@ function CategorySelectBox({ setCategory, categories, setIsDropdownActive }) {
 }
 
 
-function SaveButton() {
-  return (
-    <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
-      <Button variant="contained" sx={{ borderRadius: "8px" }}>
-        확인
-      </Button>
-    </Box>
-  );
+function SaveButton({ dateInput, amountInput, descriptionInput, paymentMethod, category, isValid }) {
+
+    const saveHandler = (dateInput, amountInput, descriptionInput, paymentMethod, category) => {
+        
+    }
+    
+    return (
+        <Box 
+            sx={{ 
+                flex: 1, 
+                margin: 0,
+                padding: 0 }}>
+            <Box
+                sx={{ 
+                    display: "flex", 
+                    justifyContent: "center", 
+                    alignContent: "center",    
+                    width: "40px",
+                    height: "40px",
+                    padding: 0,
+                    backgroundColor: `rgba(0, 0, 0, ${isValid ? 1.0 : 0.4})`,
+                    borderRadius: "50%"}}>
+                <IconButton
+                    onClick={() => {isValid ? saveHandler(dateInput, amountInput, descriptionInput, paymentMethod, category) : {}}}>
+                    <CheckIcon
+                        sx={{
+                            fontSize: "large",
+                            color: "white"
+                        }}>
+                    </CheckIcon>
+                </IconButton>
+            </Box>
+        </Box>
+    );
 }

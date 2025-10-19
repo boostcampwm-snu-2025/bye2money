@@ -87,7 +87,7 @@ export function Dropdown({ options, value, placeholder = '선택하세요', onCh
                         </span>
                     ))}
                     {onAddOption && (
-                        <div className={styles.addRow} onClick={() => { onAddOption(); }}>
+                        <div className={styles.addRow} onClick={() => { onAddOption(); setOpen(false); }}>
                             추가하기
                         </div>
                     )}

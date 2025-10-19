@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import { formatDate } from '../../utils/date';
 import type { TransactionEntry, PayMethod, Category } from '../../types/entry';
 import { Dropdown, type DropdownOption } from '../Dropdown';
+import { AddItemModal } from '../Modal';
 
 type EntryBarProps = {
     date?: string; // YYYY.MM.DD
@@ -30,6 +31,7 @@ export function EntryBar({ date, amount = 0, memo = '', onSubmit }: EntryBarProp
         { id: 'life', label: '생활' },
         { id: 'transport', label: '교통' },
     ]);
+    const [showAddPayModal, setShowAddPayModal] = useState(false);
 
     const handleSubmit = () => {
         if (!onSubmit) return;
@@ -108,9 +110,7 @@ export function EntryBar({ date, amount = 0, memo = '', onSubmit }: EntryBarProp
                                 placeholder="선택하세요"
                                 onChange={(id) => setPay(id as PayMethod)}
                                 onRemoveOption={(id) => setPayOptions(opts => opts.filter(o => o.id !== id))}
-                                onAddOption={
-                                    { /* 미구현 */}
-                                }
+                                onAddOption={() => setShowAddPayModal(true)}
                             />
                         </div>
                     </div>
@@ -136,6 +136,18 @@ export function EntryBar({ date, amount = 0, memo = '', onSubmit }: EntryBarProp
                     <button className={styles.submit} aria-label="submit" onClick={handleSubmit}>✓</button>
                 </div>
             </div>
+            <AddItemModal
+                open={showAddPayModal}
+                onCancel={() => setShowAddPayModal(false)}
+                onConfirm={(raw) => {
+                    const label = raw.trim();
+                    if (!label) { setShowAddPayModal(false); return; }
+                    const id = label.replace(/\s+/g, '-');
+                    setPayOptions((opts) => [...opts, { id, label }]);
+                    setPay(id as PayMethod);
+                    setShowAddPayModal(false);
+                }}
+            />
         </div>
     );
 }

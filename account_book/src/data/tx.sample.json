@@ -1,0 +1,7 @@
+[
+  { "id": "t1", "date": "2023-08-14", "weekday": "월요일", "category": "문화/여가", "content": "스트리밍 서비스 정기 결제", "method": "신용카드", "account": "현대카드", "amount": -10900, "type": "expense" },
+  { "id": "t2", "date": "2023-08-14", "weekday": "월요일", "category": "교통", "content": "후불 교통비 결제", "method": "신용카드", "account": "현대카드", "amount": -45340, "type": "expense" },
+  { "id": "t3", "date": "2023-08-13", "weekday": "일요일", "category": "미분류", "content": "온라인 세미나 신청", "method": "신용카드", "account": "현대카드", "amount": -10000, "type": "expense" },
+  { "id": "t4", "date": "2023-08-10", "weekday": "목요일", "category": "식비", "content": "잔치국수와 김밥", "method": "신용카드", "account": "현대카드", "amount": -9500, "type": "expense" },
+  { "id": "t5", "date": "2023-08-10", "weekday": "목요일", "category": "월급", "content": "8월 급여", "method": "현금", "amount": 2010580, "type": "income" }
+]

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from "@/components/common/Layout";
 import { Header } from "@/components/domain/Header";
 import { InputBar } from "./components/domain/InputBar";
+import { Transactions } from "./components/domain/Transactions";
 
 function App() {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -18,6 +19,9 @@ function App() {
         view={view}
         setView={setView}/>
       <InputBar/>
+      <Transactions
+        year={year}
+        month={month}/>
     </Layout>
   );
 }

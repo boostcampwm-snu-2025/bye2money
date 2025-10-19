@@ -55,7 +55,7 @@ app.get("/api/transactions/:yearMonth", (req, res) => {
     const handleSearchTransactionsRequest = (req, res) => {
         const { yearMonth } = req.params;
         const result = DATA["TRANSACTIONS"][yearMonth];
-        res.json({ transactions: result, total: result.length });
+        res.json({ transactions: result ? result : [], total: result ? result.length : 0 });
     }
     handleSearchTransactionsRequest(req, res);
 })

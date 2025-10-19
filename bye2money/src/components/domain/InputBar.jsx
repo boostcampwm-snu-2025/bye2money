@@ -89,45 +89,45 @@ export function InputBar() {
                 display: "flex", 
                 justifyContent: "center",
                 top: "180px"}}>
-        <Paper 
-            sx={{
-            width: "846px",
-            height: "76px",
-            boxSizing: "border-box"}}>
-            <Stack 
-            direction="row" 
-            divider={<Divider orientation="vertical" flexItem />}
-            spacing={2}
-            sx={{ height: "100%", alignItems: "center" }}>
-            <DateInput
-                dateInput={dateInput}
-                setDateInput={setDateInput}/>
-            <AmountInput 
-                isExpense={isExpense}
-                setIsExpense={setIsExpense}
-                amountInput={amountInput}
-                setAmountInput={setAmountInput}/>
-            <DescriptionInput
-                descriptionInput={descriptionInput}
-                setDescriptionInput={setDescriptionInput}/>
-            <PaymentMethodSelect
-                paymentMethod={paymentMethod}
-                setPaymentMethod={setPaymentMethod}/>
-            <CategorySelect
-                isExpense={isExpense}
-                category={category}
-                setCategory={setCategory}/>
-            <SaveButton 
-                dateInput={dateInput}
-                isExpense={isExpense}
-                amountInput={amountInput}
-                descriptionInput={descriptionInput}
-                paymentMethodInput={paymentMethod}
-                categoryInput={category}
-                isValid={isValid}
-                onSaveSuccess={resetInput}/>
-            </Stack>
-        </Paper>
+            <Paper 
+                sx={{
+                width: "846px",
+                height: "76px",
+                boxSizing: "border-box"}}>
+                <Stack 
+                direction="row" 
+                divider={<Divider orientation="vertical" flexItem />}
+                spacing={2}
+                sx={{ height: "100%", alignItems: "center" }}>
+                <DateInput
+                    dateInput={dateInput}
+                    setDateInput={setDateInput}/>
+                <AmountInput 
+                    isExpense={isExpense}
+                    setIsExpense={setIsExpense}
+                    amountInput={amountInput}
+                    setAmountInput={setAmountInput}/>
+                <DescriptionInput
+                    descriptionInput={descriptionInput}
+                    setDescriptionInput={setDescriptionInput}/>
+                <PaymentMethodSelect
+                    paymentMethod={paymentMethod}
+                    setPaymentMethod={setPaymentMethod}/>
+                <CategorySelect
+                    isExpense={isExpense}
+                    category={category}
+                    setCategory={setCategory}/>
+                <SaveButton 
+                    dateInput={dateInput}
+                    isExpense={isExpense}
+                    amountInput={amountInput}
+                    descriptionInput={descriptionInput}
+                    paymentMethodInput={paymentMethod}
+                    categoryInput={category}
+                    isValid={isValid}
+                    onSaveSuccess={resetInput}/>
+                </Stack>
+            </Paper>
         </Box>
     );
 }
@@ -519,7 +519,7 @@ function SaveButton({ dateInput, isExpense, amountInput, descriptionInput, payme
         const yearMonth = parseYearMonth(dateInput);
         const transaction = {
             date: dateInput, 
-            type: isExpense ? "expense" : "incom",
+            type: isExpense ? "expense" : "income",
             amount: amountInput, 
             description: descriptionInput, 
             paymentMethod: paymentMethodInput, 

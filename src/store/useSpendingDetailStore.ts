@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { Category } from "../components/CategoryTag";
 import { nanoid } from "nanoid";
+import { sample } from "../utils/mockData";
 
 const SPENDINGS_FILTER = {
   ALL: "all",
@@ -65,52 +66,7 @@ interface SpendingDetailStore {
   // ) => number;
   // getSpendingsByCategory: (category: Category) => SpendingDetail[];
 }
-const sample = [
-  {
-    id: nanoid(),
-    year: 2025,
-    month: 10,
-    day: 19,
-    description: "aiowefjsd",
-    amount: 500000,
-    isExpenditure: false,
-    paymentMethod: "용돈",
-    category: "allowance",
-  },
-  {
-    id: nanoid(),
-    year: 2025,
-    month: 10,
-    day: 19,
-    description: "aiowefjsd",
-    amount: 50000,
-    isExpenditure: true,
-    paymentMethod: "현금",
-    category: "food",
-  },
-  {
-    id: nanoid(),
-    year: 2025,
-    month: 10,
-    day: 19,
-    description: "aiowefjsd",
-    amount: 50000,
-    isExpenditure: true,
-    paymentMethod: "현금ffd",
-    category: "food",
-  },
-  {
-    id: nanoid(),
-    year: 2025,
-    month: 10,
-    day: 19,
-    description: "aiowefjsd",
-    amount: 50000,
-    isExpenditure: true,
-    paymentMethod: "현금",
-    category: "food",
-  },
-];
+
 export const useSpendingDetailStore = create<SpendingDetailStore>(
   (set, get) => ({
     spendingDetails: sample,

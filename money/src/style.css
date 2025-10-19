@@ -1,0 +1,140 @@
+/* ========== Reset & Base ========== */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
+  color: #222;
+  background: #f6f7f9;
+}
+
+/* CSS 변수 (테마) */
+:root {
+  --container: 960px;
+  --radius: 12px;
+  --border: #e6e8eb;
+  --muted: #6b7280;
+  --brand: #222;         /* 헤더 활성 탭 배경 */
+  --accent: #16a34a;     /* 포인트 색 */
+  --card-bg: #fff;
+  --shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+/* 공용 유틸 */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 16px;
+}
+.mono { font-variant-numeric: tabular-nums; }
+
+/* ========== Header ========== */
+.site-header {
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  transform: translateY(0);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+.site-header.elevated { box-shadow: var(--shadow); }
+
+.header-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo {
+  justify-self: start;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .3px;
+  color: #222;
+  text-decoration: none;
+}
+.header-logo:hover { opacity: .8; }
+
+.month-nav {
+  justify-self: center;
+  display: flex; align-items: center; gap: 14px;
+  color: #374151;
+}
+.icon-btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.icon-btn:hover { background: #f2f3f5; }
+
+.month-box {
+  text-align: center;
+  user-select: none;
+  line-height: 1.15;
+}
+.month-box .y { font-size: 12px; color: var(--muted); }
+.month-box .m { font-size: 22px; font-weight: 700; }
+.month-box .t { font-size: 12px; color: var(--muted); }
+
+.header-nav {
+  justify-self: end;
+}
+.header-tabs {
+  display: flex; align-items: center; gap: 8px;
+  list-style: none; margin: 0; padding: 0;
+}
+.tab-link {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #374151;
+  text-decoration: none;
+}
+.tab-link:hover { background: #f0f2f5; }
+.tab-link.active {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* ========== Main layout ========== */
+main.page {
+  padding: 24px 0 48px;
+}
+
+/* ========== Transactions (cards) ========== */
+.stat-line {
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #4b5563;
+}
+.card-list {
+  display: grid;
+  gap: 10px;
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02);
+  transition: box-shadow .2s ease, transform .08s ease;
+}
+.card:hover { box-shadow: var(--shadow); }
+.card:active { transform: translateY(1px); }
+.amount.pos { color: #16a34a; }
+.amount.neg { color: #ef4444; }
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .header-row {
+    grid-template-columns: 1fr auto auto;
+  }
+  .header-nav { display: none; } /* 필요 시 모바일 메뉴 후속 구현 */
+  .container { padding: 12px; }
+  .m { font-size: 20px; }
+}

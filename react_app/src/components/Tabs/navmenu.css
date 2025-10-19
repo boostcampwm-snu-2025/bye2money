@@ -1,0 +1,18 @@
+.nav-menu {
+  display: flex;
+  flex-direction: column;   /* stack emoji over text */
+  align-items: center;      /* center horizontally */
+  justify-content: center;  /* center vertically */
+  text-align: center;
+  gap: 4px;                 /* small space between emoji and label */
+}
+
+.nav-icon {
+  font-size: 1.5rem;        /* bigger emoji */
+  line-height: 1;
+}
+
+.nav-label {
+  font-size: 0.9rem;
+  color: #333;
+}

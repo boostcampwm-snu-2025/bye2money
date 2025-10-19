@@ -1,0 +1,29 @@
+.month-selecor-year-month {
+    display: flex;
+    flex-direction: column;
+    /* stack vertically */
+    align-items: center;
+    /* center horizontally */
+    justify-content: space-between;
+    /* spread top–middle–bottom evenly */
+    height: 100%;
+    /* optional: ensures it uses the full parent height */
+    text-align: center;
+    /* centers multiline text */
+    width: 30%;
+    min-width: 100px;
+}
+
+.month-selector-show-year {
+    font-size: 1.6rem;
+}
+
+.month-selector-show-month-eng {
+    font-size: 1.6rem;
+}
+
+.month-selector-show-month {
+    font-weight: bold;
+    font-size: 3.6rem;
+    /* slightly larger */
+}

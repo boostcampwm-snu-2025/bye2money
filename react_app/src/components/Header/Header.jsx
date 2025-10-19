@@ -8,11 +8,11 @@ export default function Header() {
     <header className="app-header" >
       <div className="header-main-content">
         <div className="header-main-content-row1">
-<Link to="/" className="logo" style={{ textDecoration: 'none' }}>Wise Wallet</Link>
-        <MonthSelector />
-        <Tabs />
+          <Link to="/" className="logo" style={{ textDecoration: 'none' }}>Wise Wallet</Link>
+          <MonthSelector />
+          <Tabs className="header-menu"/>
         </div>
-        
+
       </div>
 
     </header>

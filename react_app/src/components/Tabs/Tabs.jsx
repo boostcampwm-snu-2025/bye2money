@@ -1,12 +1,12 @@
-import { NavLink } from 'react-router-dom';
+import NavMenu from './NavMenu';
 import './tabs.css';
 
-export default function Tabs() {
+export default function Tabs({ className = '' }) {
   return (
-    <nav className="tabs">
-      <NavLink to="/" end className={({ isActive }) => isActive ? 'tab active' : 'tab'}>내역</NavLink>
-      <NavLink to="/calendar" className={({ isActive }) => isActive ? 'tab active' : 'tab'}>달력</NavLink>
-      <NavLink to="/stats" className={({ isActive }) => isActive ? 'tab active' : 'tab'}>통계</NavLink>
+    <nav className={`tabs ${className}`}>
+      <NavMenu to="/" icon="🧾" label="내역" />
+      <NavMenu to="/calendar" icon="📅" label="달력" />
+      <NavMenu to="/stats" icon="📊" label="통계" />
     </nav>
   );
 }

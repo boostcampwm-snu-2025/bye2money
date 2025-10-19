@@ -10,7 +10,7 @@ export function Layout({ children }) {
         sx={{
           position: "relative",
           width: "1440px",
-          height: "100vh",
+          height: "2160px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

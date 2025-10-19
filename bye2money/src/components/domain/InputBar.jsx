@@ -520,7 +520,7 @@ function SaveButton({ dateInput, isExpense, amountInput, descriptionInput, payme
         const transaction = {
             date: dateInput, 
             type: isExpense ? "expense" : "income",
-            amount: amountInput, 
+            amount: Number(amountInput), 
             description: descriptionInput, 
             paymentMethod: paymentMethodInput, 
             category: categoryInput}

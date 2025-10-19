@@ -61,13 +61,14 @@ app.get("/api/transactions/:yearMonth", (req, res) => {
 })
 
 
-let lastTransactionID = 0;
+let maxTransactionID = Object.values(DATA["TRANSACTIONS"]).flat()
+                        .reduce((maxID, transaction) => Math.max(transaction.id || 0, maxID), 0);
 app.post("/api/transactions/:yearMonth", (req, res) => {
     const handlePostTransactionsRequest = (req, res) => {
         const { yearMonth } = req.params;
         const { date, type, amount, description, paymentMethod, category } = req.body;
         const newTransaction = {
-            "id": lastTransactionID++, 
+            "id": maxTransactionID++, 
             "date": date,
             "type": type,
             "amount": amount,
@@ -79,6 +80,7 @@ app.post("/api/transactions/:yearMonth", (req, res) => {
         res.status(201).json(newTransaction);
     }
     handlePostTransactionsRequest(req, res);
+    sortTransactions();
     saveDataToFile();
 })
 
@@ -90,8 +92,25 @@ app.delete("/api/transactions/:yearMonth/:id", (req, res) => {
                                         .filter(transcation => transcation["id"] !== numericID);
     }
     handleDeleteTransactionsRequest(req, res);
+    sortTransactions();
     saveDataToFile();
 })
+
+const sortTransactions = () => {
+    const originalTransactions = DATA["TRANSACTIONS"];
+    let sortedTransactions = {};
+    for (const key of Object.keys(originalTransactions)) {
+        const monthTransactions = originalTransactions[key];
+        const sortedMonthTransactions = [...monthTransactions].sort((a, b) => {
+            const dateA = new Date(a.date.replace(/\./g, '-'));
+            const dateB = new Date(b.date.replace(/\./g, '-'))
+            if (dateA !== dateB) return dateB - dateA;
+            else return b.id - a.id;
+        })
+        sortedTransactions[key] = sortedMonthTransactions
+    }
+    DATA["TRANSACTIONS"] = sortedTransactions
+}
 
 app.listen(PORT, () => {
     console.log(`Serer running at http://localhost:${PORT}`);

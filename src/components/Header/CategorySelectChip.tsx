@@ -1,7 +1,7 @@
 import type React from "react";
-import { getLabel, type Category } from "./CategoryTag";
-import { useSpendingEditStore } from "../store/useSpendingEditStore";
-import { useDropdownStore } from "../store/useDropdownStore";
+import { getLabel, type Category } from "../CategoryTag";
+import { useSpendingEditStore } from "../../store/useSpendingEditStore";
+import { useDropdownStore } from "../../store/useDropdownStore";
 
 interface CategorySelectChipProps {
   category: Category;

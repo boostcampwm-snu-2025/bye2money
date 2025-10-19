@@ -1,12 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
-import { useDateStore } from "../store/useDateStore.ts";
 import {
   useSpendingDetailStore,
   type DaySpendings,
   type SpendingDetail,
-} from "../store/useSpendingDetailStore.ts";
+} from "../../store/useSpendingDetailStore.ts";
 import { DateTime } from "luxon";
-import { SpendingRow } from "./SpendingRow.tsx";
+import { SpendingRow } from "../SpendingRow.tsx";
 
 interface DaySpendingsSectionProps {
   year: number;

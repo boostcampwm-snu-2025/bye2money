@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import CheckIcon from "../assets/icons/add-btn.svg?react";
-import { Button } from "./Button";
+import CheckIcon from "../..//assets/icons/add-btn.svg?react";
+import { Button } from "../Button";
 import { DateTime } from "luxon";
-import PlusIcon from "../assets/icons/plus.svg?react";
-import MinusIcon from "../assets/icons/minus.svg?react";
-import { TextInput } from "./TextInput";
-import { getLabel, type Category } from "./CategoryTag";
+import PlusIcon from "../../assets/icons/plus.svg?react";
+import MinusIcon from "../../assets/icons/minus.svg?react";
+import { TextInput } from "../TextInput";
+import { getLabel, type Category } from "../CategoryTag";
 import { CategorySelectChip } from "./CategorySelectChip";
 import { Dropdown } from "./Dropdown";
-import { Modal } from "./Modal";
-import { useSpendingDetailStore } from "../store/useSpendingDetailStore";
+import { Modal } from "../Modal";
+import { useSpendingDetailStore } from "../../store/useSpendingDetailStore";
 import { PaymentMethodSelectChip } from "./PaymentMethodSelectChip";
-import { useSpendingEditStore } from "../store/useSpendingEditStore";
-import { useDropdownStore } from "../store/useDropdownStore";
-import { useModalStore } from "../store/useModalStore";
+import { useSpendingEditStore } from "../../store/useSpendingEditStore";
+import { useDropdownStore } from "../../store/useDropdownStore";
+import { useModalStore } from "../../store/useModalStore";
 
 const expenditureTypes: Category[] = [
   "food",

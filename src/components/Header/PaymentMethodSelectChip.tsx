@@ -1,10 +1,9 @@
 import type React from "react";
-import { useSpendingDetailStore } from "../store/useSpendingDetailStore";
-import { Modal } from "./Modal";
-import { useSpendingEditStore } from "../store/useSpendingEditStore";
-import { useDropdownStore } from "../store/useDropdownStore";
-import { useModalStore } from "../store/useModalStore";
-import CloseIcon from "../assets/icons/closed.svg?react";
+import { useSpendingDetailStore } from "../../store/useSpendingDetailStore";
+import { useSpendingEditStore } from "../../store/useSpendingEditStore";
+import { useDropdownStore } from "../../store/useDropdownStore";
+import { useModalStore } from "../../store/useModalStore";
+import CloseIcon from "../../assets/icons/closed.svg?react";
 
 interface PaymentMethodSelectChip {
   method: string;

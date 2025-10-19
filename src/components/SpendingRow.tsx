@@ -57,7 +57,7 @@ export const SpendingRow: React.FC<SpendingDetail> = ({
   return (
     <button
       onClick={fillUpEditBar}
-      className="flex flex-row w-full h-[56px] hover:bg-white"
+      className="relative flex flex-row w-full h-[56px] hover:bg-white"
     >
       <CategoryTag category={category} />{" "}
       <div className="flex flex-row items-center gap-[16px] px-[16px]">

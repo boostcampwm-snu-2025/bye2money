@@ -1,5 +1,6 @@
 import "./App.css";
-import { Header, type NavState } from "./components/Header";
+import { Header } from "./components/Header/Header";
+import type { NavState } from "./store/useRouteStore";
 import { MainPage } from "./pages/MainPage";
 import { CalendarPage } from "./pages/CalendarPage";
 import { ChartPage } from "./pages/ChartPage";

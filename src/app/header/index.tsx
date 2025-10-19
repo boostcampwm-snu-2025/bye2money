@@ -16,7 +16,7 @@ interface Props {
 
 function Header({ currentTab, date, onNextMonth, onPrevMonth, onTabChange }: Props) {
   return (
-    <header className="flex justify-between w-[846px] items-center bg-[#73A4D0]">
+    <header className="flex justify-between w-[846px] items-center">
       <h1 className="flex gap-[4px] w-[132px]">
         <span className="text-[24px] leading-1.5 tracking-normal font-normal font-[ChosunNM]">Wise</span>
         <span className="text-[24px] leading-1.5 tracking-normal font-normal font-[ChosunNM]">Wallet</span>

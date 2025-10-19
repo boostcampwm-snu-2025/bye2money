@@ -28,14 +28,15 @@ function App() {
   const [tab, setTab] = useState<Tab>(initialTab);
 
   return (
-    <>
+    <div className="flex flex-col items-center w-full h-full pt-[40px] gap-[24px]">
+      <div className="absolute top-0 w-full h-[216px] bg-[#73A4D0] z-[-1]"></div>
       <Header currentTab={tab} date={date} onNextMonth={setNextMonth} onPrevMonth={setPrevMonth} onTabChange={setTab}/>
       {tab === "List" && (
         <>
           <InputBar />
         </>
       )}
-    </>
+    </div>
   )
 }
 

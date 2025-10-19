@@ -16,15 +16,15 @@ interface GroupedExpenses {
   [date: string]: Expense[]
 }
 
-const categoryColors: { [key: string]: string } = {
-  '문화/여가': 'bg-purple-200 text-purple-800',
-  '교통': 'bg-teal-300 text-teal-900',
-  '식비': 'bg-blue-200 text-blue-800',
-  '생활': 'bg-purple-300 text-purple-900',
-  '쇼핑/뷰티': 'bg-yellow-200 text-yellow-800',
-  '월급': 'bg-orange-300 text-orange-900',
-  '미분류': 'bg-pink-200 text-pink-800',
-  '': 'bg-gray-200 text-gray-800'
+const categoryColors: { [key: string]: { bg: string; text: string } } = {
+  '문화/여가': { bg: '#e9d5ff', text: '#6b21a8' },
+  '교통': { bg: '#5eead4', text: '#134e4a' },
+  '식비': { bg: '#bfdbfe', text: '#1e40af' },
+  '생활': { bg: '#d8b4fe', text: '#6b21a8' },
+  '쇼핑/뷰티': { bg: '#fef08a', text: '#854d0e' },
+  '월급': { bg: '#fdba74', text: '#7c2d12' },
+  '미분류': { bg: '#fbcfe8', text: '#9f1239' },
+  '': { bg: '#e5e7eb', text: '#1f2937' }
 }
 
 function ExpenseList() {
@@ -96,9 +96,9 @@ function ExpenseList() {
   }
 
   return (
-    <div className="w-full max-w-[900px] mx-auto bg-white rounded-2xl shadow-sm">
+    <div className="w-full max-w-[1400px] mx-auto bg-white">
       {/* Filter Bar */}
-      <div className="flex items-center bg-white px-6 py-5 rounded-xl border-2 border-purple-400 gap-0 mb-6">
+      <div className="flex items-center bg-white px-4 py-3 border border-gray-300 gap-0">
         <div className="flex flex-col gap-1 px-4 py-2 border-r border-gray-200 min-w-[140px]">
           <label className="text-xs text-gray-500 font-normal">일자</label>
           <input
@@ -166,15 +166,6 @@ function ExpenseList() {
           </select>
         </div>
 
-        <div className="flex flex-col gap-1 px-4 py-2 min-w-[140px]">
-          <label className="text-xs text-gray-500 font-normal">분류</label>
-          <select
-            className="text-base font-medium text-gray-900 outline-none bg-transparent border-0 p-0 cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2710%27%20height%3D%276%27%20viewBox%3D%270%200%2010%206%27%20fill%3D%27none%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M1%201L5%205L9%201%27%20stroke%3D%27%23999%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27/%3E%3C/svg%3E')] bg-no-repeat bg-[right_center] pr-6"
-          >
-            <option value="">선택하세요</option>
-          </select>
-        </div>
-
         <button className="w-12 h-12 rounded-full bg-gray-400 border-0 cursor-pointer flex items-center justify-center flex-shrink-0 ml-4 hover:bg-gray-500 transition-colors">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M4 10L8 14L16 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -183,29 +174,23 @@ function ExpenseList() {
       </div>
 
       {/* Statistics */}
-      <div className="px-6 py-4 flex items-center justify-between border-b border-gray-200">
-        <div className="text-sm text-gray-600">
+      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-200 bg-white">
+        <div className="text-sm text-gray-700">
           전체 내역 <span className="font-medium">{expenses.length}건</span>
         </div>
-        <div className="flex items-center gap-6 text-sm">
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-black"></span>
-            <span className="text-gray-600">수입 {formatAmount(totalIncome)}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-gray-400"></span>
-            <span className="text-gray-600">지출 {formatAmount(totalExpenses)}</span>
-          </div>
+        <div className="flex items-center gap-8 text-sm">
+          <span className="text-gray-700">수입 {formatAmount(totalIncome)}</span>
+          <span className="text-gray-700">지출 {formatAmount(totalExpenses)}</span>
         </div>
       </div>
 
       {/* Transaction List */}
-      <div className="p-6">
+      <div className="bg-white">
         {Object.entries(groupedExpenses).map(([date, dateExpenses]) => (
-          <div key={date} className="mb-8">
+          <div key={date} className="border-b border-gray-200 last:border-b-0">
             {/* Date Header */}
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-base font-medium text-gray-900">{getDateLabel(date)}</h3>
+            <div className="flex items-center justify-between px-4 py-3 bg-gray-50">
+              <h3 className="text-sm font-medium text-gray-900">{getDateLabel(date)}</h3>
               <div className="text-sm text-gray-600">
                 {getDailyTotal(dateExpenses, 'income') > 0 && (
                   <span className="mr-4">수입 {formatAmount(getDailyTotal(dateExpenses, 'income'))}원</span>
@@ -215,30 +200,36 @@ function ExpenseList() {
             </div>
 
             {/* Transactions */}
-            <div className="space-y-3">
+            <div>
               {dateExpenses.map((expense) => (
                 <div
                   key={expense.id}
-                  className="flex items-center gap-4 py-3 px-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="flex items-center gap-6 py-4 px-4 border-b border-gray-100 last:border-b-0"
                 >
                   {/* Category Badge */}
-                  <div className={`px-3 py-1.5 rounded text-sm font-medium min-w-[100px] text-center ${categoryColors[expense.category] || categoryColors['']}`}>
+                  <div
+                    className="px-3 py-1.5 rounded text-xs font-medium min-w-[80px] text-center"
+                    style={{
+                      backgroundColor: (categoryColors[expense.category] || categoryColors['']).bg,
+                      color: (categoryColors[expense.category] || categoryColors['']).text
+                    }}
+                  >
                     {expense.category || '미분류'}
                   </div>
 
                   {/* Description */}
-                  <div className="flex-1 text-base text-gray-900">
+                  <div className="flex-1 text-sm text-gray-900">
                     {expense.description || '설명 없음'}
                   </div>
 
                   {/* Payment Method */}
-                  <div className="text-sm text-gray-600 min-w-[100px]">
+                  <div className="text-sm text-gray-600 min-w-[100px] text-center">
                     {expense.paymentMethod || '현대카드'}
                   </div>
 
                   {/* Amount */}
-                  <div className={`text-base font-medium min-w-[120px] text-right ${
-                    expense.type === 'income' || expense.amount > 0 ? 'text-blue-600' : 'text-red-600'
+                  <div className={`text-sm font-medium min-w-[100px] text-right ${
+                    expense.type === 'income' || expense.amount > 0 ? 'text-gray-900' : 'text-gray-900'
                   }`}>
                     {expense.type === 'income' || expense.amount > 0 ? '+' : '-'}{formatAmount(Math.abs(expense.amount))}원
                   </div>

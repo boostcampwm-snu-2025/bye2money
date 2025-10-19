@@ -124,8 +124,37 @@ function ExpenseForm() {
     category: ''
   })
 
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData)
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/expenses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to create expense')
+      }
+
+      const data = await response.json()
+      console.log('Expense created:', data)
+
+      // 폼 초기화
+      setFormData({
+        date: '2023. 08. 17',
+        amount: 0,
+        description: '',
+        paymentMethod: '',
+        category: ''
+      })
+
+      alert('지출이 저장되었습니다!')
+    } catch (error) {
+      console.error('Error:', error)
+      alert('저장에 실패했습니다.')
+    }
   }
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {

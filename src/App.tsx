@@ -1,9 +1,8 @@
 import ExpenseForm from './components/ExpenseForm'
-import './App.css'
 
 function App() {
   return (
-    <div className="App">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-5">
       <ExpenseForm />
     </div>
   )

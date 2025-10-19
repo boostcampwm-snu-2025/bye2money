@@ -79,6 +79,7 @@ export const useSpendingEditStore = create<SpendingEditStore>((set, get) => ({
       isExpenditure: !state.isExpenditure,
       category: undefined,
     }));
+    get().updateIsComplete();
   },
   clearValues: () => {
     set({

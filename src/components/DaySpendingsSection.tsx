@@ -37,6 +37,7 @@ export const DaySpendingsSection: React.FC<DaySpendingsSectionProps> = ({
   const filter = [];
   if (showExpenditures) filter.push(true);
   if (showIncomes) filter.push(false);
+  const validRows = spendings.filter((s) => filter.includes(s.isExpenditure));
 
   const dayKor = DateTime.fromISO(`${year}-${month}-${day}`).setLocale(
     "ko-KR",
@@ -55,7 +56,7 @@ export const DaySpendingsSection: React.FC<DaySpendingsSectionProps> = ({
     .format(expenditureSum)
     .replaceAll("₩", "");
 
-  return (
+  return validRows.length ? (
     <div className="flex flex-col w-[846px] items-center pt-[70px] gap-[16px]">
       <div className="flex flex-row w-full h-[16px] justify-between">
         <h3 className="font-serif text-serif-sm">
@@ -85,5 +86,7 @@ export const DaySpendingsSection: React.FC<DaySpendingsSectionProps> = ({
           ))}
       </div>
     </div>
+  ) : (
+    <></>
   );
 };

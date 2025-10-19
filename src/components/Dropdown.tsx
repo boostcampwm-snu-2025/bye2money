@@ -27,7 +27,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div
       style={style}
-      className="absolute flex flex-col w-[152px] min-h-0 bg-grayscale-50 border-l-[0.5px] border-r-[0.5px] border-b-[0.5px] border-neutral-border-default items-center"
+      className="absolute flex flex-col w-[152px] min-h-0 bg-grayscale-50 border-l-[0.5px] border-r-[0.5px] border-b-[0.5px] border-neutral-border-default items-center z-50"
     >
       {restElements.map((e, i) => {
         return (

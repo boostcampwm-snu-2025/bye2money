@@ -1,0 +1,51 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: #00000066;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: min(92vw, 420px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.modal-msg {
+  margin: 8px 0 16px;
+  color: #333;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.btn.danger {
+  background: #e5484d;
+  color: #fff;
+  border-color: #e5484d;
+}
+
+.btn.ghost {
+  background: #fff;
+}

@@ -26,25 +26,25 @@ src/
 - [x] 프로젝트 구조 Init.
 - [x] 정적 Asset 적재
 - [x] 디자인 Foundation 에 맞는 Tailwind Theme 구현
-- [ ] 소비 내역 Type 설계
+- [x] 소비 내역 Type 설계
 - 공통 컴포넌트 구현
-  - [ ] Button
-  - [ ] Text Input
-  - [ ] Check Box
-  - [ ] Category Tag
-  - [ ] Modal
-- [ ] Zustand store 구현
+  - [x] Button
+  - [x] Text Input
+  - [x] Check Box
+  - [x] Category Tag
+  - [x] Modal
+- [x] Zustand store 구현
 - 페이지 공통 헤더 구현
-  - [ ] 로고
-  - [ ] 연월 표시 및 변경
-  - [ ] 페이지간 이동
+  - [x] 로고
+  - [x] 연월 표시 및 변경
+  - [x] 페이지간 이동
 - 페이지 구현
   - 메인 페이지
-    - [ ] 신규 지출 내역 입력
-    - [ ] 수입 지출 내역 목록
-    - [ ] 월 합계 상단 바
-    - [ ] 일별 지출 내역
-    - [ ] 개별 지출 내역
+    - [x] 신규 지출 내역 입력
+    - [x] 수입 지출 내역 목록
+    - [x] 월 합계 상단 바
+    - [x] 일별 지출 내역
+    - [x] 개별 지출 내역
   - 달력 페이지
     - [ ] 달력 레이아웃
     - [ ] 일별 소비 합계 내역 표시

@@ -49,7 +49,7 @@ export function PaymentMethodSelect({
           </ul>
           <div className="mt-1 border-t pt-1">
             <button className="w-full rounded-lg px-2 py-1.5 text-left text-sm hover:bg-zinc-50"
-                    onClick={()=>setAskAdd(true)}>＋ 추가하기</button>
+                    onClick={()=>setAskAdd(true)}>추가하기</button>
           </div>
         </div>
       )}

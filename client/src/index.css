@@ -97,3 +97,14 @@
 
 /* focus-visible 보강 */
 :focus-visible { outline: 2px solid theme('colors.neutral-text'); outline-offset: 2px; }
+
+/* EntryBar / Inputs 보강 */
+.input {
+  /* 기존 .input 정의가 있다면 그대로 두고, 없으면 아래를 사용 */
+  @apply w-full rounded-xl border border-neutral-border bg-neutral-surface px-3 py-2 outline-none;
+  @apply focus:border-neutral-text focus:ring-0;
+}
+.input::placeholder { @apply text-neutral-text-weak; }
+
+/* 버튼/아이콘 hover 느낌 살짝 */
+.shadow-elevated { box-shadow: 0 8px 24px rgba(0,0,0,.08); }

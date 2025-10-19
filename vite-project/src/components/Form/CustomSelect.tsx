@@ -127,7 +127,6 @@ export default function CustomSelect({
   onDelete,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [newOption, setNewOption] = useState("");
   const wrapperRef = useRef<HTMLDivElement>(null); // 바깥 영역 클릭 감지를 위한 Ref
 
   // 바깥 영역 클릭(click-outside) 감지
@@ -151,14 +150,14 @@ export default function CustomSelect({
     setIsOpen(false); // 드롭다운 닫기
   };
 
-  // 6. 삭제 핸들러
+  // 삭제 핸들러
   const handleDelete = (e: React.MouseEvent, option: string) => {
     e.stopPropagation(); // 중요: 클릭 이벤트가 부모(OptionItem)로 전파되는 것을 막음
     if (window.confirm(`'${option}' 결제수단을 삭제하시겠습니까?`)) {
       onDelete(option);
     }
   };
-  // 7. 추가 핸들러
+  // 추가 핸들러
   const handleAdd = (e: React.MouseEvent) => {
     e.stopPropagation(); // 중요: 클릭 이벤트가 드롭다운을 닫지 않도록 막음
     const message = "추가하실 결제수단을 입력하세요.";
@@ -175,7 +174,7 @@ export default function CustomSelect({
 
   return (
     <SelectWrapper ref={wrapperRef}>
-      {/* 5. 클릭하면 드롭다운을 토글하는 박스 */}
+      {/* 클릭하면 드롭다운을 토글하는 박스 */}
       <SelectTrigger $isOpen={isOpen} onClick={handleToggle}>
         <span>{selected || "선택하세요"}</span>
         <span>▼</span>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../Header/Button";
 import { getTodayDateString } from "../../utils";
 import CustomSelect from "./CustomSelect";
 import FormInput from "./FormInput";
@@ -22,7 +22,7 @@ const FormContainer = styled.form`
   gap: 12px;
   padding: 16px 24px;
   background-color: #fdfdfd;
-  border-bottom: 1px solid #eee;
+  border: 1px solid #ddd;
   flex-wrap: wrap;
 `;
 
@@ -46,6 +46,11 @@ const SubmitButton = styled(Button)`
   padding: 0;
   font-size: 18px;
   border-radius: 6px;
+  &:disabled {
+    background-color: #cccccc;
+    color: #666666;         
+    cursor: not-allowed;     
+  }
 `;
 
 
@@ -61,7 +66,9 @@ export default function Form() {
     ]);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
 
+    const isButtonDisabled = amount.trim() === "" || content.trim() === "" || selectedPaymentMethod.trim() === "";
     const todayDate = getTodayDateString();
+
 
     const handleTypeToggle = () => {
         setTransaction((prev) => (prev === "expense" ? "income" : "expense"));
@@ -129,7 +136,7 @@ export default function Form() {
 
             <CategorySelect transaction={transaction} categories={CATEGORIES} />
 
-            <SubmitButton type="submit" size="M">
+            <SubmitButton type="submit" disabled={isButtonDisabled} size="M">
                 ✔
             </SubmitButton>
         </FormContainer>

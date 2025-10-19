@@ -1,32 +1,24 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import { Header, type NavState } from "./components/Header";
+import { MainPage } from "./pages/MainPage";
+import { CalendarPage } from "./pages/CalendarPage";
+import { ChartPage } from "./pages/ChartPage";
+import { useRouteStore } from "./store/useRouteStore";
+import type { ReactNode } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { currentRoute } = useRouteStore();
+  const routes: Record<NavState, ReactNode> = {
+    main: <MainPage />,
+    calendar: <CalendarPage />,
+    chart: <ChartPage />,
+  };
 
   return (
-    <>
-      <div className="bg-teal-100">
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p>Click on the Vite and React logos to learn more</p>
-    </>
+    <div className="w-layout flex flex-col bg-teal-400">
+      <Header />
+      {routes[currentRoute]}
+    </div>
   );
 }
 

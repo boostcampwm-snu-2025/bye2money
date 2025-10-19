@@ -77,17 +77,42 @@ function TransactionsListHeader({ transactions, numTransactions, expenseChecked,
                     isChecked={incomeChecked}
                     setIsChecked={setIncomeChecked}>
                     <Typography variant="body2">
-                        수입 {totalIncome.toLocaleString("ko-KR")}원
+                        수입 {Number(totalIncome).toLocaleString("ko-KR")}원
                     </Typography>
                 </CheckBoxFilter>
                 <CheckBoxFilter
                     isChecked={expenseChecked}
                     setIsChecked={setExpenseChecked}>
                     <Typography variant="body2">
-                        지출 {totalExpense.toLocaleString("ko-KR")}원
+                        지출 {Number(totalExpense).toLocaleString("ko-KR")}원
                     </Typography>
                 </CheckBoxFilter>
             </Box>
+        </Box>
+    )
+}
+
+function CheckBoxFilter({ isChecked, setIsChecked, children }) {
+    return (
+        <Box
+            sx={{ 
+                display: "flex", 
+                alignItems: "center",
+                gap: "8px",
+                cursor: "pointer"}}
+            onClick={() => setIsChecked(!isChecked)}>
+            <Box
+                sx={{ 
+                    display: "flex", 
+                    justifyContent: "center", 
+                    alignItems: "center",    
+                    width: "20px",
+                    height: "20px",
+                    backgroundColor: `rgba(0, 0, 0, ${isChecked ? 1.0 : 0.4})`,
+                    borderRadius: "4px"}}>
+                <CheckIcon sx={{ fontSize: "small", color: "white" }}/>
+            </Box>
+            {children}
         </Box>
     )
 }

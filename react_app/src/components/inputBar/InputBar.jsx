@@ -6,7 +6,7 @@ import CategoryDropdown from './CategoryDropdown';
 import PaymentDropdown from './PaymentDropdown';
 import './inputbar.css';
 
-export default function InputBar() {
+export default function InputBar({ className = '' }) {
   const { addTransaction } = useTransactions();
   const [date, setDate] = useState(toYMD(new Date()));
   const [type, setType] = useState('expense');
@@ -16,8 +16,10 @@ export default function InputBar() {
   const [desc, setDesc] = useState('');
 
   const onAmountChange = v => setAmountUI(formatAmountInput(v));
-  const toggleType = () => { setType(t => t === 'expense' ? 'income' : 'expense'); setCategory(''); };
-  const descCount = `${desc.length}/32`;
+  const toggleType = () => {
+    setType(t => (t === 'expense' ? 'income' : 'expense'));
+    setCategory('');
+  };
 
   const valid = useMemo(() => {
     const amt = parseAmount(amountUI);
@@ -43,34 +45,51 @@ export default function InputBar() {
   useEffect(() => setDate(toYMD(new Date())), []);
 
   return (
-    <section className="inputbar">
-      <div className="grid">
-        <div className="field">
-          <label>날짜</label>
-          <input type="date" value={date} onChange={e => setDate(e.target.value)} />
-        </div>
+    <section className={`inputbar-flex ${className}`}>
+      <div className="col">
+        <div className="col-header">일자</div>
+        <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+      </div>
 
-        <div className="field">
-          <label>금액</label>
-          <div className="amount-row">
-            <button type="button" className={`pm ${type}`} onClick={toggleType}>
-              {type === 'expense' ? '−' : '+'}
-            </button>
-            <input value={amountUI} onChange={e => onAmountChange(e.target.value)} placeholder="0" />
-          </div>
+      <div className="col">
+        <div className="col-header">금액</div>
+        <div className="amount-row">
+          <button type="button" className={`pm ${type}`} onClick={toggleType}>
+            {type === 'expense' ? '−' : '+'}
+          </button>
+          <input
+            value={amountUI}
+            onChange={e => onAmountChange(e.target.value)}
+            placeholder="0"
+            style={{ textAlign: 'right' }}
+          />
         </div>
+      </div>
 
-        <CategoryDropdown type={type} value={category} onChange={setCategory} />
+      <div className="col">
+        <div className="col-header">내용</div>
+        <input
+          value={desc}
+          onChange={e => setDesc(e.target.value.slice(0, 32))}
+          placeholder="입력하세요"
+        />
+      </div>
+
+      <div className="col">
+        <div className="col-header">결제수단</div>
         <PaymentDropdown value={payment} onChange={setPayment} />
+      </div>
 
-        <div className="field">
-          <label><span className="count">{descCount}</span> 내용</label>
-          <input value={desc} onChange={e => setDesc(e.target.value.slice(0, 32))} placeholder="설명 (최대 32자)" />
-        </div>
+      <div className="col">
+        <div className="col-header">분류</div>
+        <CategoryDropdown type={type} value={category} onChange={setCategory} />
+      </div>
 
-        <div className="actions">
-          <button className="btn primary" disabled={!valid} onClick={onSubmit}>확인</button>
-        </div>
+      <div className="col col-check">
+        <div className="col-header">&nbsp;</div>
+        <button className="btn primary check-btn" disabled={!valid} onClick={onSubmit}>
+          ✅
+        </button>
       </div>
     </section>
   );

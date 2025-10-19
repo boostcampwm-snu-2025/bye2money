@@ -1,11 +1,19 @@
 import InputBar from '../../components/InputBar/InputBar';
 import { useTransactions } from '../../context/TransactionContext';
 
+import './home_page.css';
+
 export default function HomePage() {
   const { filteredByMonth } = useTransactions();
   return (
     <main>
-      <InputBar />
+      <div className='input-section'>
+        <div className='input-bar-wrapper'>
+          <InputBar className='input-bar' />
+        </div>
+
+      </div>
+
       <section style={{ padding: '12px' }}>
         {filteredByMonth.length === 0 ? (
           <p style={{ color: '#666' }}>해당 월 내역이 없습니다.</p>

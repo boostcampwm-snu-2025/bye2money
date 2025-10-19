@@ -7,5 +7,14 @@
     "category": "",
     "id": "4c588ba1-4dfc-4cdd-a197-82feefa1b9d4",
     "createdAt": "2025-10-19T13:05:43.287342"
+  },
+  {
+    "date": "2023. 08. 17",
+    "amount": 0,
+    "description": "",
+    "paymentMethod": "card",
+    "category": "",
+    "id": "51884892-cd83-4aba-a6a2-e2af86306762",
+    "createdAt": "2025-10-19T13:22:20.410442"
   }
 ]

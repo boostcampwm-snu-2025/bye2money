@@ -1,6 +1,6 @@
 @theme {
   /* Fonts */
-  --font-serif: "Chosun Ilbo Myungjo", ui-serif, Georgia, serif;
+  --font-serif: "ChosunIlboMyungjo", ui-serif, Georgia, serif;
   --font-sans: "Pretendard", ui-sans-serif, system-ui, sans-serif;
 
   /* Font Sizes */
@@ -27,6 +27,14 @@
 
   /* Widths */
   --width-layout: 1440px;
+
+  /* Heights */
+  --height-btn-lg: 56px;
+  --height-btn-md: 24px;
+  --height-btn-sm: 16px;
+  --height-icon-lg: 40px;
+  --height-icon-md: 24px;
+  --height-icon-sm: 16px;
 
   /* Primitive Colors */
   /* grayscale */

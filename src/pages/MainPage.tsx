@@ -6,6 +6,7 @@ import {
   type SpendingDetail,
 } from "../store/useSpendingDetailStore.ts";
 import { DaySpendingsSection } from "../components/DaySpendingsSection.tsx";
+import { CheckBox } from "../components/CheckBox.tsx";
 
 const groupSpendingsByDay = (spendings: SpendingDetail[]): DaySpendings[] => {
   if (!spendings.length) return [];
@@ -57,6 +58,22 @@ export const MainPage = () => {
             <h3 className="font-sans font-ligth text-sans-light-sm">
               {spendings.length}건
             </h3>
+          </div>
+          <div className="flex flex-row gap-[12px]">
+            <CheckBox
+              value={includeIncomes}
+              onClick={() => {
+                setIncludeIncomes(!includeIncomes);
+              }}
+              label={"수입" + ""}
+            />
+            <CheckBox
+              value={includeExpenditures}
+              onClick={() => {
+                setIncludeExpenditures(!includeExpenditures);
+              }}
+              label={"지출" + ""}
+            />
           </div>
         </div>
       </div>

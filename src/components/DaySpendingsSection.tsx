@@ -33,6 +33,11 @@ export const DaySpendingsSection: React.FC<DaySpendingsSectionProps> = ({
     .filter((x) => !x.isExpenditure)
     .map((x) => x.amount)
     .reduce((a, b) => a + b, 0);
+
+  const filter = [];
+  if (showExpenditures) filter.push(true);
+  if (showIncomes) filter.push(false);
+
   const dayKor = DateTime.fromISO(`${year}-${month}-${day}`).setLocale(
     "ko-KR",
   ).weekdayLong;
@@ -62,20 +67,22 @@ export const DaySpendingsSection: React.FC<DaySpendingsSectionProps> = ({
         </h3>
       </div>
       <div className="flex flex-col min-h-0 border-neutral-border-default border-[0.5px]">
-        {spendings.map((s) => (
-          <SpendingRow
-            key={s.id}
-            id={s.id}
-            year={s.year}
-            month={s.month}
-            day={s.day}
-            amount={s.amount}
-            isExpenditure={s.isExpenditure}
-            description={s.description}
-            paymentMethod={s.paymentMethod}
-            category={s.category}
-          />
-        ))}
+        {spendings
+          .filter((s) => filter.includes(s.isExpenditure))
+          .map((s) => (
+            <SpendingRow
+              key={s.id}
+              id={s.id}
+              year={s.year}
+              month={s.month}
+              day={s.day}
+              amount={s.amount}
+              isExpenditure={s.isExpenditure}
+              description={s.description}
+              paymentMethod={s.paymentMethod}
+              category={s.category}
+            />
+          ))}
       </div>
     </div>
   );

@@ -3,9 +3,12 @@ import { CheckBox } from "./shared/ui/CheckBox/CheckBox";
 import { useState } from "react";
 import { CategoryBadge } from "./entities/category/ui/categoryBadge";
 import { Button } from "./shared/ui/Button";
+import { TextInput } from "./shared/ui/TextInput";
 
 function App() {
   const [checked, setChecked] = useState(false);
+  const [textInputValue, setTextInputValue] = useState("");
+  const [textAreaValue, setTextAreaValue] = useState("");
   return (
     <div className="flex flex-col gap-8 p-8">
       <div className="space-y-2">
@@ -169,6 +172,54 @@ function App() {
                 flexible={false}
               />
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-serif-24">TextInput</h2>
+
+        <div className="space-y-2">
+          <h3 className="text-semibold-16">Type</h3>
+          <div className="flex flex-col gap-4">
+            <TextInput
+              type="default"
+              label="Default"
+              placeholder="placeholder"
+              value={textInputValue}
+              onChange={setTextInputValue}
+            />
+            <TextInput
+              type="text-area"
+              label="Text Area Only"
+              placeholder="placeholder"
+              value={textAreaValue}
+              onChange={setTextAreaValue}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="text-semibold-16">States</h3>
+          <div className="flex flex-col gap-4">
+            <TextInput
+              type="default"
+              label="Enabled"
+              placeholder="placeholder"
+              disabled={false}
+            />
+            <TextInput
+              type="default"
+              label="Disabled"
+              placeholder="placeholder"
+              disabled={true}
+            />
+            <TextInput
+              type="default"
+              label="Error"
+              placeholder="placeholder"
+              error={true}
+            />
           </div>
         </div>
       </div>

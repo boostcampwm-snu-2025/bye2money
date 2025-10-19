@@ -5,19 +5,19 @@ const Ctx = createContext(null);
 
 export function MonthProvider({ children }) {
   const now = new Date();
-  const [month, setMonth] = useState({ year: now.getFullYear(), month: now.getMonth() + 1 });
+  const [yearMonth, setYearMonth] = useState({ year: now.getFullYear(), month: now.getMonth() + 1 });
 
   const value = useMemo(() => {
     const prevMonth = () => {
-      const d = new Date(month.year, month.month - 2, 1);
-      setMonth({ year: d.getFullYear(), month: d.getMonth() + 1 });
+      const d = new Date(yearMonth.year, yearMonth.month - 2, 1);
+      setYearMonth({ year: d.getFullYear(), month: d.getMonth() + 1 });
     };
     const nextMonth = () => {
-      const d = new Date(month.year, month.month, 1);
-      setMonth({ year: d.getFullYear(), month: d.getMonth() + 1 });
+      const d = new Date(yearMonth.year, yearMonth.month, 1);
+      setYearMonth({ year: d.getFullYear(), month: d.getMonth() + 1 });
     };
-    return { month, label: monthLabel(month.year, month.month), prevMonth, nextMonth };
-  }, [month]);
+    return { yearMonth, label: monthLabel(yearMonth.year, yearMonth.month), prevMonth, nextMonth };
+  }, [yearMonth]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

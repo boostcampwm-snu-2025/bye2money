@@ -1,12 +1,19 @@
 import { useMonth } from '../../context/MonthContext';
+import { monthNameEng } from '../../utils/formatDate';
 
 export default function MonthSelector() {
-  const { label, prevMonth, nextMonth } = useMonth();
+  const { yearMonth, label, prevMonth, nextMonth } = useMonth();
   return (
     <div className="month-selector">
-      <button onClick={prevMonth}>&lt;</button>
-      <span>{label}</span>
-      <button onClick={nextMonth}>&gt;</button>
+      <div><button onClick={prevMonth}>&lt;</button></div>
+      <div>
+        <div>{yearMonth.year}</div>
+        <div>{yearMonth.month}</div>
+        <div>{monthNameEng(yearMonth.month)}</div>
+      </div>
+      <div><button onClick={nextMonth}>&gt;</button></div>
+      
+      
     </div>
   );
 }

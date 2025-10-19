@@ -70,7 +70,13 @@ export const HeaderAppendBar = () => {
     openMethodRemoveModal,
     closeMethodRemoveModal,
     methodToRemove,
+    openSpendingRemoveModal,
+    spendingRemoveModalOpened,
+    closeSpendingRemoveModal,
+    toggleSpendingRemoveModal,
+    spendingToRemove,
   } = useModalStore();
+  const { removeSpending } = useSpendingDetailStore();
 
   const dateRef = useRef(null);
 
@@ -193,6 +199,23 @@ export const HeaderAppendBar = () => {
               leftOffset={-23.78}
               setValue={setCategory}
               elements={isExpenditure ? expenditureTypeChips : incomeTypeChips}
+            />
+          )}
+          {spendingRemoveModalOpened && (
+            <Modal
+              setValue={() => { }}
+              actionTitle={"삭제"}
+              actionColor={"red"}
+              text={"해당 내역을 삭제하시겠습니까?"}
+              disabled={true}
+              value={""}
+              action={() => {
+                setTimeout(() => {
+                  removeSpending(spendingToRemove);
+                }, 1000);
+                closeSpendingRemoveModal();
+              }}
+              close={() => closeSpendingRemoveModal()}
             />
           )}
         </div>

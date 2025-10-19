@@ -65,7 +65,7 @@ export const DaySpendingsSection: React.FC<DaySpendingsSectionProps> = ({
           {expenditureSum ? `지출 ${expenditureSumFormatted}원` : ""}
         </h3>
       </div>
-      <div className="flex flex-col min-h-0 border-neutral-border-default border-[0.5px]">
+      <div className="flex flex-col w-[846px] overflow-hidden min-h-0 border-neutral-border-default border-[0.5px]">
         {spendings
           .filter((s) => filter.includes(s.isExpenditure))
           .map((s) => (

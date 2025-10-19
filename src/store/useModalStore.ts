@@ -4,6 +4,8 @@ interface ModalState {
   methodAppendModalOpened: boolean;
   methodRemoveModalOpened: boolean;
   methodToRemove: string;
+  spendingToRemove: string;
+  spendingRemoveModalOpened: boolean;
 
   openMethodAppendModal: () => void;
   closeMethodAppendModal: () => void;
@@ -12,12 +14,26 @@ interface ModalState {
   openMethodRemoveModal: (method: string) => void;
   closeMethodRemoveModal: () => void;
   toggleMethodRemoveModal: () => void;
+
+  openSpendingRemoveModal: (id: string) => void;
+  closeSpendingRemoveModal: () => void;
+  toggleSpendingRemoveModal: () => void;
 }
 
 export const useModalStore = create<ModalState>((set, get) => ({
   methodAppendModalOpened: false,
   methodRemoveModalOpened: false,
+  spendingRemoveModalOpened: false,
+  spendingToRemove: "",
   methodToRemove: "",
+
+  openSpendingRemoveModal: (id: string) =>
+    set({ spendingToRemove: id, spendingRemoveModalOpened: true }),
+  closeSpendingRemoveModal: () => set({ spendingRemoveModalOpened: false }),
+  toggleSpendingRemoveModal: () =>
+    set((state) => ({
+      spendingRemoveModalOpened: !state.spendingRemoveModalOpened,
+    })),
 
   openMethodAppendModal: () => set({ methodAppendModalOpened: true }),
   closeMethodAppendModal: () => set({ methodAppendModalOpened: false }),

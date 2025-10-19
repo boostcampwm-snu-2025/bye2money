@@ -3,6 +3,7 @@ import { useState } from "react"
 
 import Header from "./header";
 import InputBar from "./input-bar";
+import ListView from "./list-view";
 
 const initialDate = dayjs().startOf("month");
 
@@ -34,6 +35,7 @@ function App() {
       {tab === "List" && (
         <>
           <InputBar />
+          <ListView />
         </>
       )}
     </div>

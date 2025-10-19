@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 // --- 스타일 정의 ---
 
-// 💡 래퍼: 'position: relative'가 드롭다운의 기준점이 됩니다.
+// 래퍼: 'position: relative'가 드롭다운의 기준점이 됩니다.
 const SelectWrapper = styled.div`
   position: relative;
   width: 150px;
   font-size: 14px;
 `;
 
-// 💡 기본 <select>처럼 보이는 박스
+// 기본 <select>처럼 보이는 박스
 const SelectTrigger = styled.div<{ $isOpen: boolean }>`
   border: 1px solid ${(props) => (props.$isOpen ? "#333" : "#ccc")};
   border-radius: 6px;
@@ -28,7 +28,7 @@ const SelectTrigger = styled.div<{ $isOpen: boolean }>`
   }
 `;
 
-// 💡 5. 드롭다운 패널 (position: absolute)
+// 5. 드롭다운 패널 (position: absolute)
 const DropdownPanel = styled.div`
   position: absolute;
   top: 100%; // Trigger 박스 바로 아래
@@ -50,7 +50,7 @@ const OptionList = styled.ul`
   margin: 0;
 `;
 
-// 💡 6. [X] 버튼이 포함된 옵션 아이템
+// 6. [X] 버튼이 포함된 옵션 아이템
 const OptionItem = styled.li`
   display: flex;
   justify-content: space-between;
@@ -79,7 +79,7 @@ const DeleteButton = styled.button`
   }
 `;
 
-// 💡 7. [추가하기] 섹션
+// 7. [추가하기] 섹션
 const AddSection = styled.div`
   display: flex;
   padding: 8px;
@@ -128,9 +128,9 @@ export default function CustomSelect({
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [newOption, setNewOption] = useState("");
-  const wrapperRef = useRef<HTMLDivElement>(null); // 💡 바깥 영역 클릭 감지를 위한 Ref
+  const wrapperRef = useRef<HTMLDivElement>(null); // 바깥 영역 클릭 감지를 위한 Ref
 
-  // 💡 바깥 영역 클릭(click-outside) 감지
+  // 바깥 영역 클릭(click-outside) 감지
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -151,24 +151,26 @@ export default function CustomSelect({
     setIsOpen(false); // 드롭다운 닫기
   };
 
-  // 💡 6. 삭제 핸들러
+  // 6. 삭제 핸들러
   const handleDelete = (e: React.MouseEvent, option: string) => {
-    e.stopPropagation(); // 💡 중요: 클릭 이벤트가 부모(OptionItem)로 전파되는 것을 막음
+    e.stopPropagation(); // 중요: 클릭 이벤트가 부모(OptionItem)로 전파되는 것을 막음
     if (window.confirm(`'${option}' 결제수단을 삭제하시겠습니까?`)) {
       onDelete(option);
     }
   };
-
-  // 💡 7. 추가 핸들러
+  // 7. 추가 핸들러
   const handleAdd = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 💡 중요: 클릭 이벤트가 드롭다운을 닫지 않도록 막음
-    if (newOption.trim() === "") return;
-    if (options.includes(newOption)) {
+    e.stopPropagation(); // 중요: 클릭 이벤트가 드롭다운을 닫지 않도록 막음
+    const message = "추가하실 결제수단을 입력하세요.";
+    const newMethod = window.prompt(message);
+    if (!newMethod) return;
+    if (newMethod.trim() === "") return;
+    if (options.includes(newMethod)) {
       alert("이미 존재하는 결제수단입니다.");
       return;
     }
-    onAdd(newOption);
-    setNewOption(""); // 입력창 비우기
+    onAdd(newMethod.trim());
+    return;
   };
 
   return (
@@ -192,17 +194,10 @@ export default function CustomSelect({
                 </DeleteButton>
               </OptionItem>
             ))}
+            <OptionItem onClick={handleAdd}>
+              <span>추가하기</span>
+            </OptionItem>
           </OptionList>
-          {/* 7. 추가하기 섹션 */}
-          <AddSection onClick={(e) => e.stopPropagation()}>
-            <AddInput
-              type="text"
-              value={newOption}
-              onChange={(e) => setNewOption(e.target.value)}
-              placeholder="추가하기..."
-            />
-            <AddButton onClick={handleAdd}>+</AddButton>
-          </AddSection>
         </DropdownPanel>
       )}
     </SelectWrapper>

@@ -1,0 +1,122 @@
+body {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+header {
+  position: relative;      /* needed for absolute positioning inside */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo left, menu right */
+  padding: 0 10%;
+  height: 240px;
+  padding-bottom: 80px;
+  background-color: #73a4d0;
+  z-index:1;
+}
+header .logo{
+  font-size:40px;
+}
+.Menu button{
+  background-color: #33333300;
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border-color:#33333300;
+}
+
+/*Menu is currently incomplete. current becomes white type thing*/
+.Menu .transactions{
+  background-color: #ffffff;
+}
+.HeaderDateTitle {
+  position: absolute;      /* center absolutely */
+  left: 50%;               /* move to middle of header */
+  transform: translateX(-50%); /* offset by half its width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.HeaderDateTitle p{
+  font-size: 20px;
+}
+.HeaderDateTitle button{
+  background-color: #33333300;
+  border: none;
+}
+.Date h1{
+  width: 160px;
+  font-size: 60px;
+}
+
+th {
+  font-weight:400;
+}
+
+.InputBar{
+  width:80%;
+  margin: -64px auto 0 auto; /* top: -20px, left/right: auto, bottom: 0 */
+  z-index: 10;
+  position: relative;
+}
+.InputBar table{
+  width:100%;
+  background-color: white;
+  border: 1px solid;
+  text-align: left;
+  border-collapse:collapse;
+  
+
+}
+
+.InputBar td, th{
+  padding: 20px;
+  padding-left:40px;
+  border-right: 1px solid #333; 
+}
+.InputBar p{
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+
+
+.DayBlock{
+  width: 75%;
+  margin: 20px auto;
+  text-align: left;
+}
+.DayBlock table{
+  width: 100%;
+  vertical-align: top;
+  border-collapse: collapse;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+.DayBlock th, td {
+  padding: 16px;
+}
+.DayBlock th {
+  width: 12%;
+  text-align: center;
+}
+.DayBlock .description {
+  width: 40%;
+}
+.DayBlock .amount {
+  text-align: right;
+  color:#808080;
+}
+.category-life { background-color: #a7b9e9;}
+.category-food { background-color: #c5e0eb;}
+.category-transport { background-color: #7db7bf;}
+.category-shopping-beauty { background-color: #d7ca6b;}
+.category-health { background-color: #bcdfd3;}
+.category-leisure { background-color: #bda6e1;}
+.category-uncategorized { background-color: #f0b0d3;}
+.category-salary { background-color: #e5fff0;}
+.category-pocket-money { background-color: #fffde5;}
+.category-other-income { background-color: #e5f5ff;}
+.category-default { background-color: #f5f5f5;}

@@ -1,0 +1,254 @@
+{
+  "20250801": [
+    {
+      "amount": "-4500",
+      "description": "아침 편의점 커피",
+      "method": "카드",
+      "category": "식비"
+    },
+    {
+      "amount": "-12000",
+      "description": "지하철 교통비",
+      "method": "현금",
+      "category": "교통"
+    }
+  ],
+  "20250803": [
+    {
+      "amount": "-35000",
+      "description": "온라인 쇼핑",
+      "method": "카드",
+      "category": "쇼핑/뷰티"
+    },
+    {
+      "amount": "-8000",
+      "description": "점심 도시락",
+      "method": "카드",
+      "category": "식비"
+    }
+  ],
+  "20250805": [
+    {
+      "amount": "500000",
+      "description": "월급 입금",
+      "method": "이체",
+      "category": "월급"
+    },
+    {
+      "amount": "-15000",
+      "description": "헬스장 등록비",
+      "method": "카드",
+      "category": "의료/건강"
+    }
+  ],
+  "20250810": [
+    {
+      "amount": "-12000",
+      "description": "점심 한식",
+      "method": "카드",
+      "category": "식비"
+    },
+    {
+      "amount": "-2200",
+      "description": "버스 이동",
+      "method": "현금",
+      "category": "교통"
+    }
+  ],
+  "20250815": [
+    {
+      "amount": "-28000",
+      "description": "영화관 + 팝콘",
+      "method": "카드",
+      "category": "문화/여가"
+    },
+    {
+      "amount": "-7000",
+      "description": "저녁 컵라면",
+      "method": "현금",
+      "category": "식비"
+    }
+  ],
+  "20250820": [
+    {
+      "amount": "-45000",
+      "description": "뷰티샵 관리",
+      "method": "카드",
+      "category": "쇼핑/뷰티"
+    },
+    {
+      "amount": "-2000",
+      "description": "편의점 음료",
+      "method": "현금",
+      "category": "식비"
+    }
+  ],
+  "20250825": [
+    {
+      "amount": "-15000",
+      "description": "주유비",
+      "method": "카드",
+      "category": "교통"
+    },
+    {
+      "amount": "-10000",
+      "description": "점심 샌드위치",
+      "method": "현금",
+      "category": "식비"
+    }
+  ],
+  "20250901": [
+    {
+      "amount": "-5000",
+      "description": "아침 커피",
+      "method": "카드",
+      "category": "식비"
+    },
+    {
+      "amount": "100000",
+      "description": "용돈",
+      "method": "이체",
+      "category": "용돈"
+    }
+  ],
+  "20250905": [
+    {
+      "amount": "-35000",
+      "description": "온라인 의류",
+      "method": "카드",
+      "category": "쇼핑/뷰티"
+    },
+    {
+      "amount": "-12000",
+      "description": "점심 김치찌개",
+      "method": "현금",
+      "category": "식비"
+    }
+  ],
+  "20250910": [
+    {
+      "amount": "-18000",
+      "description": "영화관람",
+      "method": "카드",
+      "category": "문화/여가"
+    },
+    {
+      "amount": "-2000",
+      "description": "지하철 이동",
+      "method": "현금",
+      "category": "교통"
+    }
+  ],
+  "20250915": [
+    {
+      "amount": "-25000",
+      "description": "병원 진료비",
+      "method": "카드",
+      "category": "의료/건강"
+    },
+    {
+      "amount": "-10000",
+      "description": "저녁 치킨",
+      "method": "현금",
+      "category": "식비"
+    }
+  ],
+  "20250917": [
+    {
+      "amount": "850000",
+      "description": "알바 월급 입금",
+      "method": "이체",
+      "category": "월급"
+    },
+    {
+      "amount": "-15000",
+      "description": "영화관 관람",
+      "method": "카드",
+      "category": "문화/여가"
+    }
+  ],
+  "20251001": [
+    {
+      "amount": "-5000",
+      "description": "커피",
+      "method": "현금",
+      "category": "식비"
+    },
+    {
+      "amount": "-20000",
+      "description": "주말 외식",
+      "method": "카드",
+      "category": "식비"
+    }
+  ],
+  "20251005": [
+    {
+      "amount": "-30000",
+      "description": "온라인 쇼핑",
+      "method": "카드",
+      "category": "쇼핑/뷰티"
+    },
+    {
+      "amount": "-2200",
+      "description": "버스 이동",
+      "method": "현금",
+      "category": "교통"
+    }
+  ],
+  "20251010": [
+    {
+      "amount": "-12000",
+      "description": "점심 도시락",
+      "method": "현금",
+      "category": "식비"
+    },
+    {
+      "amount": "-28000",
+      "description": "영화관람 + 팝콘",
+      "method": "카드",
+      "category": "문화/여가"
+    }
+  ],
+  "20251015": [
+    {
+      "amount": "100000",
+      "description": "용돈 입금",
+      "method": "이체",
+      "category": "용돈"
+    },
+    {
+      "amount": "-15000",
+      "description": "저녁 식사",
+      "method": "카드",
+      "category": "식비"
+    }
+  ],
+  "20251018": [
+    {
+      "amount": "-32000",
+      "description": "올리브영 스킨케어 세트",
+      "method": "카드",
+      "category": "쇼핑/뷰티"
+    },
+    {
+      "amount": "-12000",
+      "description": "저녁 파스타",
+      "method": "카드",
+      "category": "식비"
+    }
+  ],
+  "20251019": [
+    {
+      "amount": "-8500",
+      "description": "점심 김치찌개",
+      "method": "현금",
+      "category": "식비"
+    },
+    {
+      "amount": "-2200",
+      "description": "버스 교통비",
+      "method": "카드",
+      "category": "교통"
+    }
+  ]
+}

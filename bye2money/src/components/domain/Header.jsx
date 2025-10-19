@@ -13,14 +13,10 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BarChartIcon from "@mui/icons-material/BarChart";
 
 
-export function Header() {
-  const now = new Date();
-  const [year, setYear] = useState(now.getFullYear());
+export function Header({ year, setYear, month, setMonth, view, setView }) {
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", 
                       "August", "September", "October", "November", "December"];
-  const [month, setMonth] = useState(now.getMonth() + 1);
-  const [view, setView] = useState("list");
-
+  
   const monthChangeHandler = (newMonth) => {
     if (newMonth > 12) {
       setYear(year + 1);

@@ -4,45 +4,56 @@ import styled from "styled-components";
 const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  padding: 0 16px;
+  border-right: 1px solid #e8e8e8;
 
   label {
-    font-size: 11px;
-    color: #888;
-    margin-left: 4px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
   }
 `;
 
 const AmountContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 `;
 
 const TypeToggleButton = styled.button`
-  width: 32px;
-  height: 32px;
-  font-size: 20px;
-  font-weight: bold;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  font-weight: normal;
   cursor: pointer;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
+  border: none;
+  color: #666;
+  padding: 0;
+
   &:hover {
-    opacity: 0.8;
+    background-color: #f5f5f5;
+    border-radius: 4px;
   }
 `;
 
 const StyledInput = styled.input`
   border: none;
-  border-radius: 6px;
-  padding: 8px 10px;
+  padding: 8px 4px;
   font-size: 14px;
-  background-color: white;
-  width: 130px;
+  background-color: transparent;
+  min-width: 100px;
   text-align: right;
+  outline: none;
+
+  &::placeholder {
+    color: #ccc;
+  }
 `;
 
 interface AmountInputProps {

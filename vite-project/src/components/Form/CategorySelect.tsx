@@ -4,22 +4,30 @@ import styled from "styled-components";
 const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  padding: 0 16px;
+  border-right: 1px solid #e8e8e8;
 
   label {
-    font-size: 11px;
-    color: #888;
-    margin-left: 4px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
   }
 `;
 
 const StyledCategorySelect = styled.select`
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px 10px;
+  border: none;
+  padding: 8px 4px;
   font-size: 14px;
-  background-color: white;
-  width: 150px;
+  background-color: transparent;
+  min-width: 100px;
+  outline: none;
+  cursor: pointer;
+  color: #333;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 interface CategorySelectProps {

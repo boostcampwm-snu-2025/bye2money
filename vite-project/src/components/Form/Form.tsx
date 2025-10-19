@@ -18,38 +18,55 @@ const MAX_CONTENT_LENGTH = 32;
 // --- Form styles ---
 const FormContainer = styled.form`
   display: flex;
-  align-items: flex-end;
-  gap: 12px;
+  align-items: center;
+  gap: 0;
   padding: 16px 24px;
-  background-color: #fdfdfd;
+  background-color: white;
   border: 1px solid #ddd;
-  flex-wrap: wrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 `;
 
 const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  padding: 0 16px;
+  border-right: 1px solid #e8e8e8;
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-of-type {
+    border-right: none;
+  }
 
   label {
-    font-size: 11px;
-    color: #888;
-    margin-left: 4px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
   }
 `;
 
 const SubmitButton = styled(Button)`
-  background-color: #333;
+  background-color: #000;
   color: white;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   padding: 0;
-  font-size: 18px;
-  border-radius: 6px;
+  font-size: 20px;
+  border-radius: 50%;
+  margin-left: 16px;
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: #333;
+  }
+
   &:disabled {
-    background-color: #cccccc;
-    color: #666666;         
-    cursor: not-allowed;     
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
   }
 `;
 

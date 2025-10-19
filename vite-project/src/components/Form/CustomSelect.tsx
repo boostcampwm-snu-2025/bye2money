@@ -6,106 +6,124 @@ import styled from "styled-components";
 // 래퍼: 'position: relative'가 드롭다운의 기준점이 됩니다.
 const SelectWrapper = styled.div`
   position: relative;
-  width: 150px;
+  min-width: 120px;
   font-size: 14px;
 `;
 
 // 기본 <select>처럼 보이는 박스
 const SelectTrigger = styled.div<{ $isOpen: boolean }>`
-  border: 1px solid ${(props) => (props.$isOpen ? "#333" : "#ccc")};
-  border-radius: 6px;
-  padding: 8px 10px;
-  background-color: white;
+  border: none;
+  padding: 8px 4px;
+  background-color: transparent;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: border-color 0.2s;
+  color: #333;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  span:first-child {
+    color: ${(props) => (props.$isOpen ? "#333" : "#333")};
+  }
 
   span:last-child {
     transform: ${(props) => (props.$isOpen ? "rotate(180deg)" : "rotate(0deg)")};
     transition: transform 0.2s;
+    font-size: 10px;
+    color: #999;
   }
 `;
 
-// 5. 드롭다운 패널 (position: absolute)
+// 드롭다운 패널
 const DropdownPanel = styled.div`
   position: absolute;
-  top: 100%; // Trigger 박스 바로 아래
+  top: calc(100% + 8px);
   left: 0;
-  width: 100%;
+  min-width: 180px;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  margin-top: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  max-height: 250px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  max-height: 280px;
   overflow-y: auto;
 `;
 
 const OptionList = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 4px;
   margin: 0;
 `;
 
-// 6. [X] 버튼이 포함된 옵션 아이템
+// 옵션 아이템
 const OptionItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 10px;
+  padding: 10px 12px;
   cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #f5f5f5;
   }
 `;
 
 const DeleteButton = styled.button`
   background: none;
   border: none;
-  color: #aaa;
-  font-size: 14px;
-  font-weight: bold;
+  color: #bbb;
+  font-size: 16px;
+  font-weight: normal;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 50%;
+  padding: 4px 6px;
+  border-radius: 4px;
+  line-height: 1;
 
   &:hover {
-    color: #e57373;
-    background-color: #f0f0f0;
+    color: #f44336;
+    background-color: #ffebee;
   }
 `;
 
-// 7. [추가하기] 섹션
 const AddSection = styled.div`
   display: flex;
   padding: 8px;
-  border-top: 1px solid #eee;
-  background-color: #f9f9f9;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fafafa;
 `;
 
 const AddInput = styled.input`
   flex-grow: 1;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 6px 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 6px 10px;
   font-size: 13px;
   margin-right: 6px;
+  outline: none;
+
+  &:focus {
+    border-color: #333;
+  }
 `;
 
 const AddButton = styled.button`
-  background: #333;
+  background: #000;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 0 10px;
+  border-radius: 6px;
+  padding: 0 12px;
   font-size: 13px;
   cursor: pointer;
+  font-weight: 500;
+
   &:hover {
-    opacity: 0.8;
+    background-color: #333;
   }
 `;
 

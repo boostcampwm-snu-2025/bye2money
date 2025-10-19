@@ -4,12 +4,18 @@ import styled from "styled-components";
 const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  padding: 0 16px;
+  border-right: 1px solid #e8e8e8;
+
+  &:first-child {
+    padding-left: 0;
+  }
 
   label {
-    font-size: 11px;
-    color: #888;
-    margin-left: 4px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
   }
 `;
 
@@ -21,16 +27,20 @@ const LabelWrapper = styled.div`
 
 const StyledInput = styled.input`
   border: none;
-  border-radius: 6px;
-  padding: 8px 10px;
+  padding: 8px 4px;
   font-size: 14px;
-  background-color: white;
+  background-color: transparent;
+  outline: none;
 
   &[type="text"] {
-    width: 220px;
+    min-width: 180px;
   }
   &[type="date"] {
-    width: 140px;
+    min-width: 120px;
+  }
+
+  &::placeholder {
+    color: #ccc;
   }
 `;
 

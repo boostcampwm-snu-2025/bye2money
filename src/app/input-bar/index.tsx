@@ -66,7 +66,7 @@ function InputBar() {
             name="paymentMethod"
           >
             {/* TODO: 색상 적용 안 됩니다. */}
-            <option className="text-[#777D84]" value="" disabled selected hidden>선택하세요</option>
+            <option className="text-[#777D84]" disabled hidden selected value="">선택하세요</option>
             {/* TODO: 추가 삭제 기능 구현해야 합니다. */}
             <option value="card">신용카드</option>
             <option value="bank">계좌이체</option>

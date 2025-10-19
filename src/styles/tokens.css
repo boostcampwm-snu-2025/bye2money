@@ -1,0 +1,58 @@
+:root {
+  /* Brand */
+  --brand-bg-header: #9f9e9e; /* Header background */
+  --brand-border-subtle: #d3d5db;
+  --brand-border: #585b61;
+  --brand-text-strong: #1f2430;
+  --brand-text: #2a2f3a;
+  --brand-text-muted: #5b6577;
+
+  /* Surface */
+  --surface-default: #ffffff;
+  --surface-hover: rgba(0, 0, 0, 0.06);
+
+  /* Accent (replace with Figma tokens) */
+  --accent-primary: #646cff;
+
+  /* Spacing */
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --space-40: 160px;
+  --space-48: 192px;
+
+  /* Radius */
+  --radius-2: 8px;
+  --radius-3: 12px;
+
+  /* Typography */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 36px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Header */
+  --header-height: 180px;
+  --header-gap: var(--space-6);           
+  --header-cluster-gap: var(--space-48);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-height: 72px;
+  }
+}

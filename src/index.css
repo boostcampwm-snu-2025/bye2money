@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@layer base {
+  body { @apply min-h-screen bg-white text-slate-900 antialiased; }
+}
+
+@layer components {
+  .container-horizontal { @apply flex flex-row items-center px-8 py-4 justify-around; }
+  .container-vertical   { @apply flex flex-col justify-center items-center; }
+  .btn                  { @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded; }
+  .icon                 { @apply w-6 h-6; }
+  .icon-toggle-group    { @apply flex items-center space-x-1 bg-gray-100 p-1 rounded-full; }
+  .icon-toggle-btn      { @apply p-2 rounded-full transition-colors; }
+  .icon-toggle-btn.active { @apply bg-white shadow-sm; }
+  .icon-toggle-btn:not(.active):hover { @apply bg-gray-200 cursor-pointer; }
+}
+

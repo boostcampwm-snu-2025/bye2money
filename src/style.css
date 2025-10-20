@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .container-horizontal {
+    @apply flex flex-row items-center px-8 py-4;
+    justify-content: space-around;
+  }
+  .container-vertical {
+    @apply flex flex-col justify-center items-center;
+  }
+
+  .btn {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+
+  .icon {
+    @apply w-6 h-6;
+  }
+
+  /* ✅ NEW: 아이콘 토글 그룹 컴포넌트 */
+  .icon-toggle-group {
+    @apply flex items-center space-x-1 bg-gray-100 p-1 rounded-full;
+  }
+
+  /* ✅ NEW: 아이콘 토글 그룹 내 개별 버튼 */
+  .icon-toggle-btn {
+    @apply p-2 rounded-full transition-colors;
+  }
+
+  /* ✅ NEW: 활성화된 버튼에 적용할 스타일 */
+  .icon-toggle-btn.active {
+    @apply bg-white shadow-sm;
+  }
+
+  /* ✅ NEW: 비활성 버튼에 마우스 올렸을 때 스타일 */
+  .icon-toggle-btn:not(.active):hover {
+    @apply bg-gray-200;
+    cursor: pointer;
+  }
+}

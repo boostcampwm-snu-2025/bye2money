@@ -8,38 +8,17 @@ import {
 import { DaySpendingsSection } from "../components/Main/DaySpendingsSection.tsx";
 import { CheckBox } from "../components/CheckBox.tsx";
 import { EditBar } from "../components/Main/EditBar.tsx";
+import { groupSpendingsByDay } from "../utils/utilFns.ts";
 
-const groupSpendingsByDay = (spendings: SpendingDetail[]): DaySpendings[] => {
-  if (!spendings.length) return [];
-  const { year, month } = spendings[0];
-  const days = [...new Set(spendings.map((s) => s.day))];
-  days.sort((a, b) => b - a);
-  const daysIdx = new Map();
-  const res: DaySpendings[] = [];
-  days.forEach((day, i) => {
-    daysIdx.set(day, i);
-    const daySpendings: DaySpendings = {
-      year,
-      month,
-      day,
-      spendings: [],
-    };
-    res.push(daySpendings);
-  });
-  spendings.forEach((s) => {
-    res[daysIdx.get(s.day)].spendings.push(s);
-  });
-  return res;
-};
 export const MainPage = () => {
   const { getPaymentMethods, addPaymentMethod, getSpendingsByMonth } =
     useSpendingDetailStore();
   const { getYear, getMonth } = useDateStore();
   const year = getYear();
   const month = getMonth();
-  const spendings = getSpendingsByMonth(year, month);
   const [includeExpenditures, setIncludeExpenditures] = useState<boolean>(true);
   const [includeIncomes, setIncludeIncomes] = useState<boolean>(true);
+  const spendings = getSpendingsByMonth(year, month);
   const spendingsByDay = useMemo(
     () => groupSpendingsByDay(spendings),
     [spendings],
@@ -47,9 +26,10 @@ export const MainPage = () => {
 
   return (
     <div
-      className="flex flex-col w-layout min-h-[700px] bg-neutral-surface-weak
-    items-center pt-[70px]"
+      className="relative flex flex-col w-layout min-h-[700px] bg-neutral-surface-weak
+    items-center gap-[34px]"
     >
+      <div className="absolute top-0 flex flex-row w-layout h-[40px] bg-colorchip-80"></div>
       <EditBar />
       <div className="flex flex-col w-[846px]">
         <div className="flex flex-row w-full h-[24px] justify-between">

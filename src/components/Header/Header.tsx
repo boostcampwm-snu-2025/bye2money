@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
     );
   });
   return (
-    <header className="flex flex-row relative w-layout h-[216px] items-start justify-center pt-[40px] bg-colorchip-80">
+    <header className="flex flex-row relative w-layout h-[176px] items-start justify-center pt-[40px] bg-colorchip-80">
       <div className="flex flex-row w-[846px] h-[112px] justify-between items-center">
         <button
           onClick={() => navigate("main")}

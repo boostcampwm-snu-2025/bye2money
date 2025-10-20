@@ -112,7 +112,7 @@ export const EditBar = () => {
   };
   return (
     <>
-      <div className="absolute flex flex-row top-[176px] left-[273px] w-[894px] h-[76px] bg-neutral-surface-default border-[0.5px] border-neutral-border-default px-[24px] items-center justify-between">
+      <div className="flex flex-row top-[176px] left-[273px] w-[894px] h-[76px] bg-neutral-surface-default border-[0.5px] border-neutral-border-default px-[24px] items-center justify-between z-50">
         <div className="relative flex flex-col justify-between w-[88px] h-[44px]">
           <label className="h-[24px] font-sans text-sans-light-sm">일자</label>
           <button

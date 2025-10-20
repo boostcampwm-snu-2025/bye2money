@@ -30,17 +30,26 @@ function Header({ currentTab, date, onNextMonth, onPrevMonth, onTabChange }: Pro
         </div>
         <img alt="Next Month" className="w-[32px] h-[32px]" onClick={onNextMonth} src={ChevronRight}/>
       </div>
-      <div className="flex justify-end w-[132px] gap-[4px]">
-        <span className={"w-[40px] h-[40px] p-[8px] rounded-[22px]" + (currentTab === "List" ? " bg-[#FFFFFF]" : "")} onClick={() => onTabChange?.("List")}>
+      <nav className="flex justify-end w-[132px] gap-[4px]">
+        <span
+          className={"w-[40px] h-[40px] p-[8px] rounded-[22px]" + (currentTab === "List" ? " bg-[#FFFFFF]" : "")}
+          onClick={() => onTabChange?.("List")}
+        >
           <img alt="List" className="w-[24px] h-[24px]" src={Doc}/>
         </span>
-        <span className={"w-[40px] h-[40px] p-[8px] rounded-[22px]" + (currentTab === "Calendar" ? " bg-[#FFFFFF]" : "")} onClick={() => onTabChange?.("Calendar")}>
+        <span
+          className={"w-[40px] h-[40px] p-[8px] rounded-[22px]" + (currentTab === "Calendar" ? " bg-[#FFFFFF]" : "")}
+          onClick={() => onTabChange?.("Calendar")}
+        >
           <img alt="Calender" className="w-[24px] h-[24px]" src={Calender}/>
         </span>
-        <span className={"w-[40px] h-[40px] p-[8px] rounded-[22px]" + (currentTab === "Analytics" ? " bg-[#FFFFFF]" : "")} onClick={() => onTabChange?.("Analytics")}>
+        <span
+          className={"w-[40px] h-[40px] p-[8px] rounded-[22px]" + (currentTab === "Analytics" ? " bg-[#FFFFFF]" : "")}
+          onClick={() => onTabChange?.("Analytics")}
+        >
           <img alt="Analytics" className="w-[24px] h-[24px]" src={Chart}/>
         </span>
-      </div>
+      </nav>
     </header>
   );
 }

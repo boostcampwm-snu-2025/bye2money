@@ -16,7 +16,7 @@ function App() {
   };
 
   return (
-    <div className="w-layout flex flex-col bg-teal-400">
+    <div className="w-layout flex flex-col bg-neutral-surface-weak">
       <Header />
       {routes[currentRoute]}
     </div>

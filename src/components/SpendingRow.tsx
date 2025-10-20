@@ -63,7 +63,7 @@ export const SpendingRow: React.FC<SpendingDetail> = ({
     ? "h-[24px] w-[186px] font-light font-sans text-sans-light-md text-end text-brand-text-expense"
     : "h-[24px] w-[186px] font-light font-sans text-sans-light-md text-end text-brand-text-income";
   return (
-    <button
+    <div
       onClick={fillUpEditBar}
       className="relative flex flex-row min-w-[919px] shrink-0 h-[56px] hover:bg-white hover:-translate-x-[73px] transition-transform duration-300"
     >
@@ -92,6 +92,6 @@ export const SpendingRow: React.FC<SpendingDetail> = ({
           icon={ClosedIcon}
         />
       </div>
-    </button>
+    </div>
   );
 };

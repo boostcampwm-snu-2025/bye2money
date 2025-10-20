@@ -1,40 +1,100 @@
+import { useForm } from "@tanstack/react-form";
+import dayjs from "dayjs";
+
 import Check from "~/assets/icons/check.svg";
 import Minus from "~/assets/icons/minus.svg";
+import Plus from "~/assets/icons/plus.svg";
 
-import Division from "./division"
+import Division from "./division";
+
+const MAX_DESCRIPTION_LENGTH = 32;
 
 function InputBar() {
+  const form = useForm({
+    defaultValues: {
+      amount: 0,
+      category: "",
+      date: dayjs(),
+      description: "",
+      paymentMethod: "",
+      sign: "expenses" as "expenses" | "income",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
   return (
-    <form className="flex justify-between w-[894px] h[76px] border-[0.5px] px-[24px] py-[16px] bg-[#FFFFFF]">
+    <form
+      className="flex justify-between w-[894px] h-[76px] border-[0.5px] px-[24px] py-[16px] bg-[#FFFFFF]"
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit().catch(console.error);
+      }}
+    >
       <label className="w-[88px] flex flex-col gap-[4px]">
-        <span className="w-full text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">일자</span>
-        <input
-          className="w-full h-[16px] text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] appearance-none"
+        <span className="w-full text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
+          일자
+        </span>
+        <form.Field
+          children={(field) => (
+            <input
+              className="w-full h-[16px] text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard]"
+              name={field.name}
+              onBlur={field.handleBlur}
+              onChange={(e) => field.handleChange(dayjs(e.target.value))}
+              type="date"
+              value={field.state.value.format("YYYY-MM-DD")}
+            />
+          )}
           name="date"
-          type="date"
         />
       </label>
       <Division />
       <label className="w-[134px] flex flex-col gap-[4px]">
-        <span className="w-full text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">금액</span>
+        <span className="w-full text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
+          금액
+        </span>
         <div className="w-full flex gap-[8px]">
-          <div>
-            <input
-              className="appearance-none w-[16px] h-[16px] hidden"
-              name="sign"
-              type="checkbox"
-            />
-            {/* TODO: 값에 따라 아이콘 변경해야 합니다. */}
-            <img alt="Minus" className="w-[16px] h-[16px]" src={Minus} />
-          </div>
-          <input
-            className="w-[88px] h-full text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] text-right placeholder:text-[#777D84]"
+          <form.Field
+            children={(field) => (
+              <div>
+                <input
+                  checked={field.state.value === "income"}
+                  className="appearance-none w-[16px] h-[16px] hidden"
+                  name={field.name}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.checked ? "income" : "expenses")}
+                  type="checkbox"
+                />
+                {field.state.value === "expenses" ? (
+                  <img alt="Minus" className="w-[16px] h-[16px]" src={Minus} />
+                ) : field.state.value === "income" ? (
+                  <img alt="Plus" className="w-[16px] h-[16px]" src={Plus} />
+                ) : null}
+              </div>
+            )}
+            name="sign"
+          />
+          <form.Field
+            children={(field) => (
+              <input
+                className="w-[88px] h-full text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] text-right placeholder:text-[#777D84]"
+                name={field.name}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(Number(e.target.value) || 0)}
+                placeholder="0"
+                type="text"
+                value={field.state.value.toLocaleString()}
+              />
+            )}
             name="amount"
-            placeholder="0"
-            type="text"
           />
           {/* TODO: 높이가 24px입니다. 16px로 수정해야 합니다. */}
-          <span className="w-[16px] h-[16px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] align-middle text-right">원</span>
+          <span className="w-[16px] h-[16px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] align-middle text-right">
+            원
+          </span>
         </div>
       </label>
       <Division />
@@ -44,14 +104,26 @@ function InputBar() {
             내용
           </span>
           <span className="w-full text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard] text-right text-[#777D84]">
-            0/32
+            <form.Subscribe
+              selector={state => state.values.description.length}
+            >
+              {length => `${length}/${MAX_DESCRIPTION_LENGTH}`}
+            </form.Subscribe>
           </span>
         </div>
-        <input
-          className="w-full text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] placeholder:text-[#777D84]"
+        <form.Field
+          children={(field) => (
+            <input
+              className="w-full text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] placeholder:text-[#777D84]"
+              name={field.name}
+              onBlur={field.handleBlur}
+              onChange={(e) => field.handleChange(e.target.value)}
+              placeholder="입력하세요"
+              type="text"
+              value={field.state.value}
+            />
+          )}
           name="description"
-          placeholder="입력하세요"
-          type="text"
         />
       </label>
       <Division />
@@ -65,7 +137,15 @@ function InputBar() {
             name="paymentMethod"
           >
             {/* TODO: 색상 적용 안 됩니다. */}
-            <option className="text-[#777D84]" disabled hidden selected value="">선택하세요</option>
+            <option
+              className="text-[#777D84]"
+              disabled
+              hidden
+              selected
+              value=""
+            >
+              선택하세요
+            </option>
             {/* TODO: 추가 삭제 기능 구현해야 합니다. */}
             <option value="card">신용카드</option>
             <option value="bank">계좌이체</option>
@@ -79,7 +159,7 @@ function InputBar() {
           분류
         </span>
         {/* TODO: 높이가 24px입니다. 16px로 수정해야 합니다. */}
-        <div className="relative after:content-[''] after:bg-[url(/icons/chevron-down.svg)] after:bg-contain after:bg-no-repeat after:w-[16px] after:h-[16px] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:pointer-events-none">
+        <div className="relative after:content-[''] after:bg-[url(~/assets/icons/chevron-down.svg)] after:bg-contain after:bg-no-repeat after:w-[16px] after:h-[16px] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:pointer-events-none">
           <select
             className="w-full text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] appearance-none"
             name="category"
@@ -101,11 +181,11 @@ function InputBar() {
       </label>
       <button type="submit">
         <div className="w-[40px] h-[40px] p-[8px] rounded-[20px] bg-[#000000]">
-          <img alt="Submit" className="w-[24px] h-[24px]" src={Check}/>
+          <img alt="Submit" className="w-[24px] h-[24px]" src={Check} />
         </div>
       </button>
     </form>
-  )
+  );
 }
 
-export default InputBar
+export default InputBar;

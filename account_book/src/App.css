@@ -1,0 +1,111 @@
+:root{
+  --blue:#78a7c8;
+  --bg:#f4f6f8;
+  --card:#fff;
+  --line:#e7edf2;
+  --text:#222;
+  --muted:#6b7280;
+  --negative:#d85050;
+  --positive:#2a74d9;
+  --pill:#eef3f7;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{margin:0; background:var(--bg); color:var(--text); font:14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif}
+
+.page{min-height:100%}
+
+/* Top bar */
+.topbar{
+  background:var(--blue);
+  color:#fff;
+  height:140px;
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items:center;
+  padding:0 24px;
+}
+.brand{font-size:24px; font-weight:600}
+.icons{justify-self:end; display:flex; gap:16px; font-size:20px}
+.month{display:grid; align-items:center; justify-items:center; row-gap:4px}
+.month .year{font-size:12px; opacity:.9; margin-top:4px}
+.month .month-num{font-size:44px; font-weight:700}
+.month .month-text{font-size:12px}
+.navbtn{
+  position:absolute; transform:translateY(4px);
+  border:none; background:#0003; color:#fff; width:28px; height:28px; border-radius:50%; cursor:pointer;
+}
+.month .navbtn:first-of-type{left:calc(50% - 120px)}
+.month .navbtn:last-of-type{right:calc(50% - 120px)}
+
+/* Summary card */
+.summary-card{
+  max-width:980px; margin:-28px auto 12px; background:var(--card);
+  border-radius:10px; border:1px solid var(--line);
+  display:flex; align-items:center; gap:12px; padding:12px 16px; position:relative;
+}
+.field{display:flex; flex-direction:column; gap:6px; min-width:120px}
+.field.grow{flex:1}
+.label{font-size:12px; color:var(--muted)}
+.value{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.value.bold{font-weight:700}
+.unit{font-weight:500; color:var(--muted); margin-left:4px}
+.divider{width:1px; height:36px; background:var(--line)}
+.pill.ok{
+  border:none; background:#e6f5ea; color:#2e7d32; width:32px; height:32px; border-radius:50%; cursor:pointer;
+}
+
+/* Dropdown */
+.dropdown{position:relative}
+.dropdown-btn{
+  border:1px solid var(--line); background:#fff; border-radius:8px; padding:6px 10px; cursor:pointer;
+}
+.chev{margin-left:6px}
+.menu{
+  position:absolute; top:64px; left:0; background:#fff; border:1px solid var(--line);
+  border-radius:10px; padding:6px; width:160px; box-shadow:0 8px 20px rgba(0,0,0,.06); z-index:10;
+}
+.menu-item{
+  display:block; width:100%; text-align:left; padding:8px 10px; background:none; border:none; border-radius:6px; cursor:pointer;
+}
+.menu-item:hover{background:var(--pill)}
+
+/* Totals */
+.totals{
+  max-width:980px; margin:6px auto 0; color:#222; display:flex; gap:8px; align-items:center; padding:0 2px;
+}
+.totals .dot{color:#9aa6b2}
+
+/* List */
+.list{max-width:980px; margin:8px auto 40px}
+.day{background:#fff; border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:16px}
+.day-head{
+  padding:10px 16px; display:flex; gap:10px; align-items:center; color:#333; background:#fafbfd; border-bottom:1px solid var(--line);
+}
+.day-date{font-weight:600}
+.day-week{color:var(--muted)}
+
+.row{
+  display:grid; grid-template-columns: 140px 1fr 120px 140px;
+  align-items:center; gap:12px; padding:14px 16px; border-top:1px solid var(--line);
+}
+.row:first-of-type{border-top:none}
+
+.cat{display:flex}
+.cat-main{
+  background:#eef2fb; padding:10px 12px; border-radius:10px; font-weight:600; color:#345;
+  width:100%; text-align:center;
+}
+
+.content .title{font-weight:500; color:#333}
+.account{color:#555; text-align:right}
+.amount{font-weight:700; text-align:right}
+.amount.neg{color:var(--negative)}
+.amount.pos{color:var(--positive)}
+
+@media (max-width: 720px){
+  .row{grid-template-columns: 120px 1fr; grid-template-rows:auto auto; gap:8px}
+  .account{grid-column:1 / 2}
+  .amount{grid-column:2 / 3}
+}

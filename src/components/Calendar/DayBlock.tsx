@@ -33,8 +33,8 @@ export const DayBlock: React.FC<DayBlockProps> = ({
 
   const blockStyle =
     (isToday ?? false)
-      ? "flex flex-col-reverse justify-between bg-neutral-surface-point w-[120.86px] h-[120px] py-[8px] pl-[8.86px] pr-[8px] border-[0.5px] border-neutral-border-default"
-      : "flex flex-col-reverse justify-between bg-neutral-surface-default w-[120.86px] h-[120px] py-[8px] pl-[8.86px] pr-[8px] border-[0.5px] border-neutral-border-default";
+      ? "flex flex-col-reverse justify-between bg-neutral-surface-point w-1/7 h-[119px] py-[8px] pl-[8.86px] pr-[8px]"
+      : "flex flex-col-reverse justify-between bg-neutral-surface-default w-1/7 h-[119px] py-[8px] pl-[8.86px] pr-[8px]";
 
   return (
     <div className={blockStyle}>

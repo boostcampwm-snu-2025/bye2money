@@ -48,31 +48,40 @@ export const Calendar = () => {
     (s) => (blocksProps[s.day - 1 + prefixQty].spendings = s.spendings),
   );
   const koreanWeekdays = ["일", "월", "화", "수", "목", "금", "토"];
+  const weeks: (DayBlockProps | undefined)[][] = [];
+  Array.from({ length: blocksProps.length / 7 }).forEach((_x, i) => {
+    weeks.push(blocksProps.slice(i * 7, i * 7 + 7));
+  });
 
   return (
-    <div className="flex flex-col w-[846px] z-10">
-      <div className="flex flex-row w-[846px]">
+    <div className="flex flex-col w-[845px] border-neutral-border-default border-[0.5px] divide-y-[0.5px] divide-neutral-border-default z-10">
+      <div className="flex flex-row w-[844px] divide-neutral-border-default divide-x-[0.5px]">
         {koreanWeekdays.map((x) => (
           <div
             key={x}
-            className="grid w-[120.86px] h-[48px] place-items-center bg-white border-[0.5px] border-neutral-border-default"
+            className="grid w-1/7 h-[48px] place-items-center bg-white"
           >
             {x}
           </div>
         ))}
       </div>
-      <div className="grid w-[846px] grid-cols-7">
-        {blocksProps.map((b, i) => (
-          <DayBlock
-            key={i}
-            year={b?.year}
-            month={b?.month}
-            day={b?.day}
-            spendings={b?.spendings}
-            isToday={b?.isToday}
-          />
-        ))}
-      </div>
+      {weeks.map((w, w_i) => (
+        <div
+          key={w_i}
+          className="flex flex-row w-[844px] h-[120px] divide-x-[0.5px] divide-neutral-border-default"
+        >
+          {w.map((b, i) => (
+            <DayBlock
+              key={i}
+              year={b?.year}
+              month={b?.month}
+              day={b?.day}
+              spendings={b?.spendings}
+              isToday={b?.isToday}
+            />
+          ))}
+        </div>
+      ))}
     </div>
   );
 };

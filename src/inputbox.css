@@ -1,0 +1,183 @@
+/* 입력창 바 (헤더 아래에 보이는 카드 형태) */
+.input-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  box-sizing: border-box;
+}
+.input-inner {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 10px 12px;
+  display: flex;
+  gap: 24px; /* 구분선이 가운데 오도록 gap을 약간 증가 */
+  align-items: center;
+  background: #fff;
+  border: 1px solid #222; /* 검은색 테두리 */
+  box-sizing: border-box;
+}
+
+/* 필드 사이에 세로 구분선: 각 필드의 오른쪽에 세로선 추가 (마지막은 제외)
+   선은 위/아래에서 여백을 주어 닿지 않도록 함 */
+.field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative; /* pseudo-element 위치 기준 */
+}
+
+/* 세로 구분선: gap의 가운데(= right: -gap/2) 에 선을 그림 */
+.field:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -12px; /* gap 값의 절반 (gap:24px) */
+  top: 6px;    /* 위쪽 여백 */
+  bottom: 6px; /* 아래쪽 여백 */
+  width: 1px;
+  background: #222;
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+/* 공통 필드 스타일 */
+.field-label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+.field-control {
+  height: 36px;
+  padding: 6px 10px;
+  border: none;          /* 테두리 제거 */
+  border-radius: 0;      /* 모서리 제거(선호시) */
+  background: transparent;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* 금액 필드: 부호 버튼 + 입력 */
+.amount-field {
+  width: 210px;
+  min-width: 0; /* allow field to shrink inside flex layout */
+}
+.amount-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.sign-toggle {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+.sign-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: #222;
+  border-radius: 4px;
+}
+.sign-btn.active {
+  background: #222;
+  color: #fff;
+  border-color: #222;
+}
+
+/* sign as select */
+.sign-select {
+  height: 36px;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  outline: none;
+  flex: 0 0 56px; /* fixed width so amount input can shrink neatly */
+  text-align: center;
+}
+
+/* amount wrapper: input + currency on same line */
+.amount-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto; /* allow shrinking/growing within amount-field */
+  min-width: 0;    /* critical to prevent overflow into next column */
+}
+
+/* amount input as text (no spinner) */
+.amount-input {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0; /* allow proper shrinking */
+  padding-right: 36px; /* space for currency */
+  text-align: right;
+  box-sizing: border-box;
+}
+
+/* currency badge on right inside the input area */
+.currency {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: #222;
+  pointer-events: none;
+}
+
+/* 내용 입력은 넓게 */
+.content-field { flex: 1 1 320px; }
+
+/* selects */
+.select-field { width: 160px; }
+
+/* 확인 버튼 */
+.submit-field { width: 90px; }
+.submit-btn {
+  height: 36px;
+  border-radius: 18px;
+  border: none;
+  background: #ddd;
+  color: #fff;
+  cursor: not-allowed;
+}
+.submit-btn:enabled {
+  background: #4a90e2;
+  cursor: pointer;
+}
+
+/* 레이블과 카운트 정렬을 위한 스타일 추가 */
+.field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.char-count {
+  font-size: 12px;
+  color: #999;
+  margin-left: 8px;
+}
+
+/* 반응형: 좁은 화면에서는 세로 스택 */
+@media (max-width: 900px) {
+  .input-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .input-inner .field { width: 100%; }
+  .date-field, .amount-field, .select-field, .submit-field { width: 100%; }
+}

@@ -1,0 +1,141 @@
+/* 전역 변수: 콘텐츠 좌우 공백/최대 너비 */
+:root {
+  --content-pad: 2rem;
+  --content-max: 1280px;
+}
+
+/* 페이지 전체 배경: 화면 전체에 깔리게 함 */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fa 0%, #e9eef6 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  padding-top: 140px; /* 헤더 높이만큼 본문 아래로 밀기 */
+  padding-left: var(--content-pad);
+  padding-right: var(--content-pad);
+  box-sizing: border-box;
+}
+
+/* 헤더 전체 고정 및 레이아웃 */
+header {
+  font-size: 1.25rem;
+  font-weight: bold;
+  width: 100%;
+  background-color: #777;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* 내부는 .header-inner가 담당 (중앙 정렬, 좌우 패딩) */
+  padding: 0;
+  height: 120px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  color: #fff;
+  z-index: 1000;
+}
+
+/* 내부 컨테이너: 콘텐츠는 이 안에서 좌우 여백과 중앙 정렬을 가짐 */
+.header-inner {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--content-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* 좌측 로고 */
+.logo-container {
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* 중앙 캘린더 박스 */
+.center-calendar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  min-width: 220px;
+  justify-content: center;
+}
+
+.cal-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+}
+
+/* 달력 텍스트 영역 (연/월/영문월) */
+.calender-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+
+.calender-display .year {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.calender-display .month {
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.calender-display .month_english {
+  font-size: 0.85rem;
+  opacity: 0.95;
+}
+
+/* 우측 아이콘 영역 */
+.link-container {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.35rem;
+  cursor: pointer;
+  padding: 0.3rem;
+}
+
+/* 반응형: 작은 화면에서는 좌우 패딩 감소 */
+@media (max-width: 768px) {
+  :root {
+    --content-pad: 1rem;
+  }
+
+  header {
+    height: 100px;
+  }
+
+  .calender-display .month {
+    font-size: 1.5rem;
+  }
+}

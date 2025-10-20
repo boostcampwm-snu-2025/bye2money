@@ -1,0 +1,100 @@
+/* Container for trigger */
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 32px;
+    padding: 0 8px;
+    background: transparent;
+    color: var(--brand-text);
+    cursor: pointer;
+}
+
+.caret {
+    border: solid var(--brand-text);
+    border-width: 0 1.5px 1.5px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    margin-left: 8px;
+}
+
+/* Legacy in-flow menu (not used when portal is enabled) */
+.menu {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    background: var(--surface-default);
+    border: 1px solid var(--brand-border-subtle);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+/* Portaled menu rendered into body with fixed positioning */
+.menuPortal {
+    z-index: 1000;
+    background: var(--surface-default);
+    border: 1px solid var(--brand-border-subtle);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    color: var(--brand-text);
+    cursor: pointer;
+}
+
+.option:first-child {
+    border-top: none;
+}
+
+.removeBtn {
+    border: none;
+    background: transparent;
+    color: var(--brand-text-muted);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.addRow {
+    padding: 10px 12px;
+    color: var(--brand-text);
+    cursor: pointer;
+    border-top: 1px solid var(--brand-border-subtle);
+    background: var(--surface-default);
+}
+
+.placeholder {
+    color: var(--brand-text-muted);
+}
+
+.selectedLabel {
+    color: var(--brand-text);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Horizontal divider (가로 구분선) */
+.dividerHorizontal {
+    /* 가로로 전체 폭 차지 */
+    width: 100%;
+    /* 1px 높이의 선 */
+    height: 1px;
+    background: var(--brand-border-subtle);
+    /* flex 항목으로 있을 때 크기 강제 변경 방지 */
+    flex: 0 0 auto;
+    /* 세로 방향 정렬 기본값 */
+    align-self: auto;
+}

@@ -1,0 +1,115 @@
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	width: 100vw; /* full-bleed */
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+
+	height: var(--header-height);
+	background: var(--brand-bg-header);
+	border-bottom: 1px solid var(--brand-border-subtle);
+}
+
+.inner {
+	max-width: 1200px;
+	margin: 0 auto;
+	height: 100%;
+	display: grid;
+	grid-template-columns: auto auto auto; /* left | center | right clustered */
+	justify-content: center; /* cluster around the middle */
+	align-items: center;
+	gap: var(--header-cluster-gap);
+	padding: 0 var(--space-6);
+	text-align: left;
+}
+
+.brand {
+	font-family: 'Playfair Display', serif;
+	font-size: 28px;
+	font-weight: 600;
+	letter-spacing: 0.2px;
+	color: var(--brand-text-strong);
+}
+
+.brandLink { text-decoration: none; color: inherit; }
+
+.center {
+	display: flex;
+	align-items: center;
+	justify-self: center;
+	gap: var(--header-gap);
+}
+
+.navBtn {
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-2);
+	border: none;
+	background: transparent;
+	color: var(--brand-text);
+	font-size: 20px;
+	line-height: 1;
+	cursor: pointer;
+}
+.navBtn:hover { background: var(--surface-hover); }
+
+.monthBox {
+	min-width: 200px;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	align-items: center;
+	justify-items: center;
+	padding: 0 var(--space-2);
+}
+
+.year {
+	font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-medium);
+	color: var(--brand-text);
+}
+
+.monthNumber {
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-bold);
+	color: var(--brand-text-strong);
+	line-height: 1.1;
+}
+
+.monthName {
+    font-family: 'Playfair Display', serif;
+	font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-bold);
+	color: var(--brand-text);
+}
+
+.right {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: var(--header-gap);
+}
+
+.iconButton {
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-2);
+	border: none;
+	background: transparent;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 18px;
+}
+.iconButton:hover { background: var(--surface-hover); }
+
+@media (max-width: 640px) {
+	.header {
+		height: var(--header-height);
+	}
+	.inner { grid-template-columns: 1fr auto auto; gap: var(--space-2); padding: 0 var(--space-3); }
+	.brand { display: none; }
+	.monthBox { min-width: 160px; padding: 0 var(--space-2); }
+	.monthNumber { font-size: 22px; }
+}

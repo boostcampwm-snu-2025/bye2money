@@ -1,3 +1,4 @@
+import type { CategorySpending } from "../components/Chart/PieChart.tsx";
 import {
   type DaySpendings,
   type SpendingDetail,
@@ -25,6 +26,23 @@ export const groupSpendingsByDay = (
   spendings.forEach((s) => {
     res[daysIdx.get(s.day)].spendings.push(s);
   });
+  return res;
+};
+
+export const analyzeExpendituressByCategory = (
+  spendings: SpendingDetail[],
+): CategorySpending[] => {
+  const expenditures = spendings.filter((s) => s.isExpenditure);
+  const res = [];
+  if (!expenditures) return res;
+  const memo = {};
+  expenditures.forEach((e) => {
+    memo[e.category] = (memo[e.category] ?? 0) + e.amount;
+  });
+  Object.keys(memo).forEach((c) => {
+    res.push({ category: c, total: memo[c] });
+  });
+  res.sort((a, b) => b.total - a.total);
   return res;
 };
 

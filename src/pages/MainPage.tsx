@@ -5,7 +5,7 @@ import {
   type DaySpendings,
   type SpendingDetail,
 } from "../store/useSpendingDetailStore.ts";
-import { DaySpendingsSection } from "../components/Main/DaySpendingsSection.tsx";
+import { DaySpendingsSection } from "../components/DaySpendingsSection.tsx";
 import { CheckBox } from "../components/CheckBox.tsx";
 import { EditBar } from "../components/Main/EditBar.tsx";
 import { groupSpendingsByDay } from "../utils/utilFns.ts";

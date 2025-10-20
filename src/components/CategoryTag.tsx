@@ -30,6 +30,21 @@ const getBgColorClass = (category: Category): string => {
   };
   return `category-tag ${categoryColorMap[category]}`;
 };
+export const getBfColorRaw = (category: Category): string => {
+  const categoryColorMap: Record<Category, string> = {
+    living: "#a7b9e9",
+    shoppingBeauty: "#d7ca6b",
+    medicalHealth: "#bcdfd3",
+    food: "#c5e0eb",
+    transport: "#7db7bf",
+    cultureLeisure: "#bda6e1",
+    unclassified: "#f0b0d3",
+    salary: "#e39d5d",
+    otherIncome: "#a28878",
+    allowance: "#aacd7e",
+  };
+  return `${categoryColorMap[category]}`;
+};
 export const getLabel = (category: Category): string => {
   const categoryLabelMap: Record<Category, string> = {
     living: "생활",

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useState } from "react"
+import { useState } from "react";
 
 import Header from "./header";
 import InputBar from "./input-bar";
@@ -19,7 +19,7 @@ const useMonthlyDate = () => {
   };
 
   return { date, setNextMonth, setPrevMonth };
-}
+};
 
 type Tab = "Analytics" | "Calendar" | "List";
 const initialTab: Tab = "List";
@@ -31,15 +31,25 @@ function App() {
   return (
     <div className="flex flex-col items-center w-full h-full pt-[40px] gap-[24px]">
       <div className="absolute top-0 w-full h-[216px] bg-[#73A4D0] z-[-1]"></div>
-      <Header currentTab={tab} date={date} onNextMonth={setNextMonth} onPrevMonth={setPrevMonth} onTabChange={setTab}/>
-      {tab === "List" && (
+      <Header
+        currentTab={tab}
+        date={date}
+        onNextMonth={setNextMonth}
+        onPrevMonth={setPrevMonth}
+        onTabChange={setTab}
+      />
+      {tab === "List" ? (
         <>
           <InputBar />
           <ListView />
         </>
-      )}
+      ) : tab === "Calendar" ? (
+        <div>Calendar View - to be implemented</div>
+      ) : tab === "Analytics" ? (
+        <div>Analytics View - to be implemented</div>
+      ) : null}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

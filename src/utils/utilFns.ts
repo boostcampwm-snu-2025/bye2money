@@ -38,3 +38,19 @@ export const formatMoney = (isExpenditure: boolean, num: number) => {
     .replaceAll("₩", "");
   return prefix + formatted;
 };
+
+export const getExpendituresSum = (
+  spendings: SpendingDetail[] | undefined,
+): number | undefined =>
+  spendings
+    ?.filter((x) => x.isExpenditure)
+    .map((x) => x.amount)
+    .reduce((a, b) => a + b, 0);
+
+export const getIncomesSum = (
+  spendings: SpendingDetail[] | undefined,
+): number | undefined =>
+  spendings
+    ?.filter((x) => !x.isExpenditure)
+    .map((x) => x.amount)
+    .reduce((a, b) => a + b, 0);

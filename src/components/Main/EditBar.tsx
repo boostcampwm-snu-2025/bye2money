@@ -26,7 +26,7 @@ const expenditureTypes: Category[] = [
 ];
 export const incomeTypes: Category[] = ["salary", "allowance", "otherIncome"];
 
-export const HeaderAppendBar = () => {
+export const EditBar = () => {
   const {
     date,
     setDate,

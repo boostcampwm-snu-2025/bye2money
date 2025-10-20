@@ -5,11 +5,9 @@ import ChartIcon from "../../assets/icons/chart.svg?react";
 import ChevronLeftIcon from "../../assets/icons/chevron-left.svg?react";
 import ChevronRightIcon from "../../assets/icons/chevron-right.svg?react";
 import { NavBtn } from "./NavBtn";
-// import { HeaderAppendBar } from "./HeaderAppendBar";
 import { useDateStore } from "../../store/useDateStore";
 import { useRouteStore } from "../../store/useRouteStore";
 import type { NavState } from "../../store/useRouteStore";
-import { HeaderAppendBar } from "./HeaderAppendBar";
 
 const getIcon = (navState: NavState): React.FC => {
   const navIconMap: Record<NavState, React.FC> = {
@@ -73,7 +71,6 @@ export const Header: React.FC = () => {
           {navBtns}
         </nav>
       </div>
-      <HeaderAppendBar />
     </header>
   );
 };

@@ -7,6 +7,7 @@ import {
 } from "../store/useSpendingDetailStore.ts";
 import { DaySpendingsSection } from "../components/Main/DaySpendingsSection.tsx";
 import { CheckBox } from "../components/CheckBox.tsx";
+import { EditBar } from "../components/Main/EditBar.tsx";
 
 const groupSpendingsByDay = (spendings: SpendingDetail[]): DaySpendings[] => {
   if (!spendings.length) return [];
@@ -49,6 +50,7 @@ export const MainPage = () => {
       className="flex flex-col w-layout min-h-[700px] bg-neutral-surface-weak
     items-center pt-[70px]"
     >
+      <EditBar />
       <div className="flex flex-col w-[846px]">
         <div className="flex flex-row w-full h-[24px] justify-between">
           <div className="flex flex-row w-[68px] justify-between">

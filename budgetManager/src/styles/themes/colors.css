@@ -1,0 +1,56 @@
+/* Color Variables */
+:root {
+  /* Primitive Colors */
+  --grayscale-50: #ffffff;
+  --grayscale-100: #fbfcfd;
+  --grayscale-200: #f1f4f8;
+  --grayscale-300: #777d84;
+  --grayscale-400: #000000;
+
+  --pastel-almondFrost: #a28878;
+  --pastel-porshce: #e39d5d;
+  --pastel-chenin: #d7ca6b;
+  --pastel-caper: #aacd7e;
+  --pastel-cruise: #bcdfd3;
+  --pastel-onahau: #c5e0eb;
+  --pastel-glacier: #7db7bf;
+  --pastel-seagull: #79b2ca;
+  --pastel-jordyBlue: #73a4d0;
+  --pastel-perano: #a7b9e9;
+  --pastel-perfume: #bda6e1;
+  --pastel-lavenderPink: #f0b0d3;
+  --pastel-amaranth: #e93b5a;
+  --pastel-chestnut: #c04646;
+
+  /* Tokens */
+  --neutral-surface-weak: var(--grayscale-100);
+  --neutral-surface-default: var(--grayscale-50);
+  --neutral-surface-point: var(--grayscale-200);
+  --neutral-text-weak: var(--grayscale-300);
+  --neutral-text-default: var(--grayscale-400);
+  --neutral-text-rev-default: var(--grayscale-50);
+  --neutral-border-default: var(--grayscale-400);
+
+  --brand-surface-default: var(--grayscale-50);
+  --brand-text-income: var(--pastel-seagull);
+  --brand-text-expense: var(--pastel-chestnut);
+
+  --danger-surface-default: var(--pastel-amaranth);
+  --danger-text-default: var(--pastel-amaranth);
+  --danger-text-rev-default: var(--grayscale-50);
+  --danger-border-default: var(--pastel-amaranth);
+
+  --colorchip-10: var(--pastel-almondFrost);
+  --colorchip-20: var(--pastel-porshce);
+  --colorchip-30: var(--pastel-chenin);
+  --colorchip-40: var(--pastel-caper);
+  --colorchip-50: var(--pastel-cruise);
+  --colorchip-60: var(--pastel-onahau);
+  --colorchip-70: var(--pastel-glacier);
+  --colorchip-80: var(--pastel-jordyBlue);
+  --colorchip-90: var(--pastel-perano);
+  --colorchip-100: var(--pastel-perfume);
+  --colorchip-110: var(--pastel-lavenderPink);
+  --colorchip-120: var(--pastel-chestnut);
+
+}

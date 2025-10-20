@@ -1,0 +1,6 @@
+/* Main Page Styles */
+.mainPage {
+  width: var(--container-width);
+  height: 100%;
+  background-color: var(--color-background);
+}

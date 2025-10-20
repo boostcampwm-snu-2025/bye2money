@@ -1,0 +1,114 @@
+/* Header Styles */
+.header {
+  position: fixed;
+  width: var(--container-width);
+  height: var(--header-height);
+  background-color: var(--colorchip-80);
+  border-bottom: 0.5px solid var(--neutral-border-default);
+  z-index: 100;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 40px;
+  left: 297px;
+  width: 846px;
+  height: 112px;
+  justify-content: space-between;
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--neutral-text-default);
+  font-family: var(--font-family-primary);
+  margin: 0;
+}
+
+.tabList {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.tabItem {
+  margin: 0;
+}
+
+.tabIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+/* MonthYear Styles */
+.monthYear {
+  width: 232px;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+}
+
+.year {
+  width: 120px;
+  height: 24px;
+  font-family: var(--font-family-primary);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: var(--neutral-text-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day {
+  width: 24px;
+  height: 56px;
+  font-family: var(--font-family-primary);
+  font-weight: 400;
+  font-size: 48px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: var(--neutral-text-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.chevronIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.month {
+  width: 120px;
+  height: 24px;
+  font-family: var(--font-family-primary);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: var(--neutral-text-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,26 @@
+/* Import theme variables */
+@import './themes/colors.css';
+@import './themes/spacing.css';
+@import './themes/typography.css';
+
+/* Global App Styles */
+.app {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--neutral-surface-weak);
+  display: flex;
+  justify-content: center;
+}
+
+/* Reset default margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--neutral-surface-weak);
+}

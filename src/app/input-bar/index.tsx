@@ -1,5 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import dayjs from "dayjs";
+import z from "zod";
 
 import Check from "~/assets/icons/check.svg";
 import Minus from "~/assets/icons/minus.svg";
@@ -14,13 +15,23 @@ function InputBar() {
     defaultValues: {
       amount: 0,
       category: "",
-      date: dayjs(),
+      date: new Date(),
       description: "",
       paymentMethod: "",
       sign: "expenses" as "expenses" | "income",
     },
     onSubmit: (values) => {
-      console.log(values);
+      console.log(values.value);  
+    },
+    validators: {
+      onChange: z.object({
+        amount: z.number(),
+        category: z.string(),
+        date: z.date(),
+        description: z.string().max(MAX_DESCRIPTION_LENGTH),
+        paymentMethod: z.string(),
+        sign: z.enum(["expenses", "income"]),
+      })
     },
   });
 
@@ -43,9 +54,9 @@ function InputBar() {
               className="w-full h-[16px] text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard]"
               name={field.name}
               onBlur={field.handleBlur}
-              onChange={(e) => field.handleChange(dayjs(e.target.value))}
+              onChange={(e) => field.handleChange(new Date(e.target.value))}
               type="date"
-              value={field.state.value.format("YYYY-MM-DD")}
+              value={dayjs(field.state.value).format("YYYY-MM-DD")}
             />
           )}
           name="date"
@@ -81,12 +92,16 @@ function InputBar() {
             children={(field) => (
               <input
                 className="w-[88px] h-full text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] text-right placeholder:text-[#777D84]"
+                inputMode="numeric"
                 name={field.name}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(Number(e.target.value) || 0)}
+                onChange={(e) => {
+                  const output = parseInt(e.target.value.replace(/[^0-9]/g, ""), 10);
+                  field.handleChange(isNaN(output) ? 0 : output);
+                }}
                 placeholder="0"
                 type="text"
-                value={field.state.value.toLocaleString()}
+                value={field.state.value === 0 ? "" : field.state.value.toLocaleString()}
               />
             )}
             name="amount"

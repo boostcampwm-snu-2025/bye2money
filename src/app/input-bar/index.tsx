@@ -173,7 +173,6 @@ function InputBar() {
         <span className="w-full text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
           분류
         </span>
-        {/* TODO: 높이가 24px입니다. 16px로 수정해야 합니다. */}
         <div className="leading-[16px] relative after:content-[''] after:bg-[url(~/assets/icons/chevron-down.svg)] after:bg-contain after:bg-no-repeat after:w-[16px] after:h-[16px] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:pointer-events-none">
           <select
             className="w-full text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] appearance-none"

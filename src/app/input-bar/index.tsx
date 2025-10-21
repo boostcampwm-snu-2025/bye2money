@@ -21,7 +21,7 @@ function InputBar() {
       sign: "expenses" as "expenses" | "income",
     },
     onSubmit: (values) => {
-      console.log(values.value);  
+      console.log(values.value);
     },
     validators: {
       onChange: z.object({
@@ -31,7 +31,7 @@ function InputBar() {
         description: z.string().max(MAX_DESCRIPTION_LENGTH),
         paymentMethod: z.string(),
         sign: z.enum(["expenses", "income"]),
-      })
+      }),
     },
   });
 
@@ -76,7 +76,9 @@ function InputBar() {
                   className="appearance-none w-[16px] h-[16px] hidden"
                   name={field.name}
                   onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.checked ? "income" : "expenses")}
+                  onChange={(e) =>
+                    field.handleChange(e.target.checked ? "income" : "expenses")
+                  }
                   type="checkbox"
                 />
                 {field.state.value === "expenses" ? (
@@ -96,12 +98,19 @@ function InputBar() {
                 name={field.name}
                 onBlur={field.handleBlur}
                 onChange={(e) => {
-                  const output = parseInt(e.target.value.replace(/[^0-9]/g, ""), 10);
+                  const output = parseInt(
+                    e.target.value.replace(/[^0-9]/g, ""),
+                    10
+                  );
                   field.handleChange(isNaN(output) ? 0 : output);
                 }}
                 placeholder="0"
                 type="text"
-                value={field.state.value === 0 ? "" : field.state.value.toLocaleString()}
+                value={
+                  field.state.value === 0
+                    ? ""
+                    : field.state.value.toLocaleString()
+                }
               />
             )}
             name="amount"
@@ -120,9 +129,9 @@ function InputBar() {
           </span>
           <span className="w-full text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard] text-right text-[#777D84]">
             <form.Subscribe
-              selector={state => state.values.description.length}
+              selector={(state) => state.values.description.length}
             >
-              {length => `${length}/${MAX_DESCRIPTION_LENGTH}`}
+              {(length) => `${length}/${MAX_DESCRIPTION_LENGTH}`}
             </form.Subscribe>
           </span>
         </div>
@@ -179,17 +188,27 @@ function InputBar() {
             name="category"
           >
             {/* TODO: 값에 따라 구분해야 합니다. */}
-            <option value="life">생활</option>
-            <option value="food">식비</option>
-            <option value="transport">교통</option>
-            <option value="shopping">쇼핑/뷰티</option>
-            <option value="health">의료/건강</option>
-            <option value="culture">문화/여가</option>
-            <option value="etc">미분류</option>
-
-            <option value="salary">월급</option>
-            <option value="allowance">용돈</option>
-            <option value="etc">기타 수입</option>
+            <form.Subscribe selector={(state) => state.values.sign}>
+              {(sign) =>
+                sign === "expenses" ? (
+                  <>
+                    <option value="life">생활</option>
+                    <option value="food">식비</option>
+                    <option value="transport">교통</option>
+                    <option value="shopping">쇼핑/뷰티</option>
+                    <option value="health">의료/건강</option>
+                    <option value="culture">문화/여가</option>
+                    <option value="etc">미분류</option>
+                  </>
+                ) : sign === "income" ? (
+                  <>
+                    <option value="salary">월급</option>
+                    <option value="allowance">용돈</option>
+                    <option value="etc">기타 수입</option>
+                  </>
+                ) : null
+              }
+            </form.Subscribe>
           </select>
         </div>
       </label>

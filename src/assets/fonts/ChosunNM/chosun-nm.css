@@ -1,0 +1,6 @@
+@font-face {
+	font-family: 'ChosunNM';
+  font-weight: 400;
+	font-display: swap;
+	src: local('ChosunNM'), url(./ChosunNM.woff) format('woff');
+}

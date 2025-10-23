@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Pretendard Light (300) */
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Pretendard SemiBold (600) */
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* 조선일보명조 (ChosunCentennial) */
+@font-face {
+  font-family: "ChosunilboNM";
+  src: url("/fonts/ChosunCentennial.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}

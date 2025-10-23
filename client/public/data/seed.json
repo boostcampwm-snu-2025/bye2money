@@ -1,0 +1,11 @@
+{
+    "methods": [
+      { "id": "cash", "name": "현금" },
+      { "id": "hyundai", "name": "현대카드" }
+    ],
+    "txns": [
+      { "id": "t1", "date": "2023-08-10", "amount": 2010580, "memo": "8월 급여", "methodId": "cash", "category": "월급", "createdAt": 1691650000000 },
+      { "id": "t2", "date": "2023-08-10", "amount": -9500, "memo": "잔치국수와 김밥", "methodId": "hyundai", "category": "식비", "createdAt": 1691653600000 }
+    ]
+  }
+  

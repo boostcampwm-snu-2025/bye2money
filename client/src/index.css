@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Pretendard Variable';
+  src: local('Pretendard Variable'),
+       url('/fonts/PretendardVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ChosunNm';
+  src:
+    local('ChosunNm'),
+    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/ChosunNm.woff') format('woff'),
+    url('/fonts/ChosunNm.ttf') format('truetype'); /* 선택: CDN 실패시 로컬 TTF 폴백 */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chosunilbo_myungjo';
+  src:
+    local('Chosunilbo_myungjo'),
+    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base */
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply font-sans bg-neutral-surface text-neutral-text; }
+  h1, h2, h3 { @apply font-serif; }
+
+  /* 타입 스케일 */
+  .h1-serif { @apply font-serif text-[48px] leading-[56px]; }
+  .title-sb-16 { @apply font-semibold text-[16px] leading-[24px]; }
+  .title-sb-14 { @apply font-semibold text-[14px] leading-[16px]; }
+  .title-sb-12 { @apply font-semibold text-[12px] leading-[16px]; }
+  .body-16 { @apply font-light text-[16px] leading-[32px]; }
+  .body-14 { @apply font-light text-[14px] leading-[24px]; }
+  .body-12 { @apply font-light text-[12px] leading-[24px]; }
+}
+
+/* ---------- Components ---------- */
+@layer components {
+  /* Button */
+  .btn { @apply inline-flex items-center justify-center rounded-full px-4 py-2 text-sm transition;
+         @apply outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-text; }
+  .btn-primary   { @apply bg-neutral-text text-neutral-text-rev hover:opacity-90 active:opacity-80; }
+  .btn-secondary { @apply bg-neutral-surface-point text-neutral-text hover:bg-gs-200; }
+  .btn-ghost     { @apply bg-transparent hover:bg-gs-100; }
+  .btn-danger    { @apply bg-danger-surface text-danger-text-rev hover:opacity-90; }
+  .btn-disabled  { @apply opacity-40 pointer-events-none; }
+
+  /* Text Input */
+  .input {
+    @apply w-full rounded-xl border border-neutral-border bg-neutral-surface px-3 py-2 outline-none;
+    @apply focus:border-neutral-text focus:ring-0;
+  }
+  .input-error { @apply border-danger-border; }
+
+  /* Checkbox */
+  .chk { @apply h-4 w-4 appearance-none rounded-sm border border-neutral-border align-middle;
+         @apply grid place-content-center;
+         background-color: theme('colors.neutral-surface');
+       }
+  .chk:checked { @apply bg-neutral-text; }
+  .chk:checked::after {
+    content: ''; width: 10px; height: 10px; display: block;
+    background: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4.2 8L11 1.5' stroke='white' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;
+  }
+
+  /* Category Tag */
+  .tag { @apply inline-flex items-center rounded px-2 py-1 text-xs text-neutral-text; }
+
+  .tag[data-cat="생활"]       { background-color: theme('colors.chip-40'); }
+  .tag[data-cat="식비"]       { background-color: theme('colors.chip-20'); }
+  .tag[data-cat="교통"]       { background-color: theme('colors.chip-30'); }
+  .tag[data-cat="쇼핑/뷰티"]  { background-color: theme('colors.chip-110'); }
+  .tag[data-cat="의료/건강"]  { background-color: theme('colors.chip-100'); }
+  .tag[data-cat="문화/여가"]  { background-color: theme('colors.chip-90'); }
+  .tag[data-cat="미분류"]     { background-color: theme('colors.chip-10'); }
+  .tag[data-cat="월급"]       { background-color: theme('colors.chip-80'); }
+  .tag[data-cat="용돈"]       { background-color: theme('colors.chip-60'); }
+  .tag[data-cat="기타수입"]   { background-color: theme('colors.chip-50'); }
+
+  /* Modal shell */
+  .modal-overlay { @apply fixed inset-0 z-50 grid place-items-center bg-black/40; }
+  .modal-card { @apply w-[min(92vw,420px)] rounded-2xl bg-neutral-surface p-5 shadow-elevated; }
+}
+
+/* focus-visible 보강 */
+:focus-visible { outline: 2px solid theme('colors.neutral-text'); outline-offset: 2px; }
+
+/* EntryBar / Inputs 보강 */
+.input {
+  /* 기존 .input 정의가 있다면 그대로 두고, 없으면 아래를 사용 */
+  @apply w-full rounded-xl border border-neutral-border bg-neutral-surface px-3 py-2 outline-none;
+  @apply focus:border-neutral-text focus:ring-0;
+}
+.input::placeholder { @apply text-neutral-text-weak; }
+
+/* 버튼/아이콘 hover 느낌 살짝 */
+.shadow-elevated { box-shadow: 0 8px 24px rgba(0,0,0,.08); }

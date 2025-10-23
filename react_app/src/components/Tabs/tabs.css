@@ -1,0 +1,53 @@
+.tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Each NavLink */
+.tab {
+  text-decoration: none;
+  padding: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  color: #333;
+  width: 30%;
+  font-size: 1rem;
+  background: #fff;
+  transition: background 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Inner layout: emoji + text stacked vertically */
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.nav-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.nav-label {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Active tab */
+.tab.active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* Hover effect */
+.tab:hover {
+  background: #f3f4f6;
+}

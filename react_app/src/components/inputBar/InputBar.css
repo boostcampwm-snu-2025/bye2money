@@ -1,0 +1,72 @@
+.inputbar-flex {
+  display: flex;
+  background: #fff;
+  overflow: hidden;
+}
+
+.col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ddd; /* ✅ 각 섹션 사이 세로줄 */
+}
+
+/* 마지막 열은 오른쪽 줄 제거 */
+.col:last-child {
+  border-right: none;
+}
+
+/* ✅ 가로줄 제거 — 배경만 약간 구분 */
+.col-header {
+
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px;
+  border: none; /* ← 가로줄 완전히 제거 */
+}
+
+.col input,
+.col .select {
+  height: 34px;
+  border: none;
+  outline: none;
+  padding: 0 8px;
+  text-align: center;
+}
+
+/* amount 필드 */
+.amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+}
+
+.pm {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.pm.expense { color: #e5484d; }
+.pm.income { color: #0d7a2b; }
+
+.check-btn {
+  width: 100%;
+  height: 34px;
+  font-size: 18px;
+  border: none;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+.check-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

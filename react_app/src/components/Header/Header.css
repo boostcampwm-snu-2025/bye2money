@@ -1,0 +1,94 @@
+.app-header {
+    --header-bg: #73A4D0;
+
+    position: sticky;
+    top: 0;
+
+    align-items: center;
+    padding: 10px 12px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    background-color: var(--header-bg);
+    width: 100%;
+    min-width: 1000px;
+    height: 216px;
+    display: flex;
+    justify-content: center; /* horizontally center */
+}
+
+a {
+    text-decoration: none;
+}
+
+.header-main-content {
+    width: 80%;
+    min-width: 100px;
+}
+
+.header-main-content-row1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    width: 20%;
+}
+
+.header-menu {
+    width: 20%;
+}
+
+.logo:hover {
+    color: #dbeafe;
+    /* light blue on hover */
+    text-decoration: none;
+}
+
+.logo,
+.logo:hover,
+.logo:focus,
+.logo:active {
+    text-decoration: none;
+}
+
+
+.left {
+    justify-self: start;
+}
+
+.center {
+    justify-self: center;
+}
+
+.right {
+    justify-self: end;
+}
+
+.month-selector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.month-selector button {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.month-label {
+    font-weight: 600;
+    min-width: 84px;
+    text-align: center;
+}

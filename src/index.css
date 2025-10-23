@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Force include these classes for category badges */
+@layer utilities {
+  .bg-purple-200 { background-color: #e9d5ff; }
+  .text-purple-800 { color: #6b21a8; }
+  .bg-teal-300 { background-color: #5eead4; }
+  .text-teal-900 { color: #134e4a; }
+  .bg-blue-200 { background-color: #bfdbfe; }
+  .text-blue-800 { color: #1e40af; }
+  .bg-purple-300 { background-color: #d8b4fe; }
+  .text-purple-900 { color: #6b21a8; }
+  .bg-yellow-200 { background-color: #fef08a; }
+  .text-yellow-800 { color: #854d0e; }
+  .bg-orange-300 { background-color: #fdba74; }
+  .text-orange-900 { color: #7c2d12; }
+  .bg-pink-200 { background-color: #fbcfe8; }
+  .text-pink-800 { color: #9f1239; }
+}

@@ -80,11 +80,11 @@ jobs:
                 continue;
               }
 
-              const hasSkipLabel = node.labels.nodes.some(label => label.name.toLowerCase() === 'review');
-              if (hasSkipLabel) {
-                console.log(`PR #${node.number}: 'review' 라벨이 있어 병합 생략`);
-                continue;
-              }
+              //const hasSkipLabel = node.labels.nodes.some(label => label.name.toLowerCase() === 'review');
+              //if (hasSkipLabel) {
+              //  console.log(`PR #${node.number}: 'review' 라벨이 있어 병합 생략`);
+              //  continue;
+              //}
 
               if (node.reviews?.nodes?.[0]?.state === "CHANGES_REQUESTED") {
                 console.log(`PR #${node.number}: 변경 요청 상태, 병합 연기`);

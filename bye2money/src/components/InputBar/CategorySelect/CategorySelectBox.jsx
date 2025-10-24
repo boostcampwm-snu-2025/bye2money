@@ -4,8 +4,11 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
-export function CategorySelectBox({ setCategory, categories, setIsDropdownActive }) {
+export function CategorySelectBox({ categories, setIsDropdownActive }) {
+    const { setCategory } = useInputBarContext();
+
     const categoriesList = categories.map((category) => {
         return (
             <React.Fragment key={category}>

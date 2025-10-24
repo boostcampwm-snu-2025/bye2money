@@ -3,9 +3,11 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-import { DayTransactionsTable } from "./DayTransactionList";
+import { DayTransactionsList } from "./DayTransactionList";
+import { useTransactionsContext } from "@/contexts/TransactionsContext";
 
-export function TransactionsList({ transactions, incomeChecked, expenseChecked }) {
+export function TransactionsList() {
+    const { transactions, incomeChecked, expenseChecked } = useTransactionsContext();
     const filteredTransactions = transactions.filter(transaction => {
         if (!incomeChecked && !expenseChecked) return false;
         if (incomeChecked && !expenseChecked) return transaction.type === "income";
@@ -68,7 +70,7 @@ export function TransactionsList({ transactions, incomeChecked, expenseChecked }
                             </Typography>
                         </Box>
                     </Box>
-                    <DayTransactionsTable transactions={transactions}/>
+                    <DayTransactionsList dayTransactions={transactions}/>
                 </Box> 
         )
     })

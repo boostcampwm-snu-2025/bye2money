@@ -4,8 +4,14 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
-export function AmountInput({ isExpense, setIsExpense, amountInput, setAmountInput }) {
+export function AmountInput() {
+    const { 
+        isExpense, setIsExpense, 
+        amountInput, setAmountInput 
+    } = useInputBarContext();
+
     const amountInputHandler = (event) => {
         const rawInput = event.target.value;
         const numberOnlyInput = rawInput.replace(/[^0-9]/g, "") 
@@ -40,6 +46,6 @@ export function AmountInput({ isExpense, setIsExpense, amountInput, setAmountInp
                         background: "transparent",
                         outline: "none"}}/>
             </Box>
-                </Box>
+        </Box>
     );
 }

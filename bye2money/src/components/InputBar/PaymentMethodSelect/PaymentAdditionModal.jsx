@@ -6,8 +6,15 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
-export function PaymentAdditionModal({ onAddition, setOnAddition, paymentMethods, setPaymentMethods, requestPostPaymentMethods }) {
+export function PaymentAdditionModal() {
+    const { 
+        onAddition, setOnAddition, 
+        paymentMethods, setPaymentMethods, 
+        requestPostPaymentMethods 
+    } = useInputBarContext();
+    
     const [paymentMethodInput, setPaymentMethodInput] = useState("");
 
     return (

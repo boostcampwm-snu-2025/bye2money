@@ -6,8 +6,17 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
-export function PaymentMethodSelectBox({ setPaymentMethod, paymentMethods, setIsDropdownActive, setOnAddition, setOnRemoval, setRemovalTarget }) {
+export function PaymentMethodSelectBox() {
+    const { 
+        setPaymentMethod, 
+        paymentMethods, 
+        setIsPaymentMethodSelectActive, 
+        setOnAddition, setOnRemoval, 
+        setRemovalTarget 
+    } = useInputBarContext();
+
     const paymentMethodsList = paymentMethods.map((paymentMethod) => {
         return (
             <React.Fragment key={paymentMethod}>
@@ -20,7 +29,7 @@ export function PaymentMethodSelectBox({ setPaymentMethod, paymentMethods, setIs
                     <Button
                         onClick={() => {
                             setPaymentMethod(paymentMethod);
-                            setIsDropdownActive(false);
+                            setIsPaymentMethodSelectActive(false);
                             }}>
                         {paymentMethod}
                     </Button>

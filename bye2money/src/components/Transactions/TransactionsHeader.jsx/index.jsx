@@ -3,8 +3,15 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import { CheckBoxFilter } from "./CheckBoxFilter";
+import { useTransactionsContext } from "@/contexts/TransactionsContext";
 
-export function TransactionsHeader({ transactions, numTransactions, expenseChecked, setExpenseChecked, incomeChecked, setIncomeChecked }) {
+export function TransactionsHeader() {
+    const { 
+        transactions, numTransactions, 
+        expenseChecked, setExpenseChecked, 
+        incomeChecked, setIncomeChecked 
+    } = useTransactionsContext();
+    
     const totalIncome = transactions
         .filter(transaction => transaction.type === "income")
         .reduce((sum, transaction) => sum + transaction.amount, 0);

@@ -1,8 +1,11 @@
 import { React, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
-export function DescriptionInput({ descriptionInput, setDescriptionInput }) {
+export function DescriptionInput() {
+    const { descriptionInput, setDescriptionInput } = useInputBarContext();
+
     const [numChar, setNumChar] = useState(0);
 
     const descriptionInputHandler = (event) => {

@@ -5,8 +5,16 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
-export function PaymentRemovalModal({ onRemoval, setOnRemoval, paymentMethods, setPaymentMethods, removalTarget, requestDeletePaymentMethods }) {
+export function PaymentRemovalModal() {
+    const { 
+        onRemoval, setOnRemoval, 
+        paymentMethods, setPaymentMethods, 
+        removalTarget, 
+        requestDeletePaymentMethods 
+    } = useInputBarContext();
+    
     return (
         <Dialog
             open={onRemoval}

@@ -6,8 +6,11 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 import { CategorySelectBox } from "./CategorySelectBox";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
-export function CategorySelect({ isExpense, category, setCategory }) {
+export function CategorySelect() {
+    const { isExpense, category } = useInputBarContext();
+
     const [isDropdownActive, setIsDropdownActive] = useState(false);
     const expenseCategories = ["생활", "식비", "교통", "쇼핑/뷰티", "의료/건강", "문화/여가", "미분류"]
     const incomeCategories = ["월급", "용돈", "기타 수입"];
@@ -31,7 +34,6 @@ export function CategorySelect({ isExpense, category, setCategory }) {
                 </IconButton>
             </Box>
             {isDropdownActive ? <CategorySelectBox 
-                                    setCategory={setCategory}
                                     categories={isExpense ? expenseCategories : incomeCategories}
                                     setIsDropdownActive={setIsDropdownActive}/> 
                                : <></>}

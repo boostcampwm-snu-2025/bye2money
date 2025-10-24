@@ -3,9 +3,8 @@ import Box from "@mui/material/Box";
 
 import { TransactionItem } from "./TransactionItem";
 
-export function DayTransactionsTable({ transactions }) {
-    const dayTransactions = Object.entries(transactions);
-    const dayTransactionsList = dayTransactions.map(([date, transaction]) => {
+export function DayTransactionsList({ dayTransactions }) {
+    const dayTransactionsList = dayTransactions.map((transaction) => {
         return (
             <TransactionItem 
                 key={transaction.id} 

@@ -1,8 +1,11 @@
 import { React } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
-export function DateInput({ dateInput, setDateInput }) {
+export function DateInput() {
+    const { dateInput, setDateInput } = useInputBarContext();
+    
     const dateInputHandler = (event) => {
         const prevInput = dateInput;
         const rawInput = event.target.value;

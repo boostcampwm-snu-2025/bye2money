@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import CheckIcon from '@mui/icons-material/Check';
 
 export function CheckBoxFilter({ isChecked, setIsChecked, children }) {
+    
     return (
         <Box
             sx={{ 

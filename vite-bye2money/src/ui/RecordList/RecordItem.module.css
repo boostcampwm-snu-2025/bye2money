@@ -1,0 +1,63 @@
+.row {
+	display: grid;
+	grid-template-columns: 92px 400px 354px;
+	align-items: center;
+	border-top: 0.5px solid var(--token-neutral-border-default);
+	background: var(--token-neutral-surface-default);
+	height: 56px;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+}
+
+.left {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 2px;
+	align-items: flex-start;
+	width: 100%;
+}
+
+.title {
+	padding-left: 16px;
+}
+
+.memo {
+	font-size: 11px;
+	color: var(--token-neutral-text-subtle);
+}
+
+.right {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 12px;
+}
+
+.payment {
+	color: var(--token-neutral-text-default);
+	white-space: nowrap;
+}
+
+.amount {
+	margin-left: auto;
+	text-align: right;
+}
+
+.expense {
+	color: var(--token-brand-text-expense);
+}
+
+.income {
+	color: var(--token-brand-text-income);
+}

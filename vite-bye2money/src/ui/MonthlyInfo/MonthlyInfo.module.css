@@ -1,0 +1,69 @@
+.wrapper {
+	width: 846px;
+	height: 24px;
+	margin-bottom: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: var(--token-neutral-text-default);
+	font-family: "Pretendard Variable";
+	font-size: 12px;
+	line-height: 24px;
+	letter-spacing: 0;
+	font-weight: 300;
+}
+
+.left {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.right {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.rightBlock {
+	display: flex;
+	flex-direction: row;
+}
+
+.rightText {
+	margin-left: 4px;
+}
+
+.checkBadgeWrapper :global(button) {
+	width: 16px !important;
+	height: 16px !important;
+	min-width: 16px !important;
+	min-height: 16px !important;
+	border-radius: 9999px !important;
+	background: var(--token-neutral-text-default) !important;
+	place-items: center !important;
+	padding: 0 !important;
+}
+
+.checkBadgeWrapper :global(svg) {
+	font-size: 16px !important;
+	color: var(--token-neutral-text-rev-default) !important;
+}
+
+.value {
+	text-align: right;
+}
+
+.checkBadge {
+	width: 16px !important;
+	height: 16px !important;
+	border-radius: 9999px !important;
+	background: var(--token-neutral-text-default) !important;
+	display: grid !important;
+	place-items: center !important;
+	padding: 0 !important;
+}
+
+.checkIcon {
+	color: var(--token-neutral-text-rev-default) !important;
+}

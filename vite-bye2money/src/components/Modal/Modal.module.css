@@ -1,0 +1,124 @@
+:root {
+	--shadow: 0 6px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.root {
+	position: fixed;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	z-index: 50;
+}
+
+/* Input Base - placeholder */
+.input {
+	width: 100%;
+	height: 40px;
+	padding: 8px 16px;
+	border: 1px solid var(--token-neutral-border-default);
+	font-family: "Pretendard Variable";
+	font-weight: 300;
+	font-size: 12px;
+	line-height: 24px;
+	color: var(--token-neutral-text-default);
+	background-color: #f1f4f8;
+	transition: border-color 0.15s ease, background-color 0.15s ease;
+	border-radius: 8px;
+}
+
+/* Placeholder Text */
+.input::placeholder {
+	font-family: "Pretendard Variable";
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0;
+	color: var(--token-neutral-surface-point);
+}
+
+.state_open {
+	opacity: 1;
+}
+.state_closed {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.type_default {
+}
+
+.backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.panel {
+	position: relative;
+	width: 384px;
+	background: var(--token-neutral-surface-default);
+	color: var(--token-neutral-text-default);
+	border: 1px solid var(--token-neutral-border-default);
+	border-radius: 4px;
+	box-shadow: var(--shadow);
+	display: grid;
+	grid-template-rows: auto auto auto;
+	overflow: hidden;
+}
+
+/* Header / Title */
+.header {
+	padding: 32px 32px 0 32px;
+	text-align: left;
+}
+.title {
+	margin: 0;
+	font-family: "Pretendard Variable";
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 32px;
+	letter-spacing: 0;
+	color: #000000;
+	text-align: left;
+}
+
+/* Body */
+.body {
+	padding: 8px 32px 32px 32px;
+}
+
+/* Footer */
+.footer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	border-top: 1px solid var(--token-neutral-border-default);
+	height: 56px;
+}
+
+.footer > * {
+	appearance: none;
+	border-radius: 0 !important;
+	border: none !important;
+	background: var(--token-neutral-surface-default) !important;
+	color: var(--token-neutral-text-default) !important;
+	font-weight: 700 !important;
+	height: 56px !important;
+}
+
+/* Middle separation line of the footer */
+.footer > *:first-child {
+	border-right: 1px solid var(--token-neutral-border-default) !important;
+}
+
+/* Hover/active */
+.footer > *:hover {
+	filter: brightness(0.98);
+}
+.footer > *:active {
+	filter: brightness(0.95);
+}
+
+.footerBtnLeft {
+}
+.footerBtnRight {
+}

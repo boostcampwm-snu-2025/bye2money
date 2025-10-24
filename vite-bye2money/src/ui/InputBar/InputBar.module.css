@@ -1,0 +1,239 @@
+.bar {
+	width: 894px;
+	height: 76px;
+	background: var(--token-neutral-surface-default);
+	border: 0.5px solid var(--token-neutral-border-default);
+	padding: 16px 24px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 4px;
+}
+
+/* Division line */
+.vrule {
+	width: 0.5px;
+	height: 44px;
+	background: var(--token-neutral-text-default);
+	align-self: center;
+}
+
+.label {
+	font-size: 12px;
+	color: var(--token-neutral-text-default);
+	font-family: "Pretendard Variable";
+	font-weight: 300;
+	line-height: 24px;
+	letter-spacing: 0;
+	text-align: left;
+}
+
+/* Text input */
+.textInputWrap {
+	width: 100%;
+}
+
+/* 디자인 통일을 위해 */
+.cellDate,
+.cellAmount,
+.cellContent,
+.cellSelect {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 8px;
+}
+
+.cellDate .dateValue,
+.cellAmount .amountBox,
+.cellContent .textInputWrap,
+.cellSelect .selectLike {
+	height: 32px;
+	display: flex;
+	align-items: center;
+}
+
+/* 일자 */
+.cellDate {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.dateValue {
+	font-weight: 600;
+	font-family: "Pretendard Variable";
+	color: var(--token-neutral-text-default);
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0;
+}
+
+.dateInputs {
+	display: inline-flex;
+	align-items: center;
+	height: 32px;
+	font-family: "Pretendard Variable";
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0;
+}
+
+.dateField {
+	width: 36px;
+}
+.dateFieldNarrow {
+	width: 22px;
+}
+
+.dot {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 32px;
+	color: var(--token-neutral-text-default);
+	font-weight: 600;
+}
+
+/* 금액 */
+.cellAmount {
+	display: flex;
+	flex-direction: column;
+}
+.amountBox {
+	display: grid;
+	grid-template-columns: 24px 1fr auto;
+	align-items: center;
+	column-gap: 8px;
+}
+.signBtn {
+	width: 28px;
+	height: 28px;
+	border-radius: 6px;
+	border: 1px solid #e2e8f0;
+	background: #f8fafc;
+	color: #2f3b46;
+	font-size: 16px;
+	line-height: 1;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: background 0.15s ease, transform 0.03s ease;
+}
+.signBtn[data-expense="true"] {
+	background: #fff5f5;
+	border-color: #ffd7d7;
+	color: #c84545;
+}
+.signBtn:active {
+	transform: scale(0.98);
+}
+.amountInput {
+	height: 28px;
+	border: none;
+	border-bottom: 1px solid #e6edf3;
+	outline: none;
+	font-size: 16px;
+	color: #2f3b46;
+	padding: 0 4px;
+}
+.amountInput::placeholder {
+	color: #c2cbd3;
+}
+.won {
+	color: #2f3b46;
+	font-size: 14px;
+}
+
+/* 내용 */
+.cellContent {
+	display: flex;
+	flex-direction: column;
+}
+.labelRow {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+}
+.counter {
+	font-size: 12px;
+	color: #a3acb5;
+}
+.contentInput {
+	height: 28px;
+	border: none;
+	border-bottom: 1px solid #e6edf3;
+	outline: none;
+	font-size: 14px;
+	padding: 0 4px;
+}
+.contentInput::placeholder {
+	color: #c2cbd3;
+}
+
+/* select (공통) */
+.cellSelect {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.selectLike {
+	position: relative;
+}
+.select {
+	appearance: none;
+	width: 100%;
+	height: 32px;
+	outline: none;
+	padding: 0 30px 0 10px;
+	font-size: 14px;
+	color: var(--token-neutral-text-weak);
+	font-weight: 600;
+
+	border: none;
+	background: transparent;
+	box-shadow: none;
+}
+.select:focus {
+}
+.chevron {
+	position: absolute;
+	right: 6px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 20px !important;
+	color: #8a96a3;
+	pointer-events: none;
+}
+
+/* 제출 버튼 */
+.cellSubmit {
+	display: grid;
+	place-items: center;
+}
+.submit {
+	width: 40px;
+	height: 40px;
+	border-radius: 9999px;
+	border: none;
+	background: #bdbdbd;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: transform 0.06s ease, background 0.15s ease;
+}
+.submit:hover {
+	background: #a9a9a9;
+}
+.submit:active {
+	transform: scale(0.98);
+}
+.submit:disabled {
+	background: #d7d7d7;
+	cursor: not-allowed;
+}
+.checkIcon {
+	color: white;
+	font-size: 22px !important;
+}

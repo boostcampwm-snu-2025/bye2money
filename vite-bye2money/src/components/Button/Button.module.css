@@ -1,0 +1,167 @@
+:root {
+	--c-fg: #111; /* Basic text color*/
+	--c-bg: #fff; /* Basic background color */
+	--c-danger: #e11d48; /* Danger */
+	--ring: rgba(0, 92, 255, 0.35);
+}
+
+/* ===== Base ===== */
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	border: 1px solid transparent;
+	border-radius: 9999px;
+	cursor: pointer;
+	user-select: none;
+	transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease,
+		border-color 0.15s ease, transform 0.03s ease;
+	font-weight: 500;
+	line-height: 1;
+	white-space: nowrap;
+	color: var(--c-fg);
+	background: transparent;
+}
+
+/* Focus ring */
+.button:focus-visible {
+	outline: 3px solid var(--ring);
+	outline-offset: 2px;
+}
+
+/* Micro press feedback */
+.button:active:not(.isDisabled) {
+	transform: translateY(0.5px);
+}
+
+/* ===== Size ===== */
+.size_L {
+	font-size: 16px;
+	padding: 14px 22px;
+}
+.size_M {
+	font-size: 14px;
+	padding: 10px 18px;
+}
+.size_S {
+	font-size: 12px;
+	padding: 8px 14px;
+}
+
+/* ===== Pattern (layout) ===== */
+.pattern_textOnly {
+	/* no-op */
+}
+.pattern_iconOnly {
+	padding: 0;
+}
+.pattern_iconText {
+	/* no-op */
+}
+
+/* Icon containers */
+.iconOnlyBox {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+}
+.size_L .iconOnlyBox {
+	width: 44px;
+	height: 44px;
+}
+.size_S .iconOnlyBox {
+	width: 30px;
+	height: 30px;
+}
+
+.iconTextRow {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+.icon {
+	display: inline-flex;
+}
+.label {
+	display: inline-block;
+}
+
+/* ===== Type (was variant_*) ===== */
+.type_ghost {
+	background: transparent;
+	color: var(--c-fg);
+	border-color: transparent;
+}
+.type_contained {
+	background: var(--c-fg);
+	color: #fff;
+	border-color: var(--c-fg);
+}
+.type_outline {
+	background: var(--c-bg);
+	color: var(--c-fg);
+	border-color: var(--c-fg);
+}
+
+/* ===== Tone ===== */
+.tone_default {
+	/* no-op */
+}
+.tone_danger.type_ghost {
+	color: var(--c-danger);
+}
+.tone_danger.type_contained {
+	background: var(--c-danger);
+	border-color: var(--c-danger);
+}
+.tone_danger.type_outline {
+	color: var(--c-danger);
+	border-color: var(--c-danger);
+}
+
+/* ===== States opacity spec ===== */
+/* Default: 100% */
+.button {
+	opacity: 1;
+}
+
+/* Hover: 80% */
+.button:hover:not(.isDisabled) {
+	opacity: 0.8;
+}
+
+/* Press: 64% */
+.button:active:not(.isDisabled) {
+	opacity: 0.64;
+}
+
+/* Disabled: 32% */
+.isDisabled,
+.button:disabled {
+	opacity: 0.32;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+/* Selected/Active: 100% */
+.selected {
+	opacity: 1;
+}
+.selected.type_ghost {
+	background: rgba(0, 0, 0, 0.06);
+}
+.selected.type_outline {
+	background: rgba(0, 0, 0, 0.06);
+}
+
+/* ===== Flexible / Fixed ===== */
+/* Not in use */
+.flex_flexible {
+	/* no-op */
+}
+.flex_fixed {
+	/* no-op */
+}

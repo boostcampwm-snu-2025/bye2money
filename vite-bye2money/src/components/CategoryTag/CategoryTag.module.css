@@ -1,0 +1,68 @@
+/* Base */
+.tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 92px;
+	height: 56px;
+	user-select: none;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.type_solid {
+}
+
+/* Tone Variants */
+.tone_life {
+	background: var(--token-colorchip-90);
+}
+.tone_shopping_beauty {
+	background: var(--token-colorchip-30);
+}
+.tone_medical_health {
+	background: var(--token-colorchip-50);
+}
+.tone_food {
+	background: var(--token-colorchip-60);
+}
+.tone_transportation {
+	background: var(--token-colorchip-70);
+}
+.tone_culture_leisure {
+	background: var(--token-colorchip-100);
+}
+.tone_salary {
+	background: var(--token-colorchip-20);
+}
+.tone_other_income {
+	background: var(--token-colorchip-10);
+}
+.tone_allowance {
+	background: var(--token-colorchip-40);
+}
+.tone_unclassified {
+	background: var(--token-colorchip-110);
+}
+
+/* States */
+.state_enabled {
+}
+.state_disabled {
+	pointer-events: none;
+}
+.state_default {
+}
+.state_selected {
+}
+
+.label {
+	display: inline-block;
+	font-family: "Pretendard Variable";
+	font-weight: 300;
+	font-size: 12px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+	text-align: center;
+}

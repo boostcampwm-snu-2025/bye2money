@@ -1,0 +1,102 @@
+/* Overall container of label + input */
+.root {
+	display: grid;
+	gap: 6px;
+	color: var(--token-neutral-text-default);
+	cursor: text;
+	width: 100%;
+	height: 40px;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+/* Type */
+/* Default */
+.type_default .input {
+	height: 40px;
+	border-radius: 8px;
+	background: var(----token-neutral-surface-point);
+	border: 1px solid transparent;
+	/* padding: 0 14px; */
+}
+
+/* TextArea Only */
+.type_textAreaOnly .textarea {
+	height: 40px;
+	border-radius: 8px;
+	background: var(----token-neutral-surface-point);
+	border: 1px solid transparent;
+	padding: 10px 14px;
+	resize: vertical;
+}
+
+/* Common input field */
+.input {
+	width: 100%;
+	font-size: 14px;
+	line-height: 1.2;
+	color: var(--token-neutral-text-default);
+	background: transparent;
+	outline: none;
+	box-sizing: border-box;
+	box-shadow: none;
+}
+
+/* Placeholder text */
+.input::placeholder {
+	color: #777d84;
+	font-family: "Pretendard Variable";
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0;
+	color: #777d84;
+}
+
+/* States */
+.state_enabled .input {
+}
+
+.state_active .input {
+	background: var(--token-neutral-surface-default);
+	border-color: var(--token-neutral-border-default);
+	border-width: 1px;
+	border-style: solid;
+}
+
+.state_disabled .input {
+	background: var(--token-neutral-surface-weak);
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.state_error .input {
+	background: var(--token-neutral-surface-default);
+	border-color: var(--token-danger-border-default);
+	border-width: 1px;
+	border-style: solid;
+}
+
+/* Focus ring (Active) */
+.state_active .input:focus {
+}
+
+/* Typing States */
+/* State + TypingState*/
+.typing_placeholder .input {
+}
+.typing_onFocus .input {
+}
+.typing_typing .input {
+}
+.typing_typed .input {
+}
+
+/* Hover effect*/
+.root:hover .input {
+	filter: brightness(0.99);
+}
+
+/* Label */
+.label {
+}

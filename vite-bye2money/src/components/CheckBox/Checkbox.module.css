@@ -1,0 +1,66 @@
+.root {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	color: var(--token-neutral-text-default);
+	cursor: pointer;
+	user-select: none;
+}
+
+/* Check circle */
+.box {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	border-radius: 9999px;
+	border: 1px solid var(--token-neutral-border-default);
+	background: transparent;
+	transition: all 0.15s ease;
+}
+
+.icon {
+	display: none;
+}
+
+.icon circle {
+	fill: var(--primitive-grayscale-400);
+}
+
+.icon path {
+	stroke: var(--token-neutral-text-rev-default);
+}
+
+/* State - default(unselected) or selected */
+.state_default .box {
+	background: transparent;
+	border-color: var(--token-neutral-border-default);
+}
+
+.state_selected .icon {
+	display: block;
+}
+
+.state_selected .box {
+	background: var(--token-neutral-text-default);
+	border-color: var(--token-neutral-text-default);
+}
+
+/* Text */
+.text {
+	font-family: "Pretendard Variable";
+	font-weight: 300;
+	font-size: 12px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+	user-select: none;
+}
+
+/* Interactions */
+.root:hover .box {
+}
+
+.root:active .box {
+}

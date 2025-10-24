@@ -1,0 +1,42 @@
+.group {
+	width: 100%;
+	background: var(--token-neutral-surface-default);
+	border-bottom: 1px solid var(--token-neutral-border-default);
+	margin-bottom: 40px;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 13px;
+	color: var(--token-neutral-text-default);
+	margin-bottom: 12px;
+}
+
+.date {
+	font-weight: 400;
+}
+
+.totals {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+}
+
+.totalLabel {
+}
+
+.totalValue {
+	text-align: right;
+}
+
+.items {
+	display: flex;
+	flex-direction: column;
+}

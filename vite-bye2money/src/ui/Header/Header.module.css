@@ -1,0 +1,144 @@
+/* Appbar */
+.appbar {
+	width: 100%;
+	height: 216px;
+	background: var(--token-colorchip-80);
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+/* Inner container */
+.appbarInner {
+	width: 846px;
+	height: 112px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: absolute;
+	top: 40px;
+}
+
+/* Brand */
+.brand {
+	font-size: 24px;
+	font-weight: 400;
+	color: var(--token-neutral-text-default);
+	line-height: 32px;
+	font-family: "ChosunilboNM";
+	letter-spacing: 0%;
+}
+
+/* Month navigation */
+.monthNav {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	width: 232px;
+}
+
+.monthNavArrow {
+	width: 32px;
+	height: 32px;
+	color: var(--token-neutral-text-default);
+	cursor: pointer;
+}
+
+/* Year / Month block */
+.monthDisplay {
+	display: grid;
+	grid-template-areas:
+		"year month"
+		"label label";
+	align-items: center;
+	column-gap: 12px;
+	row-gap: 4px;
+	display: flex;
+	flex-direction: column;
+	width: 120px;
+}
+.year {
+	font-family: "Pretendard Variable";
+	grid-area: year;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+}
+.monthNum {
+	font-family: "ChosunilboNM";
+	grid-area: month;
+	font-weight: 400;
+	font-size: 48px;
+	line-height: 56px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+}
+.monthLabel {
+	font-family: "Pretendard Variable";
+	grid-area: label;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+}
+
+/* Right-side tools */
+.tools {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	color: var(--token-neutral-text-default);
+}
+.tool {
+	width: 56px;
+	height: 56px;
+	border: none;
+	background: transparent;
+	border-radius: 9999px;
+	padding: 8px;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	position: relative;
+	padding: 0;
+}
+.tool::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: 8px;
+	background: transparent;
+	transition: background 0.15s ease, transform 0.03s ease, box-shadow 0.15s ease;
+}
+.tool:hover::before,
+.tool:focus-visible::before {
+	background: var(--token-neutral-surface-default);
+}
+.tool:active::before {
+	background: var(--token-neutral-surface-default);
+	transform: scale(0.98);
+}
+
+/* Icon currently clicked */
+.tool[data-active="true"]::before {
+	background: var(--token-neutral-surface-default);
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+	font-size: 24px !important;
+	color: var(--token-neutral-text-default);
+	z-index: 1;
+}
+
+.tool:focus-visible {
+	outline-offset: 2px;
+}

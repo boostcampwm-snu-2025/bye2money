@@ -1,0 +1,96 @@
+/* Wrapper */
+.calendar {
+	width: 846px;
+	height: 648px;
+	margin: 0 auto;
+	border: 1px solid var(--token-neutral-border-default);
+	background: var(--token-neutral-surface-default);
+	overflow: hidden;
+}
+
+/* Week header */
+.weekHeader {
+	display: grid;
+	height: 48px;
+	grid-template-columns: repeat(7, 1fr);
+	border-bottom: 1px solid var(--token-neutral-border-default);
+}
+.weekHeaderCell {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-family: "Pretendard Variable";
+	font-weight: 300;
+	font-size: 12px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+	font-weight: 500;
+	border-right: 1px solid var(--token-neutral-border-default);
+}
+.weekHeaderCell:nth-child(7n) {
+	border-right: none;
+}
+
+/* Grid */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+/* Each day cell */
+.cell {
+	position: relative;
+	border-right: 1px solid var(--token-neutral-border-default);
+	border-bottom: 1px solid var(--token-neutral-border-default);
+	height: 120px;
+}
+.cell:nth-child(7n) {
+	border-right: none;
+}
+
+.selected {
+	background: var(--token-neutral-surface-point);
+}
+
+.outMonth {
+	background: var(--token-neutral-surface-default);
+}
+
+.amountList {
+	display: grid;
+	row-gap: 4px;
+	align-content: start;
+	text-align: left;
+	margin-left: 8px;
+}
+.amount {
+	font-family: "Pretendard Variable";
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+}
+
+.expense {
+	color: var(--token-brand-text-expense);
+}
+.income {
+	color: var(--token-brand-text-income);
+}
+
+/* Date number */
+.dayNumber {
+	position: absolute;
+	left: 8px;
+	bottom: 8px;
+	font-family: "ChosunilboNM";
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+	letter-spacing: 0;
+	color: var(--token-neutral-text-default);
+	user-select: none;
+}

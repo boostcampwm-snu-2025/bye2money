@@ -1,0 +1,71 @@
+/* Color system */
+:root {
+	/* Primitives */
+	/* Grayscale */
+	--primitive-grayscale-50: #ffffff;
+	--primitive-grayscale-100: #fbfcfd;
+	--primitive-grayscale-200: #f1f4f8;
+	--primitive-grayscale-300: #777d84;
+	--primitive-grayscale-400: #000000;
+
+	/* Pastel */
+	--primitive-pastel-almondFrost: #a28878;
+	--primitive-pastel-porsche: #e39d5d;
+	--primitive-pastel-chenin: #d7ca6b;
+	--primitive-pastel-caper: #aacd7e;
+	--primitive-pastel-cruise: #bcdfd3;
+	--primitive-pastel-onahau: #c5e0eb;
+	--primitive-pastel-glacier: #7db7bf;
+	--primitive-pastel-seagull: #79b2ca;
+	--primitive-pastel-jordyBlue: #73a4d0;
+	--primitive-pastel-perano: #a7b9e9;
+	--primitive-pastel-perfume: #bda6e1;
+	--primitive-pastel-lavenderPink: #f0b0d3;
+	--primitive-pastel-amaranth: #e93b5a;
+	--primitive-pastel-chestnut: #c04646;
+}
+
+/* Tokens */
+/* Neutral */
+:root {
+	--token-neutral-surface-weak: var(--primitive-grayscale-100);
+	--token-neutral-surface-default: var(--primitive-grayscale-50);
+	--token-neutral-surface-point: var(--primitive-grayscale-200);
+
+	--token-neutral-text-weak: var(--primitive-grayscale-300);
+	--token-neutral-text-default: var(--primitive-grayscale-400);
+	--token-neutral-text-rev-default: var(--primitive-grayscale-50);
+
+	--token-neutral-border-default: var(--primitive-grayscale-400);
+}
+
+/* Brand */
+:root {
+	--token-brand-surface-default: var(--primitive-grayscale-50);
+	--token-brand-text-income: var(--primitive-pastel-seagull);
+	--token-brand-text-expense: var(--primitive-pastel-chestnut);
+}
+
+/* Danger */
+:root {
+	--token-danger-surface-default: var(--primitive-pastel-amaranth);
+	--token-danger-text-default: var(--primitive-pastel-amaranth);
+	--token-danger-text-rev-default: var(--primitive-grayscale-50);
+	--token-danger-border-default: var(--primitive-pastel-amaranth);
+}
+
+/* Color Chips */
+:root {
+	--token-colorchip-10: var(--primitive-pastel-almondFrost);
+	--token-colorchip-20: var(--primitive-pastel-porsche);
+	--token-colorchip-30: var(--primitive-pastel-chenin);
+	--token-colorchip-40: var(--primitive-pastel-caper);
+	--token-colorchip-50: var(--primitive-pastel-cruise);
+	--token-colorchip-60: var(--primitive-pastel-onahau);
+	--token-colorchip-70: var(--primitive-pastel-glacier);
+	--token-colorchip-80: var(--primitive-pastel-jordyBlue);
+	--token-colorchip-90: var(--primitive-pastel-perano);
+	--token-colorchip-100: var(--primitive-pastel-perfume);
+	--token-colorchip-110: var(--primitive-pastel-lavenderPink);
+	--token-colorchip-120: var(--primitive-pastel-chestnut);
+}

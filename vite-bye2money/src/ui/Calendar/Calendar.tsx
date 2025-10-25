@@ -84,6 +84,11 @@ const Calendar = ({
 						const outMonth = !isSameMonth(day, monthDate);
 						const isSel = selected && isSameDay(day, selected);
 
+						// Daily sum of income/expense
+						const incomeSum = amounts.reduce((s, v) => (v > 0 ? s + v : s), 0);
+						const expenseSum = amounts.reduce((s, v) => (v < 0 ? s + v : s), 0); // 음수
+						const total = incomeSum + expenseSum;
+
 						return (
 							<div
 								key={`${wi}-${di}`}
@@ -116,6 +121,35 @@ const Calendar = ({
 													{formatKRW(Math.abs(amt))}
 												</div>
 											))}
+											{expenseSum !== 0 && incomeSum == 0 && (
+												<div
+													className={`${styles.amount}`}
+													title={`-${formatKRW(Math.abs(expenseSum))}`}
+												>
+													-{formatKRW(Math.abs(expenseSum))}
+												</div>
+											)}
+
+											{incomeSum !== 0 && expenseSum == 0 && (
+												<div
+													className={`${styles.amount}`}
+													title={`${formatKRW(incomeSum)}`}
+												>
+													{formatKRW(incomeSum)}
+												</div>
+											)}
+
+											{incomeSum !== 0 && expenseSum !== 0 && (
+												<div
+													className={styles.amount}
+													title={`${total < 0 ? "-" : ""}${formatKRW(
+														Math.abs(total)
+													)}`}
+												>
+													{total < 0 ? "-" : ""}
+													{formatKRW(Math.abs(total))}
+												</div>
+											)}
 										</div>
 
 										<div className={styles.dayNumber}>{format(day, "d")}</div>

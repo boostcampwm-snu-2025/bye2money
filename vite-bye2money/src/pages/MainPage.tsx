@@ -10,21 +10,23 @@ import Header from "../ui/Header/Header";
 // records
 import InputBar from "../ui/InputBar/InputBar";
 import MonthlyInfo from "../ui/MonthlyInfo/MonthlyInfo";
-import { MOCK_MONTHLY_GROUP } from "../ui/RecordList/mock_data";
 import RecordList from "../ui/RecordList/RecordList";
 
 import { fetchRecords } from "../utils/api/recordDataApi";
-import { toMonthlyGroup, toCalendarEntries } from "../utils/utils";
+import { toMonthlyGroup } from "../utils/utils";
 
 // calendar
 import Calendar from "../ui/Calendar/Calendar";
 import type { MoneyEntry } from "../types/types";
+import { toCalendarEntries } from "../utils/utils";
+import CalendarCaption from "../ui/CalendarCaption/CalendarCaption";
 
 import { toISODate } from "../utils/utils";
 
 function MainPage() {
-	const [year, setYear] = useState<number>(2025);
-	const [month, setMonth] = useState<number>(10);
+	const now = new Date();
+	const [year, setYear] = useState<number>(now.getFullYear());
+	const [month, setMonth] = useState<number>(now.getMonth() + 1);
 
 	const [currentTab, setCurrentTab] = useState<HeaderToolIconType>(
 		HeaderToolIconType.Records
@@ -43,6 +45,10 @@ function MainPage() {
 		load();
 	}, []);
 
+	const todayDateISO = useMemo(() => {
+		return toISODate(now.getFullYear(), now.getMonth() + 1, now.getDate());
+	}, []);
+
 	const monthly = useMemo(
 		() => toMonthlyGroup(records, year, month),
 		[records, year, month]
@@ -51,17 +57,6 @@ function MainPage() {
 		() => toCalendarEntries(records, year, month),
 		[records, year, month]
 	);
-
-	const dataContent: MoneyEntry[] = [
-		{ date: "2025-10-02", amount: -5400 },
-		{ date: "2025-10-03", amount: -132000 },
-		{ date: "2025-10-06", amount: -10000 },
-		{ date: "2025-10-08", amount: -529140 },
-		{ date: "2025-10-10", amount: 2010580 },
-		{ date: "2025-10-10", amount: -9500 },
-		{ date: "2025-10-14", amount: -56240 },
-		{ date: "2025-10-17", amount: -34460 },
-	]; // For calendar- FIXME: Hard-coded for now & use "useState" later
 
 	const mainPageStyles = {
 		container: {
@@ -107,11 +102,7 @@ function MainPage() {
 			{currentTab === "records" && (
 				<>
 					<div style={mainPageStyles.inputBarWrapper}>
-						<InputBar
-							date={toISODate(2025, 10, 24)}
-							amount={0}
-							onSubmit={(v) => console.log("입력된 데이터:", v)}
-						/>
+						<InputBar date={todayDateISO} amount={0} />
 					</div>
 					<div style={mainPageStyles.recordListWrapper}>
 						<MonthlyInfo monthly={monthly} />
@@ -126,9 +117,10 @@ function MainPage() {
 					<Calendar
 						year={year}
 						month={month}
-						entries={dataContent}
-						selectedDate="2025-10-17"
+						entries={calendarEntries}
+						selectedDate={todayDateISO}
 					/>
+					<CalendarCaption monthly={monthly} />
 				</div>
 			)}
 			{currentTab === "analytics" && <div>Analytics tab pressed</div>}

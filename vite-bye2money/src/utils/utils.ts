@@ -26,7 +26,7 @@ export function computeMonthlySummary(monthly: MonthlyRecordGroup) {
 	return { count, income, expense };
 }
 
-// Hanlding data fetched via API
+// Handling data fetched via API
 const byYearMonth = (iso: string, y: number, m: number) =>
 	iso.slice(0, 7) === `${y}-${String(m).padStart(2, "0")}`;
 
@@ -71,17 +71,24 @@ export function toMonthlyGroup(
 	};
 }
 
+// For Calendar component
 export function toCalendarEntries(
 	records: RecordItemData[],
 	year: number,
 	month: number
 ): MoneyEntry[] {
-	const sums = new Map<string, number>();
-	for (const r of records) {
-		if (!byYearMonth(r.date, year, month)) continue;
-		sums.set(r.date, (sums.get(r.date) ?? 0) + r.amount);
-	}
-	return [...sums.entries()]
-		.sort(([a], [b]) => (a < b ? -1 : 1))
-		.map(([date, amount]) => ({ date, amount }));
+	return records
+		.filter((r) => byYearMonth(r.date, year, month))
+		.sort((a, b) => {
+			if (a.date !== b.date) return a.date.localeCompare(b.date); // 날짜 오름차순
+
+			// 같은 날짜 안에서는 지출(음수) 먼저, 수입(양수) 나중
+			const aSign = a.amount < 0 ? 0 : 1;
+			const bSign = b.amount < 0 ? 0 : 1;
+			if (aSign !== bSign) return aSign - bSign;
+
+			// 같은 부호끼리는 절대값 큰 것 먼저
+			return Math.abs(b.amount) - Math.abs(a.amount);
+		})
+		.map((r) => ({ date: r.date, amount: r.amount }));
 }

@@ -5,7 +5,6 @@ import { DateTime } from "luxon";
 import PlusIcon from "../../assets/icons/plus.svg?react";
 import MinusIcon from "../../assets/icons/minus.svg?react";
 import { TextInput } from "../TextInput";
-import { getLabel, type Category } from "../CategoryTag";
 import { CategorySelectChip } from "./CategorySelectChip";
 import { Dropdown } from "./Dropdown";
 import { Modal } from "../Modal";
@@ -14,17 +13,9 @@ import { PaymentMethodSelectChip } from "./PaymentMethodSelectChip";
 import { useSpendingEditStore } from "../../store/useSpendingEditStore";
 import { useDropdownStore } from "../../store/useDropdownStore";
 import { useModalStore } from "../../store/useModalStore";
-
-const expenditureTypes: Category[] = [
-  "food",
-  "living",
-  "transport",
-  "medicalHealth",
-  "shoppingBeauty",
-  "cultureLeisure",
-  "unclassified",
-];
-export const incomeTypes: Category[] = ["salary", "allowance", "otherIncome"];
+import type { Category } from "../../types/types";
+import { getLabel } from "../../utils/typeHelpers";
+import { expenditureTypes, incomeTypes } from "../../utils/constants";
 
 export const EditBar = () => {
   const {

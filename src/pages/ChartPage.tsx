@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 import { PieChart } from "../components/Chart/PieChart";
-import { getLabel, type Category } from "../components/CategoryTag";
 import { DaySpendingsSection } from "../components/DaySpendingsSection";
 import { useSpendingDetailStore } from "../store/useSpendingDetailStore";
 import { useDateStore } from "../store/useDateStore";
 import { formatMoney, groupSpendingsByDay } from "../utils/utilFns";
 import { DateTime } from "luxon";
+import type { Category } from "../types/types";
+import { getLabel } from "../utils/typeHelpers";
 
 export const ChartPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<

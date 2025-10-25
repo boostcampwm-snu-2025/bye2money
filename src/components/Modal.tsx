@@ -1,6 +1,5 @@
 import type React from "react";
 import { TextInput } from "./TextInput";
-import { type ChangeEvent } from "react";
 
 interface ModalProps {
   text: string;

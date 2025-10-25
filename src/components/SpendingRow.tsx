@@ -1,13 +1,11 @@
 import type React from "react";
-import {
-  useSpendingDetailStore,
-  type SpendingDetail,
-} from "../store/useSpendingDetailStore";
+import { useSpendingDetailStore } from "../store/useSpendingDetailStore";
 import { CategoryTag } from "./CategoryTag";
 import { useSpendingEditStore } from "../store/useSpendingEditStore";
 import ClosedIcon from "../assets/icons/closed.svg?react";
 import { Button } from "./Button";
 import { useModalStore } from "../store/useModalStore";
+import type { SpendingDetail } from "../types/types";
 
 export const SpendingRow: React.FC<SpendingDetail> = ({
   id,

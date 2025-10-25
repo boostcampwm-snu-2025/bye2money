@@ -1,42 +1,7 @@
 import { create } from "zustand";
-import type { Category } from "../components/CategoryTag";
 import { nanoid } from "nanoid";
 import { sample } from "../utils/mockData";
-
-const SPENDINGS_FILTER = {
-  ALL: "all",
-  EXPENDITURE_ONLY: "expenditureOnly",
-  INCOME_ONLY: "incomeOnly",
-};
-export type SpendingsFilter =
-  (typeof SPENDINGS_FILTER)[keyof typeof SPENDINGS_FILTER];
-const getFilter = (
-  filter: SpendingsFilter,
-): ((x: SpendingsFilter) => boolean) => {
-  const filters: Record<SpendingsFilter, (x: SpendingDetail) => boolean> = {
-    all: (x) => true,
-    expenditureOnly: (x) => x.isExpenditure,
-    incomeOnly: (x) => !x.isExpenditure,
-  };
-  return filters[filter];
-};
-export interface SpendingDetail {
-  id: string;
-  year: number;
-  month: number;
-  day: number;
-  description: string;
-  amount: number;
-  isExpenditure: boolean;
-  paymentMethod: string | undefined;
-  category: Category;
-}
-export interface DaySpendings {
-  year: number;
-  month: number;
-  day: number;
-  spendings: SpendingDetail[];
-}
+import type { SpendingDetail } from "../types/types";
 
 interface SpendingDetailStore {
   spendingDetails: SpendingDetail[];
@@ -45,26 +10,10 @@ interface SpendingDetailStore {
   removeSpending: (id: string) => void;
   updateSpending: (id: string, updates: Partial<SpendingDetail>) => void;
   getSpendingsByMonth: (year: number, month: number) => SpendingDetail[];
-  querySpendings: (
-    year: number,
-    month: number,
-    filter: SpendingsFilter,
-  ) => DaySpendings[];
-  // getSpendingsByDate: (
-  //   year: number,
-  //   month: number,
-  //   day: number,
-  // ) => SpendingDetail[];
   getSpendingDetails: () => SpendingDetail[];
   getPaymentMethods: () => string[];
   addPaymentMethod: (newMethod: string) => void;
   removePaymentMethod: (method: string) => void;
-  // getTotalByMonth: (
-  //   year: number,
-  //   month: number,
-  //   isExpenditure: boolean,
-  // ) => number;
-  // getSpendingsByCategory: (category: Category) => SpendingDetail[];
 }
 
 export const useSpendingDetailStore = create<SpendingDetailStore>(
@@ -75,12 +24,6 @@ export const useSpendingDetailStore = create<SpendingDetailStore>(
         sample.filter((s) => s.paymentMethod).map((s) => s.paymentMethod),
       ),
     ],
-    querySpendings: (year, month, filter) => {
-      const res = get()
-        .getSpendingsByMonth(year, month)
-        .filter(getFilter(filter));
-      return res;
-    },
     getSpendingDetails: () => get().spendingDetails,
     getPaymentMethods: () => get().paymentMethods,
     addPaymentMethod: (newMethod) =>

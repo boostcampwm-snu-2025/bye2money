@@ -1,16 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDateStore } from "../../store/useDateStore";
 import { useSpendingDetailStore } from "../../store/useSpendingDetailStore";
-import { CategoryTag, getBfColorRaw, type Category } from "../CategoryTag";
+import { CategoryTag } from "../CategoryTag";
 import {
   analyzeExpendituressByCategory,
   formatMoney,
 } from "../../utils/utilFns";
-
-export interface CategorySpending {
-  category: Category;
-  total: number;
-}
+import type { Category, CategorySpending } from "../../types/types";
+import { getBfColorRaw } from "../../utils/typeHelpers";
 
 interface PieChartProps {
   currentCategory: Category | undefined;

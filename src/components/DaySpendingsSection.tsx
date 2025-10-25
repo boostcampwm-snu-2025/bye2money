@@ -5,6 +5,7 @@ import {
 } from "../store/useSpendingDetailStore.ts";
 import { DateTime } from "luxon";
 import { SpendingRow } from "./SpendingRow.tsx";
+import { useMemo } from "react";
 
 interface DaySpendingsSectionProps {
   year: number;
@@ -23,36 +24,62 @@ export const DaySpendingsSection: React.FC<DaySpendingsSectionProps> = ({
   showExpenditures,
   showIncomes,
 }) => {
-  const expenditureSum = spendings
-    .filter((x) => x.isExpenditure)
-    .map((x) => x.amount)
-    .reduce((a, b) => a + b, 0);
-  const incomeSum = spendings
-    .filter((x) => !x.isExpenditure)
-    .map((x) => x.amount)
-    .reduce((a, b) => a + b, 0);
+  const expenditureSum = useMemo(
+    () =>
+      spendings
+        .filter((x) => x.isExpenditure)
+        .map((x) => x.amount)
+        .reduce((a, b) => a + b, 0),
+    [spendings],
+  );
+  const incomeSum = useMemo(
+    () =>
+      spendings
+        .filter((x) => !x.isExpenditure)
+        .map((x) => x.amount)
+        .reduce((a, b) => a + b, 0),
+    [spendings],
+  );
 
-  const filter = [];
-  if (showExpenditures) filter.push(true);
-  if (showIncomes) filter.push(false);
-  const validRows = spendings.filter((s) => filter.includes(s.isExpenditure));
+  const filter = useMemo(() => {
+    const res = [];
+    if (showExpenditures) res.push(true);
+    if (showIncomes) res.push(false);
+    return res;
+  }, [showExpenditures, showIncomes]);
 
-  const dayKor = DateTime.fromISO(`${year}-${month}-${day}`).setLocale(
-    "ko-KR",
-  ).weekdayLong;
+  const validRows = useMemo(
+    () => spendings.filter((s) => filter.includes(s.isExpenditure)),
+    [spendings, filter],
+  );
 
-  const incomeSumFormatted = new Intl.NumberFormat("ko-KR", {
-    style: "currency",
-    currency: "KRW",
-  })
-    .format(incomeSum)
-    .replaceAll("₩", "");
-  const expenditureSumFormatted = new Intl.NumberFormat("ko-KR", {
-    style: "currency",
-    currency: "KRW",
-  })
-    .format(expenditureSum)
-    .replaceAll("₩", "");
+  const dayKor = useMemo(
+    () =>
+      DateTime.fromISO(`${year}-${month}-${day}`).setLocale("ko-KR")
+        .weekdayLong,
+    [year, month, day],
+  );
+
+  const incomeSumFormatted = useMemo(
+    () =>
+      new Intl.NumberFormat("ko-KR", {
+        style: "currency",
+        currency: "KRW",
+      })
+        .format(incomeSum)
+        .replaceAll("₩", ""),
+    [incomeSum],
+  );
+  const expenditureSumFormatted = useMemo(
+    () =>
+      new Intl.NumberFormat("ko-KR", {
+        style: "currency",
+        currency: "KRW",
+      })
+        .format(expenditureSum)
+        .replaceAll("₩", ""),
+    [expenditureSum],
+  );
 
   return (
     validRows.length && (

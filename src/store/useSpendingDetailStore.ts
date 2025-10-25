@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { nanoid } from "nanoid";
-import { sample } from "../utils/mockData";
+import { sample } from "../api/mockData";
 import type { SpendingDetail } from "../types/types";
 
 interface SpendingDetailStore {

@@ -1,0 +1,33 @@
+@theme {
+  /* Colors Tokens */
+  /* neutral */
+  --color-neutral-surface-weak: var(--color-grayscale-100);
+  --color-neutral-surface-default: var(--color-grayscale-50);
+  --color-neutral-surface-point: var(--color-grayscale-200);
+  --color-neutral-text-weak: var(--color-grayscale-300);
+  --color-neutral-text-default: var(--color-grayscale-400);
+  --color-neutral-text-rev-default: var(--color-grayscale-50);
+  --color-neutral-border-default: var(--color-grayscale-400);
+  /* brand */
+  --color-brand-surface-default: var(--color-grayscale-50);
+  --color-brand-text-income: var(--color-pastel-seagull);
+  --color-brand-text-expense: var(--color-pastel-chestnut);
+  /* danger */
+  --color-danger-surface-default: var(--color-pastel-amaranth);
+  --color-danger-text-default: var(--color-pastel-amaranth);
+  --color-danger-text-rev-default: var(--color-grayscale-50);
+  --color-danger-border-default: var(--color-pastel-amaranth);
+  /* colorchip */
+  --color-colorchip-10: var(--color-pastel-almondFrost);
+  --color-colorchip-20: var(--color-pastel-porsche);
+  --color-colorchip-30: var(--color-pastel-chenin);
+  --color-colorchip-40: var(--color-pastel-caper);
+  --color-colorchip-50: var(--color-pastel-cruise);
+  --color-colorchip-60: var(--color-pastel-onahau);
+  --color-colorchip-70: var(--color-pastel-glacier);
+  --color-colorchip-80: var(--color-pastel-jordyBlue);
+  --color-colorchip-90: var(--color-pastel-perano);
+  --color-colorchip-100: var(--color-pastel-perfume);
+  --color-colorchip-110: var(--color-pastel-lavenderPink);
+  --color-colorchip-120: var(--color-pastel-chestnut);
+}

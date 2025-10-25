@@ -28,7 +28,10 @@ export const PieChart: React.FC<PieChartProps> = ({
   const month = getMonth();
   const spendings = getSpendingsByMonth(year, month);
 
-  const categoryInfo = analyzeExpendituressByCategory(spendings);
+  const categoryInfo = useMemo(
+    () => analyzeExpendituressByCategory(spendings),
+    [spendings],
+  );
   const aggTotal = categoryInfo.map((x) => x.total).reduce((a, b) => a + b, 0);
 
   useEffect(() => {

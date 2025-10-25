@@ -59,9 +59,6 @@ export const SpendingRow: React.FC<SpendingDetail> = ({
       .replaceAll("₩", "");
     return prefix + formatted + "원";
   };
-  const amountStyleClasses = isExpenditure
-    ? "h-[24px] w-[186px] font-light font-sans text-sans-light-md text-end text-brand-text-expense"
-    : "h-[24px] w-[186px] font-light font-sans text-sans-light-md text-end text-brand-text-income";
   return (
     <div
       onClick={fillUpEditBar}
@@ -76,7 +73,7 @@ export const SpendingRow: React.FC<SpendingDetail> = ({
           <h3 className="h-[24px] w-[104px] font-light font-sans text-sans-light-md">
             {paymentMethod ?? " "}
           </h3>
-          <h3 className={amountStyleClasses}>
+          <h3 className={isExpenditure ? "expenditure-sum" : "income-sum"}>
             {formatWon(isExpenditure, amount)}
           </h3>
         </div>

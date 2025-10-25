@@ -19,14 +19,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const lastElement = elements.at(-1);
   const restElements = elements.slice(0, -1);
 
-  const style = {};
-  if (topOffset) style.top = `${topOffset}px`;
-  if (bottomOffset) style.bottom = `${bottomOffset}px`;
-  if (leftOffset) style.left = `${leftOffset}px`;
-  if (rightOffset) style.right = `${rightOffset}px`;
   return (
     <div
-      style={style}
+      style={{
+        ...(topOffset && { top: `${topOffset}px` }),
+        ...(bottomOffset && { bottom: `${bottomOffset}px` }),
+        ...(leftOffset && { left: `${leftOffset}px` }),
+        ...(rightOffset && { right: `${rightOffset}px` }),
+      }}
       className="absolute flex flex-col w-[152px] min-h-0 bg-grayscale-50 border-l-[0.5px] border-r-[0.5px] border-b-[0.5px] border-neutral-border-default items-center z-50"
     >
       {restElements.map((e, i) => {

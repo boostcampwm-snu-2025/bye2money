@@ -31,13 +31,8 @@ export const DayBlock: React.FC<DayBlockProps> = ({
       ? (expendituresSum ?? 0) * -1 + (incomesSum ?? 0)
       : undefined;
 
-  const blockStyle =
-    (isToday ?? false)
-      ? "flex flex-col-reverse justify-between bg-neutral-surface-point w-1/7 h-[119px] py-[8px] pl-[8.86px] pr-[8px]"
-      : "flex flex-col-reverse justify-between bg-neutral-surface-default w-1/7 h-[119px] py-[8px] pl-[8.86px] pr-[8px]";
-
   return (
-    <div className={blockStyle}>
+    <div className={(isToday ?? false) ? "today-day-block" : "day-block"}>
       {!isBlank && (
         <div className="flex flex-row-reverse w-[104px] h-[16px] font-serif text-serif-sm">
           {day}

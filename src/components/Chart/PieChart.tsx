@@ -65,11 +65,6 @@ export const PieChart: React.FC<PieChartProps> = ({
     renderPieChart(categoryInfo);
   }, [categoryInfo]);
 
-  const getRowStyleClasses = (c: Category) =>
-    currentCategory === c
-      ? "flex flex-row w-[280px] h-[56px] items-center bg-neutral-surface-point"
-      : "flex flex-row w-[280px] h-[56px] items-center";
-
   return (
     <div className="flex flex-row w-[846px] h-[517px] py-[22px] px-[32px] gap-[32px] bg-brand-surface-default z-20 border-[1px] border-neutral-border-default">
       <div className="grid place-items-center w-[422px] h-[473px]">
@@ -90,7 +85,11 @@ export const PieChart: React.FC<PieChartProps> = ({
             <div
               key={c.category}
               onClick={() => setCategory(c.category)}
-              className={getRowStyleClasses(c.category)}
+              className={
+                c.category === currentCategory
+                  ? "focused-category-row"
+                  : "category-row"
+              }
             >
               <CategoryTag category={c.category} />
               <div className="flex flex-row w-[188px] h-[56px] items-center justify-between p-[16px] text-sans-light-md font-light font-sans">

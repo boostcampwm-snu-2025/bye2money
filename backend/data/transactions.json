@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1760819101911,
+    "date": "2025-10-21",
+    "amount": 5215513,
+    "content": "rrrrrrrrrr",
+    "payment": "현금",
+    "category": "생활"
+  },
+  {
+    "id": 1761295551962,
+    "date": "2025-10-09",
+    "amount": -24212354350,
+    "content": "ㅁㄴㅇㄹ",
+    "payment": "야야야야야야야",
+    "category": "미분류"
+  },
+  {
+    "id": 1761374664017,
+    "date": "2025-10-19",
+    "amount": -12351512523,
+    "content": "hdfhdhdfh6124124",
+    "payment": "신용카드",
+    "category": "쇼핑/뷰티"
+  },
+  {
+    "id": 1761374710716,
+    "date": "2025-10-19",
+    "amount": 51355134124,
+    "content": "hhhhhhhhhhh",
+    "payment": "신용카드",
+    "category": "문화/여가"
+  },
+  {
+    "id": 1761375078394,
+    "date": "2025-10-19",
+    "amount": -121525215,
+    "content": "gagsdasddfdsfasg",
+    "payment": "신용카드",
+    "category": "의료/건강"
+  },
+  {
+    "id": 1761375262032,
+    "date": "2025-10-19",
+    "amount": 613632642,
+    "content": "kkkkkkkkkkk",
+    "payment": "1241412",
+    "category": "식비"
+  },
+  {
+    "id": 1761375455420,
+    "date": "2025-10-19",
+    "amount": -515151,
+    "content": "kkksfdsgagdgasg",
+    "payment": "wrqrqwrrqwr",
+    "category": "교통"
+  },
+  {
+    "id": 1761378414517,
+    "date": "2025-10-20",
+    "amount": 25125155,
+    "content": "hhhhhhhhh",
+    "payment": "666666",
+    "category": "월급"
+  },
+  {
+    "id": 1761380192596,
+    "date": "2025-10-21",
+    "amount": -25125155,
+    "content": "ghhhhhhhh",
+    "payment": "gdsgasgsdg",
+    "category": "용돈"
+  },
+  {
+    "id": 1761383003060,
+    "date": "2025-10-25",
+    "amount": 42141412412,
+    "content": "ㅇㅁㄴㄻㄹㄴㄻㄴㄹㄹ",
+    "payment": "신용카드",
+    "category": "월급"
+  },
+  {
+    "id": 1761383118794,
+    "date": "2025-10-25",
+    "amount": -124124,
+    "content": "gsdgadgdsgasdgag",
+    "payment": "gdsgasgsdg",
+    "category": "기타 수입"
+  },
+  {
+    "id": 1761389647517,
+    "date": "2025-10-25",
+    "amount": -41221,
+    "content": "afdsa",
+    "payment": "yay",
+    "category": "생활"
+  },
+  {
+    "id": 1761389906542,
+    "date": "2025-10-25",
+    "amount": -1231420,
+    "content": "1231",
+    "payment": "",
+    "category": "생활"
+  },
+  {
+    "id": 1761391843468,
+    "date": "2025-10-25",
+    "amount": -124,
+    "content": "fdsfasf",
+    "payment": "",
+    "category": "문화/여가"
+  }
+]

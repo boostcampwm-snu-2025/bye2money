@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import type { SpendingDetail } from "../store/useSpendingDetailStore";
+import type { SpendingDetail } from "../types/types";
 
 export const sample: SpendingDetail[] = [
   {

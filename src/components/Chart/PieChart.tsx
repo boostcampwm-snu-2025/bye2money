@@ -42,7 +42,6 @@ export const PieChart: React.FC<PieChartProps> = ({
     let radianAccum = sR;
     info.forEach(({ category, total }) => {
       ctx.fillStyle = getBfColorRaw(category);
-      console.log(ctx.fillStyle);
       ctx.beginPath();
       ctx.moveTo(254, 254);
       const rad = (cR * total) / aggTotal;

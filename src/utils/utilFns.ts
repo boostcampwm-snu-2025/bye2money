@@ -1,8 +1,5 @@
 import type { CategorySpending } from "../components/Chart/PieChart.tsx";
-import {
-  type DaySpendings,
-  type SpendingDetail,
-} from "../store/useSpendingDetailStore.ts";
+import type { DaySpendings, SpendingDetail } from "../types/types.ts";
 
 export const groupSpendingsByDay = (
   spendings: SpendingDetail[],

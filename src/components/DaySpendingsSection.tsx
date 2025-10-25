@@ -1,4 +1,3 @@
-import { useSpendingDetailStore } from "../store/useSpendingDetailStore.ts";
 import { DateTime } from "luxon";
 import { SpendingRow } from "./SpendingRow.tsx";
 import { useMemo } from "react";

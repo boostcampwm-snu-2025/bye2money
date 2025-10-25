@@ -6,21 +6,20 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg?react";
 import ChevronRightIcon from "../../assets/icons/chevron-right.svg?react";
 import { NavBtn } from "./NavBtn";
 import { useDateStore } from "../../store/useDateStore";
-import { useRouteStore } from "../../store/useRouteStore";
-import type { NavState } from "../../store/useRouteStore";
+import { useNavigate } from "react-router";
+import type { NavState } from "../../types/types";
 
 const getIcon = (navState: NavState): React.FC => {
   const navIconMap: Record<NavState, React.FC> = {
-    main: MainIcon,
-    calendar: CalendarIcon,
-    chart: ChartIcon,
+    "/": MainIcon,
+    "/calendar": CalendarIcon,
+    "/chart": ChartIcon,
   };
   return navIconMap[navState];
 };
 
 export const Header: React.FC = () => {
-  const routes: NavState[] = ["main", "calendar", "chart"];
-  const { currentRoute, navigate } = useRouteStore();
+  const routes: NavState[] = ["/", "/calendar", "/chart"];
   const {
     selectedDate,
     setNextMonth,
@@ -29,22 +28,15 @@ export const Header: React.FC = () => {
     getMonth,
     getMonthEng,
   } = useDateStore();
+  const nav = useNavigate();
   const navBtns = routes.map((r) => {
-    return (
-      <NavBtn
-        key={r}
-        onClick={navigate}
-        state={r}
-        currentState={currentRoute}
-        icon={getIcon(r)}
-      />
-    );
+    return <NavBtn key={r} state={r} icon={getIcon(r)} />;
   });
   return (
     <header className="flex flex-row relative w-layout h-[176px] items-start justify-center pt-[40px] bg-colorchip-80">
       <div className="flex flex-row w-[846px] h-[112px] justify-between items-center">
         <button
-          onClick={() => navigate("main")}
+          onClick={() => nav("main")}
           className="flex flex-row gap-[4px] h-[32px] w-[132px]"
         >
           <h1 className="font-serif text-serif-md">Wise</h1>

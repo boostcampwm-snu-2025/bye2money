@@ -38,3 +38,10 @@ export interface CategorySpending {
   category: Category;
   total: number;
 }
+
+const NAV_STATE = {
+  MAIN: "/",
+  CALENDAR: "/calendar",
+  CHART: "/chart",
+} as const;
+export type NavState = (typeof NAV_STATE)[keyof typeof NAV_STATE];

@@ -28,13 +28,13 @@ export const PieChart: React.FC<PieChartProps> = ({
   const month = getMonth();
   const spendings = getSpendingsByMonth(year, month);
 
-  const categoryInfo = useMemo(
+  const categoryInfo: CategorySpending[] = useMemo(
     () => analyzeExpendituressByCategory(spendings),
     [spendings],
   );
   const aggTotal = categoryInfo.map((x) => x.total).reduce((a, b) => a + b, 0);
 
-  useEffect(() => {
+  const renderPieChart = (info: CategorySpending[]) => {
     const cnvs = cnvsRef.current;
     const ctx = cnvs!.getContext("2d")!;
 
@@ -43,7 +43,7 @@ export const PieChart: React.FC<PieChartProps> = ({
     const sR = Math.PI / -2;
     ctx.moveTo(127, 127);
     let radianAccum = sR;
-    categoryInfo.forEach(({ category, total }) => {
+    info.forEach(({ category, total }) => {
       ctx.fillStyle = getBfColorRaw(category);
       console.log(ctx.fillStyle);
       ctx.beginPath();
@@ -59,6 +59,10 @@ export const PieChart: React.FC<PieChartProps> = ({
     ctx.moveTo(254, 254);
     ctx.arc(254, 254, 170, 0, Math.PI * 2);
     ctx.fill();
+  };
+
+  useEffect(() => {
+    renderPieChart(categoryInfo);
   }, [categoryInfo]);
 
   const getRowStyleClasses = (c: Category) =>

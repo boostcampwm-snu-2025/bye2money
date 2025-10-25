@@ -1,11 +1,23 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAppContext } from "@/contexts/AppContext";
+import { useInputBarContext } from "@/contexts/InputBarContext";
 
 const TransactionsContext = createContext(null);
 
 export function TransactionsContextProvider({ children }) {
     const { year, month } = useAppContext();
     const yearMonth = `${year}-${month}`;
+
+    const { 
+        setDateInput,
+        setIsExpense,
+        setAmountInput,
+        setDescriptionInput,
+        setPaymentMethod,
+        setCategory,
+        setEditingTransaction
+    } = useInputBarContext();
+
     const [transactions, setTransactions] = useState([]);
     const [numTransactions, setNumTransactions] = useState(0);
     const [expenseChecked, setExpenseChecked] = useState(true);
@@ -45,16 +57,27 @@ export function TransactionsContextProvider({ children }) {
         })
     }
 
+    const editHandler = (targetTransaction) => {
+        setDateInput(targetTransaction.date);
+        setIsExpense(targetTransaction.type === "expense");
+        setAmountInput(targetTransaction.amount);
+        setDescriptionInput(targetTransaction.description);
+        setPaymentMethod(targetTransaction.paymentMethod);
+        setCategory(targetTransaction.category);
+        setEditingTransaction(targetTransaction);
+    }
+
     const transactionsContextValue = {
         transactions, setTransactions,
         numTransactions, setNumTransactions,
         expenseChecked, setExpenseChecked,
         incomeChecked, setIncomeChecked,
+        totalExpense, totalIncome,
         onRemoval, setOnRemoval,
         removalTarget, setRemovalTarget,
         removeHandler,
         requestDeleteTransaction,
-        totalExpense, totalIncome
+        editHandler
     };
 
     return (

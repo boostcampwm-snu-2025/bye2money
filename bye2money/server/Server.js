@@ -96,6 +96,27 @@ app.delete("/api/transactions/:yearMonth/:id", (req, res) => {
     saveDataToFile();
 })
 
+app.put("/api/transactions/:yearMonth/:id", (req, res) => {
+    const handleUpdateTransactionsRequest = (req, res) => {
+        const { yearMonth, id } = req.params;
+        const numericID = parseInt(id, 10)
+        const updatedTransactionData = req.body;
+        
+        const targetTransactionIndex = DATA["TRANSACTIONS"][yearMonth].findIndex(transaction => transaction.id === numericID);
+        console.log(targetTransactionIndex);
+        if (targetTransactionIndex === -1) return res.status(404).json({message: "No transaction corresponding id"})
+        
+        const originalTransaction = DATA["TRANSACTIONS"][yearMonth][targetTransactionIndex];
+        const updatedTransaction = {...originalTransaction, ...updatedTransactionData}
+        DATA["TRANSACTIONS"][yearMonth][targetTransactionIndex] = updatedTransaction
+        res.status(201).json(updatedTransaction);
+    }
+    handleUpdateTransactionsRequest(req, res);
+    sortTransactions();
+    saveDataToFile();
+})
+
+
 const sortTransactions = () => {
     const originalTransactions = DATA["TRANSACTIONS"];
     let sortedTransactions = {};

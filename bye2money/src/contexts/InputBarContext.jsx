@@ -15,6 +15,7 @@ export function InputBarContextProvider({ children }) {
     const [paymentMethod, setPaymentMethod] = useState("선택하세요");
     const [category, setCategory] = useState("선택하세요");
     const [isValid, setIsValid] = useState(false);
+    const [editingTransaction, setEditingTransaction] = useState(null);
 
     useEffect(() => {
         const checkInputValidity = (dateInput, amountInput, descriptionInput, paymentMethod, category) => {
@@ -90,8 +91,14 @@ export function InputBarContextProvider({ children }) {
             amount: Number(amountInput), 
             description: descriptionInput, 
             paymentMethod: paymentMethod, 
-            category: category}
-        requestPostTransaction(yearMonth, transaction);
+            category: category
+        }
+        
+        if (editingTransaction === null) {
+            requestPostTransaction(yearMonth, transaction);
+        } else {
+            requestUpdateTransaction(yearMonth, editingTransaction.id, transaction);
+        }
     }
 
     const parseYearMonth = (dateInput) => {
@@ -106,6 +113,15 @@ export function InputBarContextProvider({ children }) {
         const url = `http://localhost:3001/api/transactions/${yearMonth}`;
         fetch(url, {
             method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(transaction)
+        }).then(response => {response.ok ? resetInputBar() : {}})
+    }
+
+    const requestUpdateTransaction = async (yearMonth, id, transaction) => {
+        const url = `http://localhost:3001/api/transactions/${yearMonth}/${id}`;
+        fetch(url, {
+            method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(transaction)
         }).then(response => {response.ok ? resetInputBar() : {}})
@@ -138,7 +154,8 @@ export function InputBarContextProvider({ children }) {
         requestDeletePaymentMethods,
         category, setCategory,
         isValid, setIsValid,
-        saveHandler
+        saveHandler,
+        editingTransaction, setEditingTransaction
     };
     
     return (

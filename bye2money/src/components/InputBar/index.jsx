@@ -12,7 +12,7 @@ import { PaymentMethodSelect } from "./PaymentMethodSelect";
 import { CategorySelect } from "./CategorySelect";
 import { SaveButton } from "./SaveButton";
 
-export function InputBar() {
+export function InputBar({ children }) {
     return (
         <InputBarContextProvider>
             <Box 
@@ -40,6 +40,7 @@ export function InputBar() {
                     </Stack>
                 </Paper>
             </Box>
+            {children}
         </InputBarContextProvider>
     );
 }

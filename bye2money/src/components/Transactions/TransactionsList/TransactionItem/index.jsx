@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTransactionsContext } from "@/contexts/TransactionsContext";
 
 export function TransactionItem({ transaction }) {
-    const { removeHandler } = useTransactionsContext();
+    const { removeHandler, editHandler } = useTransactionsContext();
     const isIncome = transaction.type === "income";
     const amountColor = isIncome ? "primary.main" : "error.main";
     const amountSign = isIncome ? "+" : "-";
@@ -22,7 +22,7 @@ export function TransactionItem({ transaction }) {
         "용돈": "#AACD7E",
         "기타수입": "#A28878"
     }
-    const [onHovered, setOnHovered] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
     return (
         <Box
@@ -35,8 +35,9 @@ export function TransactionItem({ transaction }) {
                 "&:hover": {
                     backgroundColor: "#EEEEEE"
                 }}}
-                onMouseEnter={() => setOnHovered(true)}
-                onMouseLeave={() => setOnHovered(false)}>
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={() => editHandler(transaction)}>
             <Box
                 sx={{
                     flex: 1,
@@ -84,7 +85,7 @@ export function TransactionItem({ transaction }) {
                     {amountSign} {Number(transaction.amount).toLocaleString()}원
                 </Typography>
 
-                {onHovered && (
+                {isHovered && (
                     <Box
                         onClick={() => removeHandler(transaction)}
                         sx={{

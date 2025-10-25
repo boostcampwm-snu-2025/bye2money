@@ -10,8 +10,9 @@ function App() {
     <AppContextProvider>
       <Layout>
         <Header/>
-        <InputBar/>
-        <Transactions/>
+        <InputBar>
+          <Transactions/>
+        </InputBar>
       </Layout>
     </AppContextProvider>
   );

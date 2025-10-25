@@ -22,36 +22,57 @@ export const Calendar = () => {
     [spendings],
   );
 
-  const { year: currYear, month: currMonth, day: currDay } = DateTime.now();
+  const {
+    year: currYear,
+    month: currMonth,
+    day: currDay,
+  } = useMemo(() => DateTime.now(), []);
 
-  const currMonthFirstDay = DateTime.fromObject({ year, month, day: 1 });
-  const currMonthLastDay = currMonthFirstDay.endOf("month").day;
+  const { currMonthLastDay, prefixQty, suffixQty } = useMemo(() => {
+    const currMonthFirstDay = DateTime.fromObject({ year, month, day: 1 });
+    const currMonthLastDay = currMonthFirstDay.endOf("month").day;
 
-  const prefixQty = currMonthFirstDay.weekday % 7;
-  const suffixQty = (7 - ((currMonthLastDay + prefixQty) % 7)) % 7;
+    const prefixQty = currMonthFirstDay.weekday % 7;
+    const suffixQty = (7 - ((currMonthLastDay + prefixQty) % 7)) % 7;
+    return { currMonthLastDay, prefixQty, suffixQty };
+  }, [year, month]);
 
-  const blocksProps: (DayBlockProps | undefined)[] = [];
-  Array.from({ length: prefixQty }).forEach((_x) =>
-    blocksProps.push(undefined),
-  );
-  Array.from({ length: currMonthLastDay }).forEach((_x, i) =>
-    blocksProps.push({
-      day: i + 1,
-      year,
-      month,
-      isToday: i + 1 === currDay && year === currYear && month === currMonth,
-      spendings: [],
-    }),
-  );
-  Array.from({ length: suffixQty }).forEach((x) => blocksProps.push(undefined));
-  spendingsByDay.forEach(
-    (s) => (blocksProps[s.day - 1 + prefixQty].spendings = s.spendings),
-  );
+  const blocksProps: (DayBlockProps | undefined)[] = useMemo(() => {
+    const res: (DayBlockProps | undefined)[] = [];
+    Array.from({ length: prefixQty }).forEach((_x) => res.push(undefined));
+    Array.from({ length: currMonthLastDay }).forEach((_x, i) =>
+      res.push({
+        day: i + 1,
+        year,
+        month,
+        isToday: i + 1 === currDay && year === currYear && month === currMonth,
+        spendings: [],
+      }),
+    );
+    Array.from({ length: suffixQty }).forEach((x) => res.push(undefined));
+    spendingsByDay.forEach(
+      (s) => (res[s.day - 1 + prefixQty].spendings = s.spendings),
+    );
+    return res;
+  }, [
+    year,
+    month,
+    currYear,
+    currMonth,
+    currDay,
+    currMonthLastDay,
+    prefixQty,
+    suffixQty,
+    spendingsByDay,
+  ]);
   const koreanWeekdays = ["일", "월", "화", "수", "목", "금", "토"];
-  const weeks: (DayBlockProps | undefined)[][] = [];
-  Array.from({ length: blocksProps.length / 7 }).forEach((_x, i) => {
-    weeks.push(blocksProps.slice(i * 7, i * 7 + 7));
-  });
+  const weeks: (DayBlockProps | undefined)[][] = useMemo(() => {
+    const res: (DayBlockProps | undefined)[][] = [];
+    Array.from({ length: blocksProps.length / 7 }).forEach((_x, i) => {
+      res.push(blocksProps.slice(i * 7, i * 7 + 7));
+    });
+    return res;
+  }, [blocksProps]);
 
   return (
     <div className="flex flex-col w-[845px] border-neutral-border-default border-[0.5px] divide-y-[0.5px] divide-neutral-border-default z-10">

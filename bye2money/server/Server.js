@@ -68,7 +68,7 @@ app.post("/api/transactions/:yearMonth", (req, res) => {
         const { yearMonth } = req.params;
         const { date, type, amount, description, paymentMethod, category } = req.body;
         const newTransaction = {
-            "id": maxTransactionID++, 
+            "id": ++maxTransactionID, 
             "date": date,
             "type": type,
             "amount": amount,

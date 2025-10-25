@@ -4,10 +4,11 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
 import { DayTransactionsList } from "./DayTransactionList";
+import { TransactionRemovalModal } from "./TransactionItem/TransactionRemovalModal";
 import { useTransactionsContext } from "@/contexts/TransactionsContext";
 
 export function TransactionsList() {
-    const { transactions, incomeChecked, expenseChecked } = useTransactionsContext();
+    const { transactions, incomeChecked, expenseChecked, onRemoval } = useTransactionsContext();
     const filteredTransactions = transactions.filter(transaction => {
         if (!incomeChecked && !expenseChecked) return false;
         if (incomeChecked && !expenseChecked) return transaction.type === "income";
@@ -78,6 +79,7 @@ export function TransactionsList() {
     return (
         <Box sx={{ mt: 2 }}>
             {transactionsList}
+            {onRemoval && <TransactionRemovalModal/>}
         </Box>
     );
 }

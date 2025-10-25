@@ -1,4 +1,4 @@
-import { React } from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";

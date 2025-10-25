@@ -7,18 +7,11 @@ import { useTransactionsContext } from "@/contexts/TransactionsContext";
 
 export function TransactionsHeader() {
     const { 
-        transactions, numTransactions, 
+        numTransactions, 
         expenseChecked, setExpenseChecked, 
-        incomeChecked, setIncomeChecked 
+        incomeChecked, setIncomeChecked,
+        totalExpense, totalIncome
     } = useTransactionsContext();
-    
-    const totalIncome = transactions
-        .filter(transaction => transaction.type === "income")
-        .reduce((sum, transaction) => sum + transaction.amount, 0);
-
-    const totalExpense = transactions
-        .filter(transaction => transaction.type === "expense")
-        .reduce((sum, transaction) => sum + transaction.amount, 0);
     
     return (
         <Box

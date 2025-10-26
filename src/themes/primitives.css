@@ -1,0 +1,61 @@
+@theme {
+  /* Fonts */
+  --font-serif: "ChosunIlboMyungjo", ui-serif, Georgia, serif;
+  --font-sans: "Pretendard", ui-sans-serif, system-ui, sans-serif;
+
+  /* Font Sizes */
+  --text-serif-lg: 48px;
+  --text-serif-md: 24px;
+  --text-serif-sm: 14px;
+  --text-sans-semibold-lg: 16px;
+  --text-sans-semibold-md: 14px;
+  --text-sans-semibold-sm: 12px;
+  --text-sans-light-lg: 16px;
+  --text-sans-light-md: 14px;
+  --text-sans-light-sm: 12px;
+
+  /* Line Widths */
+  --text-serif-lg--line-height: 56px;
+  --text-serif-md--line-height: 32px;
+  --text-serif-sm--line-height: 16px;
+  --text-sans-semibold-lg--line-height: 24px;
+  --text-sans-semibold-md--line-height: 16px;
+  --text-sans-semibold-sm--line-height: 16px;
+  --text-sans-light-lg--line-height: 32px;
+  --text-sans-light-md--line-height: 24px;
+  --text-sans-light-sm--line-height: 24px;
+
+  /* Widths */
+  --width-layout: 1440px;
+
+  /* Heights */
+  --height-btn-lg: 56px;
+  --height-btn-md: 24px;
+  --height-btn-sm: 16px;
+  --height-icon-lg: 40px;
+  --height-icon-md: 24px;
+  --height-icon-sm: 16px;
+
+  /* Primitive Colors */
+  /* grayscale */
+  --color-grayscale-50: #ffffff;
+  --color-grayscale-100: #fbfcfd;
+  --color-grayscale-200: #f1f4f8;
+  --color-grayscale-300: #777d84;
+  --color-grayscale-400: #000000;
+  /* pastel */
+  --color-pastel-almondFrost: #a28878;
+  --color-pastel-porsche: #e39d5d;
+  --color-pastel-chenin: #d7ca6b;
+  --color-pastel-caper: #aacd7e;
+  --color-pastel-cruise: #bcdfd3;
+  --color-pastel-onahau: #c5e0eb;
+  --color-pastel-glacier: #7db7bf;
+  --color-pastel-seagull: #79b2ca;
+  --color-pastel-jordyBlue: #73a4d0;
+  --color-pastel-perano: #a7b9e9;
+  --color-pastel-perfume: #bda6e1;
+  --color-pastel-lavenderPink: #f0b0d3;
+  --color-pastel-amaranth: #e93b5a;
+  --color-pastel-chestnut: #c04646;
+}

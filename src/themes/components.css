@@ -1,0 +1,61 @@
+@layer components {
+  .btn {
+    @apply flex flex-row items-center hover:opacity-80 active:opacity-[.64] disabled:opacity-[.32] w-fit cursor-pointer;
+  }
+
+  .btn-lg {
+    @apply h-btn-lg gap-[8px] font-serif text-serif-lg;
+  }
+
+  .btn-md {
+    @apply h-btn-md gap-[8px] font-sans font-semibold text-sans-semibold-lg;
+  }
+
+  .btn-sm {
+    @apply h-btn-sm gap-[4px] font-sans font-semibold text-sans-semibold-sm;
+  }
+
+  .input {
+    @apply flex flex-row text-sans-semibold-sm font-semibold font-sans placeholder:text-sans-semibold-sm placeholder:font-sans placeholder:text-neutral-text-weak w-fit focus:ring focus:outline-none;
+  }
+
+  .input-filled {
+    @apply h-[40px] bg-neutral-surface-point rounded-[8px] px-[16px] py-[8px] focus:ring-neutral-border-default focus:bg-neutral-surface-default;
+  }
+
+  .input-hollow {
+    @apply h-[16px] bg-transparent ring-transparent;
+  }
+
+  .checkbox {
+    @apply flex flex-row h-[24px] gap-[4px] items-center text-sans-light-sm font-sans w-fit;
+  }
+
+  .category-tag {
+    @apply grid h-[56px] w-[96px] text-center text-sans-light-sm font-sans text-neutral-text-default place-items-center;
+  }
+
+  .today-day-block {
+    @apply flex flex-col-reverse justify-between bg-neutral-surface-point w-1/7 h-[119px] py-[8px] pl-[8.86px] pr-[8px];
+  }
+
+  .day-block {
+    @apply flex flex-col-reverse justify-between bg-neutral-surface-default w-1/7 h-[119px] py-[8px] pl-[8.86px] pr-[8px];
+  }
+
+  .category-row {
+    @apply flex flex-row w-[280px] h-[56px] items-center;
+  }
+
+  .focused-category-row {
+    @apply flex flex-row w-[280px] h-[56px] items-center bg-neutral-surface-point;
+  }
+
+  .expenditure-sum {
+    @apply h-[24px] w-[186px] font-light font-sans text-sans-light-md text-end text-brand-text-expense;
+  }
+
+  .income-sum {
+    @apply h-[24px] w-[186px] font-light font-sans text-sans-light-md text-end text-brand-text-income;
+  }
+}

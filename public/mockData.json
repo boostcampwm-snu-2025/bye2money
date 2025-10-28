@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "date": "2025-08-14T10:00:00Z",
+        "category": "문화/여가",
+        "content": "스트리밍 서비스 정기 결제",
+        "paymentMethod": "현대카드",
+        "amount": -10900
+    },
+    {
+        "id": 2,
+        "date": "2025-08-14T12:30:00Z",
+        "category": "교통",
+        "content": "후불 교통비 결제",
+        "paymentMethod": "신용카드",
+        "amount": -45340
+    },
+    {
+        "id": 3,
+        "date": "2025-08-13T18:00:00Z",
+        "category": "미분류",
+        "content": "온라인 세미나 신청",
+        "paymentMethod": "현대카드",
+        "amount": -10000
+    },
+    {
+        "id": 4,
+        "date": "2025-08-10T14:00:00Z",
+        "category": "식비",
+        "content": "잔치국수와 김밥",
+        "paymentMethod": "현대카드",
+        "amount": -9500
+    },
+    {
+        "id": 5,
+        "date": "2025-08-10T09:00:00Z",
+        "category": "월급",
+        "content": "8월 급여",
+        "paymentMethod": "현금",
+        "amount": 2010580
+    },
+    {
+        "id": 6,
+        "date": "2025-07-20T14:30:00Z",
+        "category": "식비",
+        "content": "레스토랑 저녁 식사",
+        "paymentMethod": "삼성카드",
+        "amount": -45000
+    },
+    {
+        "id": 7,
+        "date": "2025-08-01T08:15:00Z",
+        "category": "교통",
+        "content": "지하철 정기권 충전",
+        "paymentMethod": "카카오페이",
+        "amount": 55000
+    },
+    {
+        "id": 8,
+        "date": "2025-08-15T16:05:00Z",
+        "category": "쇼핑",
+        "content": "온라인 쇼핑몰 의류 구매",
+        "paymentMethod": "네이버페이",
+        "amount": -89000
+    },
+    {
+        "id": 9,
+        "date": "2025-09-05T18:00:00Z",
+        "category": "식비",
+        "content": "마트 장보기",
+        "paymentMethod": "KB국민카드",
+        "amount": 120500
+    },
+    {
+        "id": 10,
+        "date": "2025-09-10T12:00:00Z",
+        "category": "주거/통신",
+        "content": "월세 이체",
+        "paymentMethod": "계좌이체",
+        "amount": -550000
+    },
+    {
+        "id": 11,
+        "date": "2025-09-25T09:00:00Z",
+        "category": "주거/통신",
+        "content": "휴대폰 요금",
+        "paymentMethod": "신한카드",
+        "amount": 67000
+    },
+    {
+        "id": 12,
+        "date": "2025-10-02T19:45:00Z",
+        "category": "문화/여가",
+        "content": "영화 관람",
+        "paymentMethod": "현대카드",
+        "amount": -15000
+    },
+    {
+        "id": 13,
+        "date": "2025-10-11T15:20:00Z",
+        "category": "교육",
+        "content": "온라인 강의 결제",
+        "paymentMethod": "삼성카드",
+        "amount": -150000
+    },
+    {
+        "id": 14,
+        "date": "2025-10-18T11:00:00Z",
+        "category": "건강/의료",
+        "content": "약국 약 구매",
+        "paymentMethod": "KB국민카드",
+        "amount": 24000
+    },
+    {
+        "id": 15,
+        "date": "2025-11-01T13:30:00Z",
+        "category": "식비",
+        "content": "카페 커피 및 디저트",
+        "paymentMethod": "카카오페이",
+        "amount": -12500
+    }
+]

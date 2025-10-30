@@ -10,21 +10,33 @@ import Division from "./division";
 
 const MAX_DESCRIPTION_LENGTH = 32;
 
+const shema = z.object({
+  amount: z.number(),
+  category: z.string(),
+  date: z.date().nullable(),
+  description: z.string().max(MAX_DESCRIPTION_LENGTH),
+  paymentMethod: z.string(),
+  sign: z.enum(["expenses", "income"]),
+});
+
+const defaultValues = shema.parse({
+  amount: 0,
+  category: "",
+  date: new Date(),
+  description: "",
+  paymentMethod: "",
+  sign: "expenses",
+});
+
 function InputBar() {
   const form = useForm({
-    defaultValues: {
-      amount: 0,
-      category: "",
-      date: new Date(),
-      description: "",
-      paymentMethod: "",
-      sign: "expenses" as "expenses" | "income",
-    },
+    defaultValues,
     onSubmit: (values) => {
       console.log(values.value);
     },
     validators: {
-      onChange: z.object({
+      onChange: shema,
+      onSubmit: z.object({
         amount: z.number(),
         category: z.string(),
         date: z.date(),
@@ -54,9 +66,9 @@ function InputBar() {
               className="w-full h-[16px] text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard]"
               name={field.name}
               onBlur={field.handleBlur}
-              onChange={(e) => field.handleChange(new Date(e.target.value))}
+              onChange={(e) => field.handleChange(e.target.valueAsDate)}
               type="date"
-              value={dayjs(field.state.value).format("YYYY-MM-DD")}
+              value={field.state.value ? dayjs(field.state.value).format("YYYY-MM-DD") : undefined}
             />
           )}
           name="date"

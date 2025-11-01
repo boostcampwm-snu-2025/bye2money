@@ -173,7 +173,7 @@ export function CalendarView() {
                       )}
                       {day.expense < 0 && (
                         <div className="text-brand-text-expense body-12 truncate">
-                          {formatCurrency(day.expense)}
+                          {formatCurrency(day.expense).replace('원', '')}
                         </div>
                       )}
                       {day.total !== 0 && (

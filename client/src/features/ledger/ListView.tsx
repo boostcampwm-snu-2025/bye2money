@@ -177,7 +177,7 @@ function TxnItem({txn,onEdit,onDelete,methodName}:{txn:Txn;onEdit:()=>void;onDel
         className="group grid cursor-pointer items-stretch bg-white hover:bg-zinc-50 border-b border-zinc-200 last:border-0 font-sans"
         style={{ gridTemplateColumns: '120px 1fr 80px 120px auto', gap: '0' }}>
       {/* 카테고리 박스 - 더 큰 박스 레이아웃 */}
-      <div className="tag shrink-0 text-white flex items-center justify-center px-4 py-3 min-h-[60px] body-12" data-cat={txn.category}>
+      <div className="tag shrink-0 text-zinc-900 flex items-center justify-center px-4 py-3 min-h-[60px] body-12" data-cat={txn.category}>
         {txn.category}
       </div>
       {/* 설명 */}

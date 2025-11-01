@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { EntryBar } from './features/ledger/EntryBar';
 import { ListView, ListViewFilter } from './features/ledger/ListView';
 import { CalendarView } from './features/ledger/CalendarView';
+import { StatsView } from './features/ledger/StatsView';
 import { useMemo, useState } from 'react';
 import { sameMonth } from './lib/date';
 
@@ -33,20 +34,18 @@ export default function App(){
       <Header year={year} month={month} tab={tab}
               onPrev={()=>go(-1)} onNext={()=>go(1)} onTab={(t)=>dispatch({type:'switchTab',tab:t})}/>
       {/* 고정 영역: EntryBar + 필터 */}
-      {tab !== 'calendar' && (
+      {tab === 'list' && (
         <div className="flex-shrink-0 relative z-20 bg-zinc-100">
           <EntryBar/>
-          {tab==='list' && (
-            <div className="mx-auto max-w-4xl">
-              <ListViewFilter 
-                monthly={monthly}
-                showIncome={showIncome}
-                showExpense={showExpense}
-                onToggleIncome={() => setShowIncome(!showIncome)}
-                onToggleExpense={() => setShowExpense(!showExpense)}
-              />
-            </div>
-          )}
+          <div className="mx-auto max-w-4xl">
+            <ListViewFilter 
+              monthly={monthly}
+              showIncome={showIncome}
+              showExpense={showExpense}
+              onToggleIncome={() => setShowIncome(!showIncome)}
+              onToggleExpense={() => setShowExpense(!showExpense)}
+            />
+          </div>
         </div>
       )}
       {/* 스크롤 가능한 영역: 리스트만 - 절대 위치로 설정 */}
@@ -58,7 +57,9 @@ export default function App(){
                 ? <ListView showIncome={showIncome} showExpense={showExpense}/>
                 : tab==='calendar'
                 ? <CalendarView/>
-                : <div className="mt-8 rounded-2xl border bg-white p-8 text-zinc-500">통계는 2주차에 구현합니다.</div>}
+                : tab==='stats'
+                ? <StatsView/>
+                : null}
             </div>
           </main>
         </div>

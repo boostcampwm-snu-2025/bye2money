@@ -23,6 +23,7 @@ const data: {
   category: Category;
   date: Dayjs;
   description: string;
+  // id는 생성한 시간 순으로 부여됩니다.
   id: number;
   paymentMethod: string;
 }[] = [

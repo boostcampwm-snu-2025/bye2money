@@ -261,7 +261,13 @@ function ListView() {
             </div>
             <div className="w-full border-y-[0.5px]">
               {item.data.map((item) => (
-                <DailyListDetail item={item} key={item.id} />
+                <DailyListDetail 
+                  amount={item.amount}
+                  category={item.category}
+                  description={item.description}
+                  key={item.id}
+                  paymentMethod={item.paymentMethod}
+                />
               ))}
             </div>
           </div>

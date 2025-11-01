@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 import { useLedger } from '../../stores/ledger-store';
-import { sameMonth, parseYMD, weekdayLabel } from '../../lib/date';
+import { sameMonth, parseYMD } from '../../lib/date';
 import { formatCurrency } from '../../lib/format';
 import type { Txn } from '../../types/ledger';
 
+/** 달력 셀의 데이터 */
 type DayData = {
   date: string;
   income: number;
@@ -13,17 +14,21 @@ type DayData = {
   isCurrentMonth: boolean;
 };
 
+/**
+ * 달력 뷰 컴포넌트
+ * 월별 달력 그리드와 날짜별 트랜잭션 통계를 표시
+ */
 export function CalendarView() {
   const { state } = useLedger();
   const { year, month } = state.ui;
 
-  // 현재 월의 트랜잭션
-  const monthlyTxns = useMemo(
-    () => state.txns.filter((t) => sameMonth(t.date, year, month)),
+  /* 현재 월의 트랜잭션 필터링 */
+  const monthlyTransactions = useMemo(
+    () => state.txns.filter((transaction) => sameMonth(transaction.date, year, month)),
     [state.txns, year, month]
   );
 
-  // 오늘 날짜
+  /* 오늘 날짜 정보 */
   const today = useMemo(() => {
     const now = new Date();
     return {
@@ -34,36 +39,40 @@ export function CalendarView() {
     };
   }, []);
 
-  // 월별 총합 계산
+  /* 월별 총합 계산 */
   const monthSummary = useMemo(() => {
-    const income = monthlyTxns.filter((t) => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
-    const expense = monthlyTxns.filter((t) => t.amount < 0).reduce((sum, t) => sum + t.amount, 0);
+    const income = monthlyTransactions
+      .filter((transaction) => transaction.amount > 0)
+      .reduce((sum, transaction) => sum + transaction.amount, 0);
+    const expense = monthlyTransactions
+      .filter((transaction) => transaction.amount < 0)
+      .reduce((sum, transaction) => sum + transaction.amount, 0);
     return { income, expense, total: income + expense };
-  }, [monthlyTxns]);
+  }, [monthlyTransactions]);
 
-  // 날짜별로 트랜잭션 그룹화
-  const dayMap = useMemo(() => {
-    const map = new Map<string, Txn[]>();
-    monthlyTxns.forEach((t) => {
-      const existing = map.get(t.date) || [];
-      map.set(t.date, [...existing, t]);
+  /* 날짜별로 트랜잭션 그룹화 */
+  const transactionsByDate = useMemo(() => {
+    const dateMap = new Map<string, Txn[]>();
+    monthlyTransactions.forEach((transaction) => {
+      const existingTransactions = dateMap.get(transaction.date) || [];
+      dateMap.set(transaction.date, [...existingTransactions, transaction]);
     });
-    return map;
-  }, [monthlyTxns]);
+    return dateMap;
+  }, [monthlyTransactions]);
 
-  // 달력 그리드 생성
+  /* 달력 그리드 생성 (6주 × 7일 = 42개 셀) */
   const calendarGrid = useMemo(() => {
-    // 첫 번째 날과 마지막 날 구하기
     const firstDay = new Date(year, month - 1, 1);
     const lastDay = new Date(year, month, 0);
-    const firstWeekday = firstDay.getDay(); // 0 (일요일) ~ 6 (토요일)
+    const firstWeekday = firstDay.getDay(); // 0: 일요일 ~ 6: 토요일
     const daysInMonth = lastDay.getDate();
 
-    // 이전 달 마지막 날들
+    /* 이전 달 날짜들 (첫 주를 채우기 위함) */
     const prevMonth = month === 1 ? 12 : month - 1;
     const prevYear = month === 1 ? year - 1 : year;
     const prevLastDay = new Date(prevYear, prevMonth, 0).getDate();
     const prevDays: DayData[] = [];
+    
     for (let i = firstWeekday - 1; i >= 0; i--) {
       const date = prevLastDay - i;
       const dateStr = `${prevYear}-${String(prevMonth).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
@@ -77,16 +86,19 @@ export function CalendarView() {
       });
     }
 
-    // 현재 달 날들
+    /* 현재 달 날짜들 */
     const currentDays: DayData[] = [];
-    for (let date = 1; date <= daysInMonth; date++) {
-      const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
-      const txns = dayMap.get(dateStr) || [];
-      const income = txns.filter((t) => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
-      const expense = txns.filter((t) => t.amount < 0).reduce((sum, t) => sum + t.amount, 0);
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const dayTransactions = transactionsByDate.get(dateStr) || [];
+      const income = dayTransactions
+        .filter((transaction) => transaction.amount > 0)
+        .reduce((sum, transaction) => sum + transaction.amount, 0);
+      const expense = dayTransactions
+        .filter((transaction) => transaction.amount < 0)
+        .reduce((sum, transaction) => sum + transaction.amount, 0);
       const total = income + expense;
-      const isToday =
-        today.year === year && today.month === month && today.date === date;
+      const isToday = today.year === year && today.month === month && today.date === day;
 
       currentDays.push({
         date: dateStr,
@@ -98,10 +110,11 @@ export function CalendarView() {
       });
     }
 
-    // 다음 달 첫날들 (총 42개 셀을 채우기 위해)
+    /* 다음 달 날짜들 (총 42개 셀을 채우기 위함) */
     const nextDays: DayData[] = [];
     const totalCells = prevDays.length + currentDays.length;
-    const remaining = 42 - totalCells; // 6주 * 7일 = 42
+    const remaining = 42 - totalCells; // 6주 × 7일 = 42
+    
     for (let i = 1; i <= remaining; i++) {
       const nextMonth = month === 12 ? 1 : month + 1;
       const nextYear = month === 12 ? year + 1 : year;
@@ -117,9 +130,9 @@ export function CalendarView() {
     }
 
     return [...prevDays, ...currentDays, ...nextDays];
-  }, [year, month, dayMap, today]);
+  }, [year, month, transactionsByDate, today]);
 
-  // 주 단위로 그룹화
+  /* 주 단위로 그룹화 */
   const weeks = useMemo(() => {
     const result: DayData[][] = [];
     for (let i = 0; i < calendarGrid.length; i += 7) {
@@ -148,7 +161,7 @@ export function CalendarView() {
         {weeks.map((week, weekIdx) => (
           <div key={weekIdx} className="grid grid-cols-7 border-b border-zinc-200 last:border-b-0">
             {week.map((day) => {
-              const { y, m, d } = parseYMD(day.date);
+              const { d: dateDay } = parseYMD(day.date);
               return (
                 <div
                   key={day.date}
@@ -160,7 +173,7 @@ export function CalendarView() {
                 >
                   {/* 날짜 숫자 */}
                   <div className="body-14 text-zinc-500 mb-1">
-                    {day.isCurrentMonth ? d : ''}
+                    {day.isCurrentMonth ? dateDay : ''}
                   </div>
 
                   {/* 트랜잭션 정보 */}

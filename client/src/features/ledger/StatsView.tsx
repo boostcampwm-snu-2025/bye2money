@@ -4,6 +4,7 @@ import { sameMonth, parseYMD, weekdayLabel, addMonth } from '../../lib/date';
 import { formatCurrency } from '../../lib/format';
 import type { Txn, SpendCategory } from '../../types/ledger';
 
+/** 카테고리별 통계 데이터 */
 type CategoryStats = {
   category: SpendCategory;
   amount: number;
@@ -11,19 +12,30 @@ type CategoryStats = {
   color: string;
 };
 
-// 카테고리별 색상 매핑
+/** 카테고리별 색상 매핑 */
 const categoryColors: Record<SpendCategory, string> = {
-  '생활': '#AACD7E',      // chip-40
-  '식비': '#E39D5D',      // chip-20
-  '교통': '#D7CA6B',      // chip-30
-  '쇼핑/뷰티': '#F0B0D3', // chip-110
-  '의료/건강': '#BDA6E1', // chip-100
-  '문화/여가': '#A7B9E9', // chip-90
-  '미분류': '#A28B78',    // chip-10
+  '생활': '#AACD7E',
+  '식비': '#E39D5D',
+  '교통': '#D7CA6B',
+  '쇼핑/뷰티': '#F0B0D3',
+  '의료/건강': '#BDA6E1',
+  '문화/여가': '#A7B9E9',
+  '미분류': '#A28B78',
 };
 
-// SVG 도넛 차트 생성 함수
-function DonutChart({ data, size = 200, strokeWidth = 40 }: { data: CategoryStats[]; size?: number; strokeWidth?: number }) {
+/**
+ * 도넛 차트 컴포넌트
+ * SVG를 사용하여 카테고리별 지출 비율을 시각화
+ */
+function DonutChart({
+  data,
+  size = 200,
+  strokeWidth = 40
+}: {
+  data: CategoryStats[];
+  size?: number;
+  strokeWidth?: number;
+}) {
   const radius = (size - strokeWidth) / 2;
   const center = size / 2;
   const circumference = 2 * Math.PI * radius;
@@ -32,7 +44,7 @@ function DonutChart({ data, size = 200, strokeWidth = 40 }: { data: CategoryStat
   
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      {data.map((item, idx) => {
+      {data.map((item, index) => {
         const segmentLength = (item.percentage / 100) * circumference;
         const gap = circumference - segmentLength;
         const currentOffset = offset;
@@ -41,7 +53,7 @@ function DonutChart({ data, size = 200, strokeWidth = 40 }: { data: CategoryStat
         
         return (
           <circle
-            key={idx}
+            key={index}
             cx={center}
             cy={center}
             r={radius}
@@ -59,38 +71,51 @@ function DonutChart({ data, size = 200, strokeWidth = 40 }: { data: CategoryStat
   );
 }
 
-// 라인 차트 컴포넌트
-function LineChart({ data, width = 500, height = 200 }: { data: { month: number; amount: number }[]; width?: number; height?: number }) {
+/**
+ * 라인 차트 컴포넌트
+ * SVG를 사용하여 시계열 데이터를 선 그래프로 표시
+ */
+function LineChart({
+  data,
+  width = 500,
+  height = 200
+}: {
+  data: { month: number; amount: number }[];
+  width?: number;
+  height?: number;
+}) {
   if (data.length === 0) return null;
   
   const padding = 50;
   const chartWidth = width - padding * 2;
   const chartHeight = height - padding * 2;
   
-  const maxAmount = Math.max(...data.map(d => d.amount), 0);
-  const minAmount = Math.min(...data.map(d => d.amount), 0);
+  const maxAmount = Math.max(...data.map(dataPoint => dataPoint.amount), 0);
+  const minAmount = Math.min(...data.map(dataPoint => dataPoint.amount), 0);
   const range = maxAmount - minAmount || 1;
   
-  const points = data.map((d, idx) => {
-    const x = padding + (idx / (data.length - 1 || 1)) * chartWidth;
-    const y = padding + chartHeight - ((d.amount - minAmount) / range) * chartHeight;
-    return { x, y, amount: d.amount };
+  const points = data.map((dataPoint, index) => {
+    const x = padding + (index / (data.length - 1 || 1)) * chartWidth;
+    const y = padding + chartHeight - ((dataPoint.amount - minAmount) / range) * chartHeight;
+    return { x, y, amount: dataPoint.amount };
   });
   
-  const pathD = points.map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+  const pathD = points
+    .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`)
+    .join(' ');
   
-  // 그리드 라인 개수
-  const gridLinesY = 5;
-  const gridLinesX = 12;
+  /* 그리드 라인 설정 */
+  const gridLinesY = 5; // 수평 그리드 라인 개수
+  const gridLinesX = 12; // 수직 그리드 라인 개수
   
   return (
     <svg width={width} height={height} className="overflow-visible bg-white">
       {/* 수평 그리드 라인 */}
-      {Array.from({ length: gridLinesY + 1 }).map((_, i) => {
-        const y = padding + (i / gridLinesY) * chartHeight;
+      {Array.from({ length: gridLinesY + 1 }).map((_, index) => {
+        const y = padding + (index / gridLinesY) * chartHeight;
         return (
           <line
-            key={`h-${i}`}
+            key={`h-${index}`}
             x1={padding}
             y1={y}
             x2={width - padding}
@@ -102,11 +127,11 @@ function LineChart({ data, width = 500, height = 200 }: { data: { month: number;
       })}
       
       {/* 수직 그리드 라인 */}
-      {Array.from({ length: gridLinesX + 1 }).map((_, i) => {
-        const x = padding + (i / gridLinesX) * chartWidth;
+      {Array.from({ length: gridLinesX + 1 }).map((_, index) => {
+        const x = padding + (index / gridLinesX) * chartWidth;
         return (
           <line
-            key={`v-${i}`}
+            key={`v-${index}`}
             x1={x}
             y1={padding}
             x2={x}
@@ -124,35 +149,35 @@ function LineChart({ data, width = 500, height = 200 }: { data: { month: number;
         stroke="#000"
         strokeWidth="2"
       />
-      {points.map((p, idx) => (
-        <g key={idx}>
-          <circle cx={p.x} cy={p.y} r="4" fill="#000" />
+      {points.map((point, index) => (
+        <g key={index}>
+          <circle cx={point.x} cy={point.y} r="4" fill="#000" />
           <text
-            x={p.x}
-            y={p.y - 10}
+            x={point.x}
+            y={point.y - 10}
             textAnchor="middle"
             className="fill-zinc-900"
             fontSize="11"
             fontWeight="500"
           >
-            {formatCurrency(p.amount).replace('원', '')}
+            {formatCurrency(point.amount).replace('원', '')}
           </text>
         </g>
       ))}
       
       {/* X축 레이블 */}
-      {data.map((d, idx) => {
-        const x = padding + (idx / (data.length - 1 || 1)) * chartWidth;
+      {data.map((monthData, index) => {
+        const x = padding + (index / (data.length - 1 || 1)) * chartWidth;
         return (
           <text
-            key={idx}
+            key={index}
             x={x}
             y={height - padding + 25}
             textAnchor="middle"
             className="fill-zinc-500"
             fontSize="11"
           >
-            {d.month}
+            {monthData.month}
           </text>
         );
       })}
@@ -160,36 +185,49 @@ function LineChart({ data, width = 500, height = 200 }: { data: { month: number;
   );
 }
 
+/**
+ * 통계 뷰 컴포넌트
+ * 카테고리별 지출 통계와 소비 추이를 표시
+ */
 export function StatsView() {
   const { state } = useLedger();
   const { year, month } = state.ui;
   const [selectedCategory, setSelectedCategory] = useState<SpendCategory | null>(null);
 
-  // 현재 월의 지출 트랜잭션만 필터링
+  /* 현재 월의 지출 트랜잭션만 필터링 */
   const expenses = useMemo(
-    () => state.txns.filter((t) => sameMonth(t.date, year, month) && t.amount < 0),
+    () => state.txns.filter(
+      (transaction) => sameMonth(transaction.date, year, month) && transaction.amount < 0
+    ),
     [state.txns, year, month]
   );
 
-  // 총 지출 금액
+  /* 총 지출 금액 계산 */
   const totalExpense = useMemo(
-    () => Math.abs(expenses.reduce((sum, t) => sum + t.amount, 0)),
+    () => Math.abs(expenses.reduce((sum, transaction) => sum + transaction.amount, 0)),
     [expenses]
   );
 
-  // 카테고리별 통계
+  /* 카테고리별 통계 계산 */
   const categoryStats = useMemo(() => {
     const stats = new Map<SpendCategory, number>();
     
-    // 지출 카테고리 리스트 (명시적으로 정의)
-    const spendCategories: SpendCategory[] = ['생활', '식비', '교통', '쇼핑/뷰티', '의료/건강', '문화/여가', '미분류'];
+    /* 지출 카테고리 목록 */
+    const spendCategories: SpendCategory[] = [
+      '생활',
+      '식비',
+      '교통',
+      '쇼핑/뷰티',
+      '의료/건강',
+      '문화/여가',
+      '미분류'
+    ];
     
-    expenses.forEach((t) => {
-      // 지출 카테고리인지 확인
-      if (spendCategories.includes(t.category as SpendCategory)) {
-        const category = t.category as SpendCategory;
-        const current = stats.get(category) || 0;
-        stats.set(category, current + Math.abs(t.amount));
+    expenses.forEach((transaction) => {
+      if (spendCategories.includes(transaction.category as SpendCategory)) {
+        const category = transaction.category as SpendCategory;
+        const currentAmount = stats.get(category) || 0;
+        stats.set(category, currentAmount + Math.abs(transaction.amount));
       }
     });
 
@@ -200,26 +238,29 @@ export function StatsView() {
         percentage: totalExpense > 0 ? (amount / totalExpense) * 100 : 0,
         color: categoryColors[category],
       }))
-      .sort((a, b) => b.percentage - a.percentage); // 비율 순으로 정렬
+      .sort((a, b) => b.percentage - a.percentage); // 비율 내림차순 정렬
 
     return result;
   }, [expenses, totalExpense]);
 
-  // 선택된 카테고리의 최근 6개월 지출 데이터
+  /* 선택된 카테고리의 최근 6개월 지출 추이 */
   const categoryTrend = useMemo(() => {
     if (!selectedCategory) return [];
 
     const trend: { month: number; amount: number }[] = [];
     
-    for (let i = 5; i >= 0; i--) {
-      const targetDate = addMonth(year, month, -i);
+    /* 최근 6개월 데이터 수집 */
+    for (let monthsAgo = 5; monthsAgo >= 0; monthsAgo--) {
+      const targetDate = addMonth(year, month, -monthsAgo);
       const monthExpenses = state.txns.filter(
-        (t) =>
-          sameMonth(t.date, targetDate.year, targetDate.month) &&
-          t.amount < 0 &&
-          t.category === selectedCategory
+        (transaction) =>
+          sameMonth(transaction.date, targetDate.year, targetDate.month) &&
+          transaction.amount < 0 &&
+          transaction.category === selectedCategory
       );
-      const monthTotal = Math.abs(monthExpenses.reduce((sum, t) => sum + t.amount, 0));
+      const monthTotal = Math.abs(
+        monthExpenses.reduce((sum, transaction) => sum + transaction.amount, 0)
+      );
       trend.push({
         month: targetDate.month,
         amount: monthTotal,
@@ -229,25 +270,25 @@ export function StatsView() {
     return trend;
   }, [selectedCategory, year, month, state.txns]);
 
-  // 선택된 카테고리의 상세 내역
+  /* 선택된 카테고리의 상세 내역 (날짜별 그룹화) */
   const categoryDetails = useMemo(() => {
     if (!selectedCategory) return [];
 
     const details = expenses
-      .filter((t) => t.category === selectedCategory)
-      .sort((a, b) => b.date.localeCompare(a.date));
+      .filter((transaction) => transaction.category === selectedCategory)
+      .sort((a, b) => b.date.localeCompare(a.date)); // 최신 날짜가 먼저
 
-    // 날짜별로 그룹핑
-    const grouped = new Map<string, Txn[]>();
-    details.forEach((t) => {
-      const existing = grouped.get(t.date) || [];
-      grouped.set(t.date, [...existing, t]);
+    /* 날짜별로 그룹핑 */
+    const groupedByDate = new Map<string, Txn[]>();
+    details.forEach((transaction) => {
+      const existingTransactions = groupedByDate.get(transaction.date) || [];
+      groupedByDate.set(transaction.date, [...existingTransactions, transaction]);
     });
 
-    return Array.from(grouped.entries()).map(([date, items]) => ({
+    return Array.from(groupedByDate.entries()).map(([date, items]) => ({
       date,
-      items: items.sort((a, b) => a.createdAt - b.createdAt),
-      total: Math.abs(items.reduce((sum, t) => sum + t.amount, 0)),
+      items: items.sort((a, b) => a.createdAt - b.createdAt), // 같은 날 내에서 생성 시간순
+      total: Math.abs(items.reduce((sum, transaction) => sum + transaction.amount, 0)),
     }));
   }, [selectedCategory, expenses]);
 
@@ -280,7 +321,7 @@ export function StatsView() {
                   <tr
                     key={stat.category}
                     onClick={() => {
-                      // 같은 카테고리를 다시 클릭하면 닫기, 다른 카테고리를 클릭하면 선택 변경
+                      /* 같은 카테고리 재클릭: 상세 뷰 닫기, 다른 카테고리 클릭: 선택 변경 */
                       if (selectedCategory === stat.category) {
                         setSelectedCategory(null);
                       } else {
@@ -326,36 +367,36 @@ export function StatsView() {
           {/* 상세 내역 */}
           <div className="space-y-6">
             {categoryDetails.map(({ date, items, total }) => {
-              const wd = weekdayLabel(date);
-              const { m, d } = parseYMD(date);
+              const weekday = weekdayLabel(date);
+              const { m: dateMonth, d: dateDay } = parseYMD(date);
               return (
                 <div key={date}>
                   <div className="mb-2 body-14 text-zinc-500">
                     <div className="flex items-center justify-between">
-                      <div>{m}월 {d}일 {wd}요일</div>
+                      <div>{dateMonth}월 {dateDay}일 {weekday}요일</div>
                       <div className="body-14 text-zinc-900">지출 {formatCurrency(-total)}</div>
                     </div>
                   </div>
                   <ul className="space-y-0 border border-zinc-200 bg-white">
-                    {items.map((txn) => {
-                      const methodName = state.methods.find((m) => m.id === txn.methodId)?.name ?? '—';
+                    {items.map((transaction) => {
+                      const methodName = state.methods.find((method) => method.id === transaction.methodId)?.name ?? '—';
                       return (
                         <li
-                          key={txn.id}
+                          key={transaction.id}
                           className="group grid cursor-pointer items-stretch bg-white hover:bg-zinc-50 border-b border-zinc-200 last:border-0 font-sans"
                           style={{ gridTemplateColumns: '120px 1fr 80px 120px auto', gap: '0' }}
                         >
-                          <div className="tag shrink-0 text-white flex items-center justify-center px-4 py-3 min-h-[60px] body-12" data-cat={txn.category}>
-                            {txn.category}
+                          <div className="tag shrink-0 text-white flex items-center justify-center px-4 py-3 min-h-[60px] body-12" data-cat={transaction.category}>
+                            {transaction.category}
                           </div>
                           <div className="min-w-0 body-14 text-zinc-900 truncate px-4 py-3 flex items-center">
-                            {txn.memo || <span className="text-neutral-text-weak">메모 없음</span>}
+                            {transaction.memo || <span className="text-neutral-text-weak">메모 없음</span>}
                           </div>
                           <div className="body-14 text-neutral-text-weak text-left truncate px-4 py-3 flex items-center">
                             {methodName}
                           </div>
                           <div className="body-14 text-brand-text-expense text-right px-4 py-3 flex items-center">
-                            {formatCurrency(txn.amount)}
+                            {formatCurrency(transaction.amount)}
                           </div>
                           <div className="px-4 py-3"></div>
                         </li>

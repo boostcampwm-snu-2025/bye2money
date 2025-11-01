@@ -6,57 +6,83 @@ import type { Category, IncomeCategory, SpendCategory, Txn } from '../../types/l
 import { PaymentMethodSelect } from '../../components/PaymentMethodSelect';
 import { Icon } from '../../components/Icon';
 
-// 날짜 포맷: "2023. 08. 01"
+/**
+ * 날짜 문자열을 "YYYY. MM. DD." 형식으로 포맷
+ * @example "2023-08-01" -> "2023. 08. 01."
+ */
 const formatDateDisplay = (dateStr: string): string => {
-  const { y, m, d } = parseYMD(dateStr);
-  return `${y}. ${String(m).padStart(2, '0')}. ${String(d).padStart(2, '0')}.`;
+  const { y: dateYear, m: dateMonth, d: dateDay } = parseYMD(dateStr);
+  return `${dateYear}. ${String(dateMonth).padStart(2, '0')}. ${String(dateDay).padStart(2, '0')}.`;
 };
 
-const incomeCats: IncomeCategory[] = ['월급', '용돈', '기타수입'];
-const spendCats: SpendCategory[] = ['생활', '식비', '교통', '쇼핑/뷰티', '의료/건강', '문화/여가', '미분류'];
+/** 수입 카테고리 목록 */
+const incomeCategories: IncomeCategory[] = ['월급', '용돈', '기타수입'];
 
+/** 지출 카테고리 목록 */
+const spendCategories: SpendCategory[] = ['생활', '식비', '교통', '쇼핑/뷰티', '의료/건강', '문화/여가', '미분류'];
+
+/**
+ * 트랜잭션 입력 바 컴포넌트
+ * 수입/지출 내역을 입력하거나 편집할 수 있는 폼
+ */
 export function EntryBar() {
   const { state, dispatch } = useLedger();
-  const editing = state.ui.editingId ? state.txns.find(t => t.id === state.ui.editingId) : undefined;
+  const editingTransaction = state.ui.editingId 
+    ? state.txns.find(transaction => transaction.id === state.ui.editingId) 
+    : undefined;
 
-  // 폼 상태
+  /* 폼 상태 관리 */
   const [date, setDate] = useState(toDateInputValue(new Date()));
   const [sign, setSign] = useState<'+' | '-' >('-');
-  const [amountStr, setAmountStr] = useState('0'); // 쉼표 포함 표시 문자열
+  const [amountStr, setAmountStr] = useState('0'); // 쉼표 포함 표시용 문자열
   const amountInputRef = useRef<HTMLInputElement>(null);
   const dateInputRef = useRef<HTMLInputElement>(null);
   const [memo, setMemo] = useState('');
   const [methodId, setMethodId] = useState(state.methods[0]?.id ?? '');
   const [category, setCategory] = useState<Category>('미분류');
 
-  // 편집 진입 스냅샷(Dirty 체크용)
+  /**
+   * 편집 모드 진입 시 초기값 스냅샷 (변경 감지용)
+   * 이 값을 기준으로 폼이 변경되었는지 확인
+   */
   const [snapshot, setSnapshot] = useState<{
-    date: string; sign: '+' | '-'; amount: number; memo: string; methodId: string; category: Category;
+    date: string; 
+    sign: '+' | '-'; 
+    amount: number; 
+    memo: string; 
+    methodId: string; 
+    category: Category;
   }>();
 
+  /* 편집 모드 진입 시 폼 초기화 */
   useEffect(() => {
-    if (!editing) { setSnapshot(undefined); return; }
-    const abs = Math.abs(editing.amount);
-    setDate(editing.date);
-    setSign(editing.amount > 0 ? '+' : '-');
-    setAmountStr(abs.toLocaleString('ko-KR'));
-    setMemo(editing.memo);
-    setMethodId(editing.methodId);
-    setCategory(editing.category);
+    if (!editingTransaction) {
+      setSnapshot(undefined);
+      return;
+    }
+
+    const absoluteAmount = Math.abs(editingTransaction.amount);
+    setDate(editingTransaction.date);
+    setSign(editingTransaction.amount > 0 ? '+' : '-');
+    setAmountStr(absoluteAmount.toLocaleString('ko-KR'));
+    setMemo(editingTransaction.memo);
+    setMethodId(editingTransaction.methodId);
+    setCategory(editingTransaction.category);
+    
     setSnapshot({
-      date: editing.date,
-      sign: editing.amount > 0 ? '+' : '-',
-      amount: abs,
-      memo: editing.memo,
-      methodId: editing.methodId,
-      category: editing.category,
+      date: editingTransaction.date,
+      sign: editingTransaction.amount > 0 ? '+' : '-',
+      amount: absoluteAmount,
+      memo: editingTransaction.memo,
+      methodId: editingTransaction.methodId,
+      category: editingTransaction.category,
     });
-  }, [editing?.id]);
+  }, [editingTransaction?.id]);
 
-  // 카테고리 옵션
-  const options = sign === '+' ? incomeCats : spendCats;
+  /* 수입/지출에 따른 카테고리 옵션 */
+  const categoryOptions = sign === '+' ? incomeCategories : spendCategories;
 
-  // 숫자값/미리보기
+  /* 금액 관련 계산 */
   const numericAmount = useMemo(
     () => Number(amountStr.replace(/[^0-9]/g, '')) || 0,
     [amountStr]
@@ -66,48 +92,69 @@ export function EntryBar() {
     [sign, numericAmount]
   );
 
-  // 유효성 + Dirty
+  /* 폼 유효성 검사 */
   const baseValid = date && numericAmount > 0 && methodId && category && memo.length <= 32;
-  const dirty = snapshot
+  const hasChanges = snapshot
     ? (snapshot.date !== date ||
-      snapshot.sign !== sign ||
-      snapshot.amount !== numericAmount ||
-      snapshot.memo !== memo ||
-      snapshot.methodId !== methodId ||
-      snapshot.category !== category)
+       snapshot.sign !== sign ||
+       snapshot.amount !== numericAmount ||
+       snapshot.memo !== memo ||
+       snapshot.methodId !== methodId ||
+       snapshot.category !== category)
     : true;
-  const valid = baseValid && dirty;
+  const isValid = baseValid && hasChanges;
 
-  // 저장
+  /**
+   * 트랜잭션 저장 (추가 또는 수정)
+   */
   const submit = () => {
-    if (!valid) return;
-    const txn: Txn = {
-      id: editing?.id ?? crypto.randomUUID(),
+    if (!isValid) return;
+
+    const transaction: Txn = {
+      id: editingTransaction?.id ?? crypto.randomUUID(),
       date,
       amount: (sign === '+' ? 1 : -1) * numericAmount,
-      memo, methodId, category,
-      createdAt: editing?.createdAt ?? Date.now()
+      memo,
+      methodId,
+      category,
+      createdAt: editingTransaction?.createdAt ?? Date.now()
     };
-    dispatch({ type: editing ? 'updateTxn' : 'addTxn', txn });
-    // 수정/추가 후 입력바 즉시 초기화
+
+    dispatch({ 
+      type: editingTransaction ? 'updateTxn' : 'addTxn', 
+      txn: transaction 
+    });
+
+    /* 저장 후 폼 초기화 */
     setDate(toDateInputValue(new Date()));
-    setSign('-'); setAmountStr('0'); setMemo('');
-    setMethodId(state.methods[0]?.id ?? ''); setCategory('미분류');
-    // 편집 상태 해제
-    if (editing) {
+    setSign('-');
+    setAmountStr('0');
+    setMemo('');
+    setMethodId(state.methods[0]?.id ?? '');
+    setCategory('미분류');
+
+    /* 편집 상태 해제 */
+    if (editingTransaction) {
       dispatch({ type: 'setEditing', id: undefined });
     }
   };
 
-  // 금액 입력: 쉼표 포맷 + 커서 유지
+  /**
+   * 금액 입력 핸들러
+   * 쉼표 포맷팅을 적용하고 커서 위치 유지
+   */
   const onAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const el = e.target;
-    const caret = el.selectionStart ?? el.value.length;
-    const { formatted, newCaret } = formatNumberInput(el.value, caret);
+    const inputElement = e.target;
+    const caretPosition = inputElement.selectionStart ?? inputElement.value.length;
+    const { formatted, newCaret } = formatNumberInput(inputElement.value, caretPosition);
+    
     setAmountStr(formatted);
+    
+    /* 다음 프레임에 커서 위치 복원 */
     requestAnimationFrame(() => {
-      const input = amountInputRef.current;
-      if (input) { input.setSelectionRange(newCaret, newCaret); }
+      if (amountInputRef.current) {
+        amountInputRef.current.setSelectionRange(newCaret, newCaret);
+      }
     });
   };
 
@@ -122,13 +169,11 @@ export function EntryBar() {
       "
     >
       <div className="grid grid-cols-1 gap-1.5 md:grid-cols-5">
-        {/* 날짜 */}
+        {/* 날짜 선택 필드 */}
         <div 
           className="relative flex flex-col border-r border-zinc-200 px-3 py-1.5 cursor-pointer min-h-[45px] first:pl-0"
           onClick={() => {
-            if (dateInputRef.current) {
-              dateInputRef.current.showPicker?.();
-            }
+            dateInputRef.current?.showPicker?.();
           }}
         >
           <span className="body-12 text-zinc-500 mb-1.5">일자</span>
@@ -148,7 +193,7 @@ export function EntryBar() {
           />
         </div>
 
-        {/* 금액(+/- 토글) */}
+        {/* 금액 입력 필드 (수입/지출 토글 포함) */}
         <div className="flex flex-col border-r border-zinc-200 px-3 py-1.5 min-h-[45px]">
           <span className="body-12 text-zinc-500 mb-1.5">금액</span>
           <div className="flex items-center gap-2 flex-1">
@@ -178,7 +223,7 @@ export function EntryBar() {
           </div>
         </div>
 
-        {/* 내용 */}
+        {/* 내용 입력 필드 */}
         <label className="flex flex-col border-r border-zinc-200 px-3 py-1.5 min-h-[45px]">
           <div className="flex items-center justify-between mb-1.5">
             <span className="body-12 text-zinc-500">내용</span>
@@ -194,7 +239,7 @@ export function EntryBar() {
           />
         </label>
 
-        {/* 결제수단(커스텀 드롭다운) */}
+        {/* 결제수단 선택 (드롭다운) */}
         <div className="flex flex-col border-r border-zinc-200 px-3 py-1.5 min-h-[45px]">
           <span className="body-12 text-zinc-500 mb-1.5">결제수단</span>
           <div className="flex-1 body-12">
@@ -209,13 +254,15 @@ export function EntryBar() {
               }}
               onRemove={(id) => {
                 dispatch({ type: 'removeMethod', id });
-                if (methodId === id) setMethodId(state.methods.find(m => m.id !== id)?.id ?? '');
+                if (methodId === id) {
+                  setMethodId(state.methods.find(method => method.id !== id)?.id ?? '');
+                }
               }}
             />
           </div>
         </div>
 
-        {/* 분류 + 확인 */}
+        {/* 분류 선택 및 확인 버튼 */}
         <div className="flex flex-col px-3 py-1.5 min-h-[45px]">
           <span className="body-12 text-zinc-500 mb-1.5">분류</span>
           <div className="flex items-center gap-2 flex-1">
@@ -224,15 +271,19 @@ export function EntryBar() {
               onChange={e => setCategory(e.target.value as Category)}
               className="flex-1 min-w-0 bg-transparent title-sb-12 outline-none"
             >
-              {options.map(c => <option key={c} value={c}>{c}</option>)}
+              {categoryOptions.map(categoryOption => (
+                <option key={categoryOption} value={categoryOption}>
+                  {categoryOption}
+                </option>
+              ))}
             </select>
             <button
               aria-label="확인"
-              disabled={!valid}
+              disabled={!isValid}
               onClick={submit}
               className={`shrink-0 inline-grid place-items-center rounded-full
                           h-8 w-8 transition-all
-                          ${valid
+                          ${isValid
                             ? 'bg-zinc-900 text-white hover:bg-zinc-800 active:bg-zinc-700'
                             : 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
                           }`}

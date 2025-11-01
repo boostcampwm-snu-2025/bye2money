@@ -1,6 +1,6 @@
 import type { CategoryKey } from "./categoryTypes";
 
-export const categoryColors: Record<CategoryKey, string> = {
+export const CATEGORY_COLORS: Record<CategoryKey, string> = {
   livingExpenses: "bg-colorchip-90",
   shoppingBeauty: "bg-colorchip-30",
   medicalHealth: "bg-colorchip-50",

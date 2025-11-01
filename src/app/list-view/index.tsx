@@ -5,6 +5,8 @@ import dayjs from "dayjs";
 import CheckBox from "~/assets/icons/checkbox.svg";
 import UncheckBox from "~/assets/icons/uncheckbox.svg";
 
+import InputBar from "./input-bar";
+
 // TODO: group by date, calculation을 서버에서 할 지, 클라이언트에서 할 지 결정 필요
 type Category =
   | "allowance"
@@ -171,104 +173,107 @@ const CATEGORY_COLOR: Record<Category, string> = {
 
 function ListView() {
   return (
-    <div className="w-[846px] flex flex-col gap-[40px]">
-      <div className="flex justify-between">
-        <div className="flex gap-[8px]">
-          <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
-            전체 내역
-          </span>
-          <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
-            {data.length}개
-          </span>
-        </div>
-        <div className="flex gap-[12px]">
-          <div className="flex gap-[4px] items-center">
-            <img alt="Checked" className="w-[16px] h-[16px]" src={CheckBox} />
+    <>
+      <InputBar />
+      <div className="w-[846px] flex flex-col gap-[40px]">
+        <div className="flex justify-between">
+          <div className="flex gap-[8px]">
             <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
-              수입 {totalIncome.toLocaleString()}원
+              전체 내역
+            </span>
+            <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
+              {data.length}개
             </span>
           </div>
-          <div className="flex gap-[4px] items-center">
-            <img
-              alt="Unchecked"
-              className="w-[16px] h-[16px]"
-              src={UncheckBox}
-            />
-            <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
-              지출 {totalExpense.toLocaleString()}원
-            </span>
+          <div className="flex gap-[12px]">
+            <div className="flex gap-[4px] items-center">
+              <img alt="Checked" className="w-[16px] h-[16px]" src={CheckBox} />
+              <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
+                수입 {totalIncome.toLocaleString()}원
+              </span>
+            </div>
+            <div className="flex gap-[4px] items-center">
+              <img
+                alt="Unchecked"
+                className="w-[16px] h-[16px]"
+                src={UncheckBox}
+              />
+              <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
+                지출 {totalExpense.toLocaleString()}원
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {groupedData.map((item) => (
-        <div
-          className="w-[846px] space-y-[16px]"
-          key={item.date.format("YYYY-MM-DD")}
-        >
-          <div className="w-full flex justify-between">
-            <div className="flex gap-[8px]">
-              <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                {item.date.format("M월 D일")}
-              </span>
-              <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                {/* dayjs vs date */}
-                {item.date.locale("ko").format("dddd")}
-              </span>
-            </div>
-            <div className="flex gap-[8px]">
-              {item.income > 0 && (
-                <>
-                  <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                    수입
-                  </span>
-                  <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                    {item.income.toLocaleString()}원
-                  </span>
-                </>
-              )}
-              {item.expense > 0 && (
-                <>
-                  <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                    지출
-                  </span>
-                  <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                    {item.expense.toLocaleString()}원
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-          <div className="w-full border-y-[0.5px]">
-            {item.data.map((item) => (
-              <div className="w-full flex gap-[16px] pr-[16px]" key={item.id}>
-                <div
-                  className={`w-[92px] h-[56px] px-[8px] py-[4px] text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard] flex justify-center items-center ${
-                    CATEGORY_COLOR[item.category]
-                  }`}
-                >
-                  {/* TODO: key를 한국어로 변환 */}
-                  {item.category}
-                </div>
-                <div className="w-[400px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center">
-                  {item.description}
-                </div>
-                <div className="w-[104px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center">
-                  {item.paymentMethod}
-                </div>
-                <div
-                  className={`flex-1 text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center justify-end ${
-                    item.amount > 0 ? "text-[#79B2CA]" : "text-[#C04646]"
-                  }`}
-                >
-                  {item.amount.toLocaleString()}원
-                </div>
+        {groupedData.map((item) => (
+          <div
+            className="w-[846px] space-y-[16px]"
+            key={item.date.format("YYYY-MM-DD")}
+          >
+            <div className="w-full flex justify-between">
+              <div className="flex gap-[8px]">
+                <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
+                  {item.date.format("M월 D일")}
+                </span>
+                <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
+                  {/* dayjs vs date */}
+                  {item.date.locale("ko").format("dddd")}
+                </span>
               </div>
-            ))}
+              <div className="flex gap-[8px]">
+                {item.income > 0 && (
+                  <>
+                    <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
+                      수입
+                    </span>
+                    <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
+                      {item.income.toLocaleString()}원
+                    </span>
+                  </>
+                )}
+                {item.expense > 0 && (
+                  <>
+                    <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
+                      지출
+                    </span>
+                    <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
+                      {item.expense.toLocaleString()}원
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="w-full border-y-[0.5px]">
+              {item.data.map((item) => (
+                <div className="w-full flex gap-[16px] pr-[16px]" key={item.id}>
+                  <div
+                    className={`w-[92px] h-[56px] px-[8px] py-[4px] text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard] flex justify-center items-center ${
+                      CATEGORY_COLOR[item.category]
+                    }`}
+                  >
+                    {/* TODO: key를 한국어로 변환 */}
+                    {item.category}
+                  </div>
+                  <div className="w-[400px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center">
+                    {item.description}
+                  </div>
+                  <div className="w-[104px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center">
+                    {item.paymentMethod}
+                  </div>
+                  <div
+                    className={`flex-1 text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center justify-end ${
+                      item.amount > 0 ? "text-[#79B2CA]" : "text-[#C04646]"
+                    }`}
+                  >
+                    {item.amount.toLocaleString()}원
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
 

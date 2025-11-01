@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import { useState } from "react";
 
 import Header from "./header";
-import InputBar from "./input-bar";
 import ListView from "./list-view";
 
 const initialDate = dayjs().startOf("month");
@@ -39,10 +38,7 @@ function App() {
         onTabChange={setTab}
       />
       {tab === "List" ? (
-        <>
-          <InputBar />
-          <ListView />
-        </>
+        <ListView />
       ) : tab === "Calendar" ? (
         <div>Calendar View - to be implemented</div>
       ) : tab === "Analytics" ? (

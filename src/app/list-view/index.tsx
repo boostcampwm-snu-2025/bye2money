@@ -3,6 +3,7 @@ import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { useState } from "react";
 
+import DailyInfo from "./daily-info";
 import DailyListDetail from "./daily-list-detail";
 import InputBar from "./input-bar";
 import MonthlyInfo from "./monthly-info";
@@ -226,39 +227,11 @@ function ListView() {
             className="w-[846px] space-y-[16px]"
             key={item.date.format("YYYY-MM-DD")}
           >
-            <div className="w-full flex justify-between">
-              <div className="flex gap-[8px]">
-                <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                  {item.date.format("M월 D일")}
-                </span>
-                <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                  {/* dayjs vs date */}
-                  {item.date.locale("ko").format("dddd")}
-                </span>
-              </div>
-              <div className="flex gap-[8px]">
-                {item.dailyIncome > 0 && (
-                  <>
-                    <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                      수입
-                    </span>
-                    <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                      {item.dailyIncome.toLocaleString()}원
-                    </span>
-                  </>
-                )}
-                {item.dailyExpense > 0 && (
-                  <>
-                    <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                      지출
-                    </span>
-                    <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                      {item.dailyExpense.toLocaleString()}원
-                    </span>
-                  </>
-                )}
-              </div>
-            </div>
+            <DailyInfo
+              dailyExpense={item.dailyExpense}
+              dailyIncome={item.dailyIncome}
+              date={item.date}
+            />
             <div className="w-full border-y-[0.5px]">
               {item.data.map((item) => (
                 <DailyListDetail 

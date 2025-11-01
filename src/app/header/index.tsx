@@ -46,7 +46,7 @@ function Header({
             {date.format("M")}
           </span>
           <span className="w-[120px] text-[14px] leading-[24px] tracking-normal font-light text-center font-[Pretendard]">
-            {date.format("MMMM")}
+            {date.locale('en').format("MMMM")}
           </span>
         </div>
         <img

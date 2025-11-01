@@ -1,3 +1,5 @@
+import Closed from "~/assets/icons/closed.svg";
+
 type Category =
   | "allowance"
   | "culture"
@@ -50,7 +52,7 @@ function DailyListDetail({
   paymentMethod,
 }: Props) {
   return (
-    <div className="w-full flex gap-[16px] pr-[16px]">
+    <div className="group w-full flex gap-[16px] pr-[16px] hover:bg-[#F1F4F8]">
       <div
         className={`w-[92px] h-[56px] px-[8px] py-[4px] text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard] flex justify-center items-center ${CATEGORY_COLOR[category]}`}
       >
@@ -69,6 +71,11 @@ function DailyListDetail({
       >
         {amount.toLocaleString()}원
       </div>
+      <button className="hidden group-hover:flex text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] text-[#E93B5A] items-center gap-[4px]">
+        {/* TODO: 아이콘 흰색 */}
+        <img alt="closed" className="w-[16px] h-[16px] p-[4px] rounded-[20px] bg-[#E93B5A]" src={Closed} />
+        삭제
+      </button>
     </div>
   );
 }

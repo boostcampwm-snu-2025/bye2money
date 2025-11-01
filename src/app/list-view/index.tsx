@@ -1,6 +1,7 @@
 import type { Dayjs } from "dayjs";
 
 import dayjs from "dayjs";
+import { useState } from "react";
 
 import InputBar from "./input-bar";
 import MonthlyInfo from "./monthly-info";
@@ -138,7 +139,7 @@ const totalIncome = data
   .reduce((acc, item) => acc + item.amount, 0);
 const totalExpense = data
   .filter((item) => item.amount < 0)
-  .reduce((acc, item) => acc + item.amount, 0);
+  .reduce((acc, item) => acc - item.amount, 0);
 
 const groupedData = Object.values(
   data.reduce((acc, item) => {
@@ -169,12 +170,36 @@ const CATEGORY_COLOR: Record<Category, string> = {
   transport: "bg-[#7DB7BF]",
 };
 
+const DEFAULT_FILTER = {
+  expense: true,
+  income: true,
+};
+
+const useFilter = () => {
+  const [expenseFilter, setExpenseFilter] = useState(DEFAULT_FILTER.expense);
+  const [incomeFilter, setIncomeFilter] = useState(DEFAULT_FILTER.income);
+
+  return {
+    expenseFilter,
+    incomeFilter,
+    onExpenseFilterChange: setExpenseFilter,
+    onIncomeFilterChange: setIncomeFilter,
+  };
+}
+
 function ListView() {
+  const filter = useFilter();
   return (
     <>
       <InputBar />
       <div className="w-[846px] flex flex-col gap-[40px]">
         <MonthlyInfo
+          filter={{
+            expense: filter.expenseFilter,
+            income: filter.incomeFilter,
+            onExpenseFilterChange: filter.onExpenseFilterChange,
+            onIncomeFilterChange: filter.onIncomeFilterChange,
+          }}
           totalCount={data.length}
           totalExpense={totalExpense}
           totalIncome={totalIncome}

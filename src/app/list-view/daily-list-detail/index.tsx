@@ -16,6 +16,7 @@ interface Props {
   amount: number;
   category: Category;
   description: string;
+  onClick?: () => void;
   paymentMethod: string;
 }
 
@@ -49,10 +50,11 @@ function DailyListDetail({
   amount,
   category,
   description,
+  onClick,
   paymentMethod,
 }: Props) {
   return (
-    <div className="group w-full flex gap-[16px] pr-[16px] hover:bg-[#F1F4F8]">
+    <div className="group w-full flex gap-[16px] pr-[16px] hover:bg-[#F1F4F8]" onClick={onClick}>
       <div
         className={`w-[92px] h-[56px] px-[8px] py-[4px] text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard] flex justify-center items-center ${CATEGORY_COLOR[category]}`}
       >

@@ -2,10 +2,8 @@ import type { Dayjs } from "dayjs";
 
 import dayjs from "dayjs";
 
-import CheckBox from "~/assets/icons/checkbox.svg";
-import UncheckBox from "~/assets/icons/uncheckbox.svg";
-
 import InputBar from "./input-bar";
+import MonthlyInfo from "./monthly-info";
 
 // TODO: group by date, calculation을 서버에서 할 지, 클라이언트에서 할 지 결정 필요
 type Category =
@@ -176,34 +174,11 @@ function ListView() {
     <>
       <InputBar />
       <div className="w-[846px] flex flex-col gap-[40px]">
-        <div className="flex justify-between">
-          <div className="flex gap-[8px]">
-            <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
-              전체 내역
-            </span>
-            <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
-              {data.length}개
-            </span>
-          </div>
-          <div className="flex gap-[12px]">
-            <div className="flex gap-[4px] items-center">
-              <img alt="Checked" className="w-[16px] h-[16px]" src={CheckBox} />
-              <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
-                수입 {totalIncome.toLocaleString()}원
-              </span>
-            </div>
-            <div className="flex gap-[4px] items-center">
-              <img
-                alt="Unchecked"
-                className="w-[16px] h-[16px]"
-                src={UncheckBox}
-              />
-              <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
-                지출 {totalExpense.toLocaleString()}원
-              </span>
-            </div>
-          </div>
-        </div>
+        <MonthlyInfo
+          totalCount={data.length}
+          totalExpense={totalExpense}
+          totalIncome={totalIncome}
+        />
 
         {groupedData.map((item) => (
           <div

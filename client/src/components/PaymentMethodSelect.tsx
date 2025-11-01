@@ -28,29 +28,49 @@ export function PaymentMethodSelect({
   const current = methods.find(m=>m.id===value);
 
   return (
-    <div className="relative" ref={wrapRef}>
+    <div className="relative w-full" ref={wrapRef}>
       <button type="button" onClick={()=>setOpen(v=>!v)}
-              className="w-full rounded bg-transparent text-left outline-none">
-        {current?.name ?? '선택하세요'}
+              className="w-full bg-transparent text-left outline-none flex items-center justify-between">
+        <span className="flex-1">{current?.name ?? '선택하세요'}</span>
+        <svg className="w-4 h-4 shrink-0 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
 
       {open && (
-        <div className="absolute z-20 mt-2 w-56 rounded-xl border bg-white p-1 shadow">
+        <div className="absolute z-20 top-full left-0 w-full mt-0 border border-zinc-200 bg-white shadow-lg">
           <ul className="max-h-64 overflow-auto">
-            {methods.map(m=>(
-              <li key={m.id} className="group flex items-center justify-between rounded-lg px-2 py-1.5 hover:bg-zinc-50">
-                <button className="truncate text-left" onClick={()=>{ onChange(m.id); setOpen(false); }}>
-                  {m.name}
-                </button>
-                <button className="invisible rounded px-1.5 py-0.5 text-xs text-zinc-500 hover:bg-zinc-100 group-hover:visible"
-                        aria-label={`${m.name} 삭제`} onClick={()=>setAskRemove(m.id)}>✕</button>
+            {methods.map((m, idx) => (
+              <li key={m.id}>
+                <div className="flex items-center justify-between px-2 py-1.5 hover:bg-zinc-50">
+                  <button 
+                    className="flex-1 truncate text-left body-14 text-zinc-900" 
+                    onClick={()=>{ onChange(m.id); setOpen(false); }}
+                  >
+                    {m.name}
+                  </button>
+                  <button 
+                    className="shrink-0 ml-2 w-4 h-4 flex items-center justify-center text-red-600 hover:text-red-700 hover:bg-red-50"
+                    aria-label={`${m.name} 삭제`} 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setAskRemove(m.id);
+                    }}
+                  >
+                    <span className="text-xs leading-none">✕</span>
+                  </button>
+                </div>
+                {idx < methods.length - 1 && <div className="h-px bg-zinc-200"></div>}
               </li>
             ))}
           </ul>
-          <div className="mt-1 border-t pt-1">
-            <button className="w-full rounded-lg px-2 py-1.5 text-left text-sm hover:bg-zinc-50"
-                    onClick={()=>setAskAdd(true)}>추가하기</button>
-          </div>
+          <div className="h-px bg-zinc-200"></div>
+          <button 
+            className="w-full px-2 py-1.5 text-left body-14 text-zinc-900 hover:bg-zinc-50"
+            onClick={()=>setAskAdd(true)}
+          >
+            추가하기
+          </button>
         </div>
       )}
 

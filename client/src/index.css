@@ -77,7 +77,7 @@
   }
 
   /* Category Tag */
-  .tag { @apply inline-flex items-center rounded px-2 py-1 text-xs text-neutral-text; }
+  .tag { @apply flex items-center justify-center text-white; }
 
   .tag[data-cat="생활"]       { background-color: theme('colors.chip-40'); }
   .tag[data-cat="식비"]       { background-color: theme('colors.chip-20'); }

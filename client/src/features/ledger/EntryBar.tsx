@@ -1,10 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLedger } from '../../stores/ledger-store';
-import { toDateInputValue } from '../../lib/date';
+import { toDateInputValue, parseYMD } from '../../lib/date';
 import { formatCurrency, formatNumberInput } from '../../lib/format';
 import type { Category, IncomeCategory, SpendCategory, Txn } from '../../types/ledger';
 import { PaymentMethodSelect } from '../../components/PaymentMethodSelect';
 import { Icon } from '../../components/Icon';
+
+// 날짜 포맷: "2023. 08. 01"
+const formatDateDisplay = (dateStr: string): string => {
+  const { y, m, d } = parseYMD(dateStr);
+  return `${y}. ${String(m).padStart(2, '0')}. ${String(d).padStart(2, '0')}.`;
+};
 
 const incomeCats: IncomeCategory[] = ['월급', '용돈', '기타수입'];
 const spendCats: SpendCategory[] = ['생활', '식비', '교통', '쇼핑/뷰티', '의료/건강', '문화/여가', '미분류'];
@@ -18,6 +24,7 @@ export function EntryBar() {
   const [sign, setSign] = useState<'+' | '-' >('-');
   const [amountStr, setAmountStr] = useState('0'); // 쉼표 포함 표시 문자열
   const amountInputRef = useRef<HTMLInputElement>(null);
+  const dateInputRef = useRef<HTMLInputElement>(null);
   const [memo, setMemo] = useState('');
   const [methodId, setMethodId] = useState(state.methods[0]?.id ?? '');
   const [category, setCategory] = useState<Category>('미분류');
@@ -82,10 +89,13 @@ export function EntryBar() {
       createdAt: editing?.createdAt ?? Date.now()
     };
     dispatch({ type: editing ? 'updateTxn' : 'addTxn', txn });
-    if (!editing) { // 새 입력 초기화
-      setDate(toDateInputValue(new Date()));
-      setSign('-'); setAmountStr('0'); setMemo('');
-      setMethodId(state.methods[0]?.id ?? ''); setCategory('미분류');
+    // 수정/추가 후 입력바 즉시 초기화
+    setDate(toDateInputValue(new Date()));
+    setSign('-'); setAmountStr('0'); setMemo('');
+    setMethodId(state.methods[0]?.id ?? ''); setCategory('미분류');
+    // 편집 상태 해제
+    if (editing) {
+      dispatch({ type: 'setEditing', id: undefined });
     }
   };
 
@@ -104,64 +114,90 @@ export function EntryBar() {
   return (
     <section
       className="
-        sticky top-[52px] z-10 mt-4
-        rounded-2xl bg-white p-3
+        relative z-10 mx-auto max-w-4xl px-4
+        bg-white p-2 border border-zinc-200
         ring-1 ring-black/5 shadow-sm
-        font-sans                                /* ← Pretendard Variable 강제 */
+        font-sans
+        -mt-6
       "
     >
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-6">
+      <div className="grid grid-cols-1 gap-1.5 md:grid-cols-5">
         {/* 날짜 */}
-        <label className="flex items-center gap-2 rounded-xl border border-zinc-200 p-2">
-          <span className="w-10 body-12 text-zinc-500">일자</span>   {/* light/12 */}
+        <div 
+          className="relative flex flex-col border-r border-zinc-200 px-3 py-1.5 cursor-pointer min-h-[45px] first:pl-0"
+          onClick={() => {
+            if (dateInputRef.current) {
+              dateInputRef.current.showPicker?.();
+            }
+          }}
+        >
+          <span className="body-12 text-zinc-500 mb-1.5">일자</span>
+          <div className="flex items-center gap-1.5 flex-1">
+            <span className="title-sb-12 text-zinc-900">
+              {formatDateDisplay(date)}
+            </span>
+            <Icon name="calendar" className="w-4 h-4 shrink-0 text-zinc-400" />
+          </div>
           <input
+            ref={dateInputRef}
             type="date"
             value={date}
             onChange={e => setDate(e.target.value)}
-            className="h-8 w-full rounded bg-transparent title-sb-12 outline-none
-                       placeholder:font-light placeholder:text-zinc-400"      /* semibold/12 */
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+            aria-label="날짜 선택"
           />
-        </label>
+        </div>
 
         {/* 금액(+/- 토글) */}
-        <div className="flex items-center gap-2 rounded-xl border border-zinc-200 p-2">
-          <button
-            onClick={() => setSign(sign === '-' ? '+' : '-')}
-            className="grid h-8 w-8 place-items-center rounded-full border border-zinc-300
-                       title-sb-12 leading-8"                                     /* semibold/12 */
-            aria-label="지출/수입 토글"
-          >
-            {sign}
-          </button>
-          <input
-            ref={amountInputRef}
-            value={amountStr}
-            inputMode="numeric"
-            onChange={onAmountChange}
-            className="w-full bg-transparent title-sb-12 outline-none
-                       placeholder:font-light placeholder:text-zinc-400"
-          />
-          <span className="whitespace-nowrap title-sb-12 text-zinc-500">{previewAmount}</span>
+        <div className="flex flex-col border-r border-zinc-200 px-3 py-1.5 min-h-[45px]">
+          <span className="body-12 text-zinc-500 mb-1.5">금액</span>
+          <div className="flex items-center gap-2 flex-1">
+            <button
+              onClick={() => setSign(sign === '-' ? '+' : '-')}
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-zinc-300
+                         title-sb-12 transition-colors hover:border-zinc-400
+                         active:bg-zinc-50" aria-label="지출/수입 토글"
+            >
+              {sign}
+            </button>
+            <div className="flex-1 min-w-0 flex items-center gap-2 flex-nowrap">
+              <div className="h-px flex-1 bg-zinc-300"></div>
+              <input
+                ref={amountInputRef}
+                value={amountStr}
+                inputMode="numeric"
+                onChange={onAmountChange}
+                className="min-w-[2rem] max-w-[4rem] bg-transparent title-sb-12 outline-none text-center
+                           placeholder:font-light placeholder:text-zinc-400"
+                placeholder="0"
+              />
+            </div>
+            <span className="shrink-0 whitespace-nowrap title-sb-12 text-zinc-500 ml-1">
+              {previewAmount}
+            </span>
+          </div>
         </div>
 
         {/* 내용 */}
-        <label className="flex items-center gap-2 rounded-xl border border-zinc-200 p-2 md:col-span-2">
-          <span className="w-10 body-12 text-zinc-500">내용</span>   {/* light/12 */}
+        <label className="flex flex-col border-r border-zinc-200 px-3 py-1.5 min-h-[45px]">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="body-12 text-zinc-500">내용</span>
+            <span className="body-12 text-zinc-400">{memo.length}/32</span>
+          </div>
           <input
             value={memo}
             maxLength={32}
             onChange={e => setMemo(e.target.value)}
             placeholder="입력하세요"
-            className="w-full bg-transparent title-sb-12 outline-none
+            className="flex-1 bg-transparent title-sb-12 outline-none
                        placeholder:font-light placeholder:text-zinc-400"
           />
-          <span className="body-12 text-zinc-400">{memo.length}/32</span>
         </label>
 
         {/* 결제수단(커스텀 드롭다운) */}
-        <div className="flex items-center gap-2 rounded-xl border border-zinc-200 p-2">
-          <span className="w-14 body-12 text-zinc-500">결제수단</span>  {/* light/12 */}
-          <div className="w-full body-12">
+        <div className="flex flex-col border-r border-zinc-200 px-3 py-1.5 min-h-[45px]">
+          <span className="body-12 text-zinc-500 mb-1.5">결제수단</span>
+          <div className="flex-1 body-12">
             <PaymentMethodSelect
               methods={state.methods}
               value={methodId}
@@ -180,29 +216,30 @@ export function EntryBar() {
         </div>
 
         {/* 분류 + 확인 */}
-        <div className="flex items-center gap-2 rounded-xl border border-zinc-200 p-2">
-          <span className="w-10 body-12 text-zinc-500">분류</span>     {/* light/12 */}
-          <select
-            value={category}
-            onChange={e => setCategory(e.target.value as Category)}
-            className="w-full rounded bg-transparent title-sb-12 outline-none"
-          >
-            {options.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-
-          <button
-            aria-label="확인"
-            disabled={!valid}
-            onClick={submit}
-            className={`inline-grid place-items-center rounded-full p-0
-                        h-10 w-10 shrink-0 transition
-                        ${valid
-                          ? 'bg-zinc-900 text-white hover:opacity-90 active:opacity-80'
-                          : 'bg-zinc-900 text-zinc-500 opacity-[0.32] cursor-not-allowed'
-                        }`}
-          >
-            <Icon name="check" className="w-4 h-4" />
-          </button>
+        <div className="flex flex-col px-3 py-1.5 min-h-[45px]">
+          <span className="body-12 text-zinc-500 mb-1.5">분류</span>
+          <div className="flex items-center gap-2 flex-1">
+            <select
+              value={category}
+              onChange={e => setCategory(e.target.value as Category)}
+              className="flex-1 min-w-0 bg-transparent title-sb-12 outline-none"
+            >
+              {options.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <button
+              aria-label="확인"
+              disabled={!valid}
+              onClick={submit}
+              className={`shrink-0 inline-grid place-items-center rounded-full
+                          h-8 w-8 transition-all
+                          ${valid
+                            ? 'bg-zinc-900 text-white hover:bg-zinc-800 active:bg-zinc-700'
+                            : 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
+                          }`}
+            >
+              <Icon name="check" className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

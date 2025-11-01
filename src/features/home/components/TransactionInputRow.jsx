@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { TransactionContext } from "@/context/TransactionContext.js";
 
 const TransactionInputRow = () => {
-  const [date, setDate] = useState("2023. 08. 10");
+  const { addTransaction, currentDate } = useContext(TransactionContext);
+
+  const [date, setDate] = useState(() => {
+    const d = new Date(currentDate);
+    return `${d.getFullYear()}. ${String(d.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}. ${String(d.getDate()).padStart(2, "0")}`;
+  });
+
   const [type, setType] = useState("+");
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("");
   const [content, setContent] = useState("");
   const [paymentMethods, setPaymentMethods] = useState(["현금", "신용카드"]);
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -38,14 +48,24 @@ const TransactionInputRow = () => {
   };
 
   const handleSubmit = () => {
-    console.log({
+    if (!amount || !category || !paymentMethod) return;
+
+    const tx = {
       date,
       type,
-      amount,
+      amount: Number(amount),
       content,
       paymentMethod,
       category,
-    });
+      createdAt: new Date(),
+    };
+
+    addTransaction(tx);
+
+    setAmount("");
+    setContent("");
+    setPaymentMethod("");
+    setCategory("");
   };
 
   return (
@@ -103,7 +123,7 @@ const TransactionInputRow = () => {
             />
           </div>
 
-          {/* ✅ 결제수단 드롭다운 (이미지처럼 구현) */}
+          {/* 결제수단 드롭다운 */}
           <div className="flex flex-col px-4 py-3 min-w-[150px] relative">
             <label className="text-xs text-gray-500 mb-1">결제수단</label>
             <div
@@ -172,8 +192,7 @@ const TransactionInputRow = () => {
             </div>
           </div>
 
-          {/* 분류 */}
-          {/* ✅ 분류 드롭다운 (수입/지출 구분) */}
+          {/* 분류 드롭다운 */}
           <div className="flex flex-col px-4 py-3 min-w-[150px] relative">
             <label className="text-xs text-gray-500 mb-1">분류</label>
             <div
@@ -199,9 +218,8 @@ const TransactionInputRow = () => {
 
               {isCategoryOpen && (
                 <div className="absolute top-full left-0 mt-1 w-[160px] bg-white border border-gray-200 rounded-md shadow-md z-10 overflow-hidden">
-                  {/* ✅ 수입 카테고리 */}
-                  {type === "+" && (
-                    <div>
+                  {type === "+" ? (
+                    <>
                       <div className="bg-gray-50 px-3 py-1 text-[11px] text-gray-500 border-b border-gray-200">
                         수입 카테고리
                       </div>
@@ -217,12 +235,9 @@ const TransactionInputRow = () => {
                           {cat}
                         </div>
                       ))}
-                    </div>
-                  )}
-
-                  {/* ✅ 지출 카테고리 */}
-                  {type === "-" && (
-                    <div>
+                    </>
+                  ) : (
+                    <>
                       <div className="bg-gray-50 px-3 py-1 text-[11px] text-gray-500 border-b border-gray-200">
                         지출 카테고리
                       </div>
@@ -246,7 +261,7 @@ const TransactionInputRow = () => {
                           {cat}
                         </div>
                       ))}
-                    </div>
+                    </>
                   )}
                 </div>
               )}

@@ -210,13 +210,13 @@ function InputBar() {
                     <option value="shopping">쇼핑/뷰티</option>
                     <option value="health">의료/건강</option>
                     <option value="culture">문화/여가</option>
-                    <option value="etc">미분류</option>
+                    <option value="etc-expense">미분류</option>
                   </>
                 ) : sign === "income" ? (
                   <>
                     <option value="salary">월급</option>
                     <option value="allowance">용돈</option>
-                    <option value="etc">기타 수입</option>
+                    <option value="etc-income">기타 수입</option>
                   </>
                 ) : null
               }

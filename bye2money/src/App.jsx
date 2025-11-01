@@ -1,19 +1,11 @@
-import React, { useState } from "react";
-import { Layout } from "./components/Layout";
-import { Header } from "./components/Header";
-import { InputBar } from "./components/InputBar";
-import { Transactions } from "./components/Transactions";
-import { AppContextProvider } from "./contexts/AppContext";
+import React from "react";
+import { AppContextProvider } from "@/contexts/AppContext";
+import { MainContent } from "./components/MainContent";
 
 function App() {
   return (
     <AppContextProvider>
-      <Layout>
-        <Header/>
-        <InputBar>
-          <Transactions/>
-        </InputBar>
-      </Layout>
+      <MainContent/>
     </AppContextProvider>
   );
 }

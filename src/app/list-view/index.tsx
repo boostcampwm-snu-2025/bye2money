@@ -3,6 +3,7 @@ import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { useState } from "react";
 
+import DailyListDetail from "./daily-list-detail";
 import InputBar from "./input-bar";
 import MonthlyInfo from "./monthly-info";
 
@@ -169,19 +170,6 @@ function groupByDate(data: Item[]) {
   );
 }
 
-const CATEGORY_COLOR: Record<Category, string> = {
-  allowance: "bg-[#AACD7E]",
-  culture: "bg-[#BDA6E1]",
-  "etc-expense": "bg-[#F0B0D3]",
-  "etc-income": "bg-[##A28878]",
-  food: "bg-[#C5E0EB]",
-  health: "bg-[#BCDFD3]",
-  life: "bg-[#A7B9E9]",
-  salary: "bg-[#E39D5D]",
-  shopping: "bg-[#D7CA6B]",
-  transport: "bg-[#7DB7BF]",
-};
-
 const DEFAULT_FILTER = {
   expense: true,
   income: true,
@@ -273,29 +261,7 @@ function ListView() {
             </div>
             <div className="w-full border-y-[0.5px]">
               {item.data.map((item) => (
-                <div className="w-full flex gap-[16px] pr-[16px]" key={item.id}>
-                  <div
-                    className={`w-[92px] h-[56px] px-[8px] py-[4px] text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard] flex justify-center items-center ${
-                      CATEGORY_COLOR[item.category]
-                    }`}
-                  >
-                    {/* TODO: key를 한국어로 변환 */}
-                    {item.category}
-                  </div>
-                  <div className="w-[400px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center">
-                    {item.description}
-                  </div>
-                  <div className="w-[104px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center">
-                    {item.paymentMethod}
-                  </div>
-                  <div
-                    className={`flex-1 text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center justify-end ${
-                      item.amount > 0 ? "text-[#79B2CA]" : "text-[#C04646]"
-                    }`}
-                  >
-                    {item.amount.toLocaleString()}원
-                  </div>
-                </div>
+                <DailyListDetail item={item} key={item.id} />
               ))}
             </div>
           </div>

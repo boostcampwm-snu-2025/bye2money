@@ -26,6 +26,7 @@ type Item = {
 };
 
 const items = sample as Item[];
+let id = items.length + 1;
 const payments = [] as string[];
 
 const app = express();
@@ -42,47 +43,75 @@ const router = Router();
 
 // 조회
 router.get("/account/list", async (req, res) => {
+  await delay(1000);
   const { month } = req.query;
   const filteredItems = items.filter(item => new Date(item.date).getMonth() + 1 === Number(month));
-
-  await delay(1000);
-  res.json({ items: filteredItems });
+  res.json(filteredItems);
 });
 
 // 생성
 router.post("/account/item", async (req, res) => {
   await delay(1000);
-  res.json({});
+  const newItem = { id: id++, ...req.body } as Item;
+  items.push(newItem);
+  res.status(201).json(newItem);
 });
 
 // 수정
 router.patch("/account/item/:id", async (req, res) => {
   await delay(1000);
-  res.json({});
+  const { id } = req.params;
+  const index = items.findIndex(item => item.id === Number(id));
+  if (index === -1) {
+    res.status(404).json({ message: "존재하지 않는 항목입니다." });
+    return;
+  }
+  items[index] = { ...items[index], ...req.body };
+  res.json(items[index]);
 });
 
 // 삭제
 router.delete("/account/item/:id", async (req, res) => {
   await delay(1000);
-  res.json({});
+  const { id } = req.params;
+  const index = items.findIndex(item => item.id === Number(id));
+  if (index === -1) {
+    res.status(404).json({ message: "존재하지 않는 항목입니다." });
+    return;
+  }
+  items.splice(index, 1);
+  res.status(204).send();
 });
 
 // 조회
 router.get("/payment/list", async (req, res) => {
   await delay(1000);
-  res.json({});
+  res.json(payments);
 });
 
 // 생성
 router.put("/payment/:payment", async (req, res) => {
   await delay(1000);
-  res.json({});
+  const { payment } = req.params;
+  if (payments.includes(payment)) {
+    res.status(409).json({ message: "이미 존재하는 결제수단입니다." });
+    return;
+  }
+  payments.push(payment);
+  res.status(201).json(payment);
 });
 
 // 삭제
 router.delete("/payment/:payment", async (req, res) => {
   await delay(1000);
-  res.json({});
+  const { payment } = req.params;
+  const index = payments.indexOf(payment);
+  if (index === -1) {
+    res.status(404).json({ message: "존재하지 않는 결제수단입니다." });
+    return;
+  }
+  payments.splice(index, 1);
+  res.status(204).send();
 });
 
 app.use("/api", router);

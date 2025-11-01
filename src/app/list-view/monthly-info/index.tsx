@@ -38,7 +38,11 @@ function MonthlyInfo({ filter, totalCount, totalExpense, totalIncome }: Props) {
           {filter.income ? (
             <img alt="Checked" className="w-[16px] h-[16px]" src={CheckBox} />
           ) : (
-            <img alt="Unchecked" className="w-[16px] h-[16px]" src={UncheckBox} />
+            <img
+              alt="Unchecked"
+              className="w-[16px] h-[16px]"
+              src={UncheckBox}
+            />
           )}
           <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
             수입 {totalIncome.toLocaleString()}원
@@ -57,7 +61,11 @@ function MonthlyInfo({ filter, totalCount, totalExpense, totalIncome }: Props) {
           {filter.expense ? (
             <img alt="Checked" className="w-[16px] h-[16px]" src={CheckBox} />
           ) : (
-            <img alt="Unchecked" className="w-[16px] h-[16px]" src={UncheckBox} />
+            <img
+              alt="Unchecked"
+              className="w-[16px] h-[16px]"
+              src={UncheckBox}
+            />
           )}
           <span className="text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard]">
             지출 {totalExpense.toLocaleString()}원

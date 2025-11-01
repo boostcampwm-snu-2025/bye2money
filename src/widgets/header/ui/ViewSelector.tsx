@@ -7,7 +7,7 @@ export const ViewSelector = () => {
   return (
     <div className="flex h-fit gap-1">
       <button
-        aria-label="통계 탭"
+        aria-label="내역 탭"
         aria-selected={view === "doc"}
         type="button"
         onClick={() => setView("doc")}

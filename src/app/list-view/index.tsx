@@ -19,7 +19,7 @@ type Category =
   | "shopping"
   | "transport";
 
-const data: {
+type Item = {
   amount: number;
   category: Category;
   date: Dayjs;
@@ -27,7 +27,9 @@ const data: {
   // id는 생성한 시간 순으로 부여됩니다.
   id: number;
   paymentMethod: string;
-}[] = [
+};
+
+const data: Item[] = [
   {
     amount: -10_900,
     category: "culture",
@@ -134,28 +136,38 @@ const data: {
   },
 ];
 
-const totalIncome = data
-  .filter((item) => item.amount > 0)
-  .reduce((acc, item) => acc + item.amount, 0);
-const totalExpense = data
-  .filter((item) => item.amount < 0)
-  .reduce((acc, item) => acc - item.amount, 0);
+function filter(item: Item, expense: boolean, income: boolean) {
+  if (item.amount > 0 && !income) {
+    return false;
+  }
+  if (item.amount < 0 && !expense) {
+    return false;
+  }
+  return true;
+}
 
-const groupedData = Object.values(
-  data.reduce((acc, item) => {
-    const dateKey = item.date.format("YYYY-MM-DD");
-    if (!acc[dateKey]) {
-      acc[dateKey] = { data: [], date: item.date, expense: 0, income: 0 };
-    }
-    acc[dateKey].data.push(item);
-    if (item.amount > 0) {
-      acc[dateKey].income += item.amount;
-    } else {
-      acc[dateKey].expense -= item.amount;
-    }
-    return acc;
-  }, {} as Record<string, { data: typeof data; date: Dayjs; expense: number; income: number }>)
-);
+function groupByDate(data: Item[]) {
+  return Object.values(
+    data.reduce((acc, item) => {
+      const dateKey = item.date.format("YYYY-MM-DD");
+      if (!acc[dateKey]) {
+        acc[dateKey] = {
+          dailyExpense: 0,
+          dailyIncome: 0,
+          data: [],
+          date: item.date,
+        };
+      }
+      acc[dateKey].data.push(item);
+      if (item.amount > 0) {
+        acc[dateKey].dailyIncome += item.amount;
+      } else {
+        acc[dateKey].dailyExpense -= item.amount;
+      }
+      return acc;
+    }, {} as Record<string, { dailyExpense: number; dailyIncome: number; data: Item[]; date: Dayjs }>)
+  );
+}
 
 const CATEGORY_COLOR: Record<Category, string> = {
   allowance: "bg-[#AACD7E]",
@@ -185,27 +197,43 @@ const useFilter = () => {
     onExpenseFilterChange: setExpenseFilter,
     onIncomeFilterChange: setIncomeFilter,
   };
-}
+};
 
 function ListView() {
-  const filter = useFilter();
+  const {
+    expenseFilter,
+    incomeFilter,
+    onExpenseFilterChange,
+    onIncomeFilterChange,
+  } = useFilter();
+  const filteredData = data.filter((item) =>
+    filter(item, expenseFilter, incomeFilter)
+  );
+
+  const totalIncome = data
+    .filter((item) => item.amount > 0)
+    .reduce((acc, item) => acc + item.amount, 0);
+  const totalExpense = data
+    .filter((item) => item.amount < 0)
+    .reduce((acc, item) => acc - item.amount, 0);
+
   return (
     <>
       <InputBar />
       <div className="w-[846px] flex flex-col gap-[40px]">
         <MonthlyInfo
           filter={{
-            expense: filter.expenseFilter,
-            income: filter.incomeFilter,
-            onExpenseFilterChange: filter.onExpenseFilterChange,
-            onIncomeFilterChange: filter.onIncomeFilterChange,
+            expense: expenseFilter,
+            income: incomeFilter,
+            onExpenseFilterChange: onExpenseFilterChange,
+            onIncomeFilterChange: onIncomeFilterChange,
           }}
-          totalCount={data.length}
+          totalCount={filteredData.length}
           totalExpense={totalExpense}
           totalIncome={totalIncome}
         />
 
-        {groupedData.map((item) => (
+        {groupByDate(filteredData).map((item) => (
           <div
             className="w-[846px] space-y-[16px]"
             key={item.date.format("YYYY-MM-DD")}
@@ -221,23 +249,23 @@ function ListView() {
                 </span>
               </div>
               <div className="flex gap-[8px]">
-                {item.income > 0 && (
+                {item.dailyIncome > 0 && (
                   <>
                     <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
                       수입
                     </span>
                     <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                      {item.income.toLocaleString()}원
+                      {item.dailyIncome.toLocaleString()}원
                     </span>
                   </>
                 )}
-                {item.expense > 0 && (
+                {item.dailyExpense > 0 && (
                   <>
                     <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
                       지출
                     </span>
                     <span className="text-[14px] leading-[16px] tracking-normal font-normal font-[ChosunNM]">
-                      {item.expense.toLocaleString()}원
+                      {item.dailyExpense.toLocaleString()}원
                     </span>
                   </>
                 )}

@@ -234,7 +234,7 @@ function ListView() {
             />
             <div className="w-full border-y-[0.5px]">
               {item.data.map((item) => (
-                <DailyListDetail 
+                <DailyListDetail
                   amount={item.amount}
                   category={item.category}
                   description={item.description}

@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 
+import CalendarView from "./calendar-view";
 import Header from "./header";
 import ListView from "./list-view";
 
@@ -40,7 +41,7 @@ function App() {
       {tab === "List" ? (
         <ListView />
       ) : tab === "Calendar" ? (
-        <div>Calendar View - to be implemented</div>
+        <CalendarView />
       ) : tab === "Analytics" ? (
         <div>Analytics View - to be implemented</div>
       ) : null}

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+// src/components/Header.jsx
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { TransactionContext } from "@/context/TransactionContext";
 import logo from "../assets/logo.svg";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [activeIcon, setActiveIcon] = useState(null); // 클릭된 아이콘 상태 관리
+  const { currentDate, setCurrentDate } = useContext(TransactionContext); // ✅ Context에서 상태 불러오기
+  const [activeIcon, setActiveIcon] = React.useState(null);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
@@ -25,29 +27,25 @@ const Header = () => {
   ];
   const monthName = monthNames[currentDate.getMonth()];
 
+  // ✅ Context의 currentDate 변경 (TransactionContext의 useEffect가 서버 재요청 수행)
   const handlePrevMonth = () => {
-    setCurrentDate((prevDate) => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(newDate.getMonth() - 1);
-      return newDate;
-    });
+    const newDate = new Date(currentDate);
+    newDate.setMonth(newDate.getMonth() - 1);
+    setCurrentDate(newDate);
   };
 
   const handleNextMonth = () => {
-    setCurrentDate((prevDate) => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(newDate.getMonth() + 1);
-      return newDate;
-    });
+    const newDate = new Date(currentDate);
+    newDate.setMonth(newDate.getMonth() + 1);
+    setCurrentDate(newDate);
   };
 
   return (
     <div className="w-full fixed top-0 left-0 right-0 z-50 font-sans">
       {/* 상단 파란색 배경 */}
       <div className="h-[200px] bg-gradient-to-b from-[#7DB3D8] to-[#6BA3CA] py-10 pb-20 flex items-center justify-center relative">
-        {/* 콘텐츠 컨테이너 */}
         <div className="w-[1000px] px-10 flex items-center justify-between relative">
-          {/* Wrap Wallet 로고 */}
+          {/* 로고 */}
           <div
             onClick={() => navigate("/")}
             role="button"
@@ -113,7 +111,7 @@ const Header = () => {
                 }`}
                 onClick={() => {
                   setActiveIcon(icon.id);
-                  navigate(icon.path); // 클릭 시 해당 페이지로 이동
+                  navigate(icon.path);
                 }}
                 alt={icon.id}
               />

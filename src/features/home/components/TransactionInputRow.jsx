@@ -1,8 +1,40 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { TransactionContext } from "@/context/TransactionContext.js";
 
 const TransactionInputRow = () => {
-  const { addTransaction, currentDate } = useContext(TransactionContext);
+  const {
+    addTransaction,
+    updateTransaction,
+    currentDate,
+    selectedTransaction,
+    setSelectedTransaction,
+  } = useContext(TransactionContext);
+
+  useEffect(() => {
+    if (selectedTransaction) {
+      const d = new Date(selectedTransaction.date);
+      setDate(
+        `${d.getFullYear()}. ${String(d.getMonth() + 1).padStart(
+          2,
+          "0"
+        )}. ${String(d.getDate()).padStart(2, "0")}`
+      );
+      setType(selectedTransaction.type === "income" ? "+" : "-");
+      setAmount(selectedTransaction.amount);
+      setContent(selectedTransaction.memo || "");
+      setPaymentMethod(selectedTransaction.paymentMethod);
+      setCategory(selectedTransaction.category);
+    }
+  }, [selectedTransaction]);
+
+  useEffect(() => {
+    if (!selectedTransaction) {
+      setAmount("");
+      setContent("");
+      setPaymentMethod("");
+      setCategory("");
+    }
+  }, [selectedTransaction]);
 
   const [date, setDate] = useState(() => {
     const d = new Date(currentDate);
@@ -50,18 +82,25 @@ const TransactionInputRow = () => {
   const handleSubmit = () => {
     if (!amount || !category || !paymentMethod) return;
 
-    const tx = {
-      date,
-      type,
+    const txData = {
+      date: date.replace(/\./g, "-").replace(/\s/g, ""),
+      type: type === "+" ? "income" : "expense",
       amount: Number(amount),
-      content,
+      memo: content,
       paymentMethod,
       category,
-      createdAt: new Date(),
     };
 
-    addTransaction(tx);
+    if (selectedTransaction) {
+      // ✅ 수정 모드
+      updateTransaction(selectedTransaction.id, txData);
+      setSelectedTransaction(null); // 수정 완료 후 해제
+    } else {
+      // ✅ 추가 모드
+      addTransaction(txData);
+    }
 
+    // 폼 초기화
     setAmount("");
     setContent("");
     setPaymentMethod("");
@@ -69,7 +108,7 @@ const TransactionInputRow = () => {
   };
 
   return (
-    <div className="w-[1000px] bg-white shadow-sm border border-gray-200">
+    <div className="w-[1000px] justify-center bg-white shadow-sm border border-gray-200">
       <div className="flex items-center justify-between">
         {/* 왼쪽 섹션 */}
         <div className="flex items-center divide-x divide-gray-200">
@@ -99,7 +138,7 @@ const TransactionInputRow = () => {
             <label className="text-xs text-gray-500 mb-1 opacity-0">금액</label>
             <div className="flex items-center gap-1">
               <input
-                type="text"
+                type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 className="text-sm text-gray-800 border-none outline-none bg-transparent w-full"

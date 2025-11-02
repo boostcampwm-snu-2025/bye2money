@@ -71,8 +71,6 @@ button:focus-visible {
   }
 }
 
-
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -129,8 +127,6 @@ button:focus-visible {
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border;
@@ -138,4 +134,13 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }

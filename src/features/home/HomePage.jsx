@@ -4,9 +4,11 @@ import TransactionList from "@/features/home/components/TransactionList";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col items-center gap-5 mt-8">
-      <TransactionInputRow />
-      <TransactionList />
+    <div className="flex flex-col items-center gap-5 mt-[170px] relative z-[60]">
+      <div className="w-[1000px]">
+        <TransactionInputRow />
+        <TransactionList />
+      </div>
     </div>
   );
 };

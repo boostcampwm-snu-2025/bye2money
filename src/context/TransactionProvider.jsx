@@ -1,35 +1,60 @@
+// src/context/TransactionProvider.jsx
 import React, { useState, useEffect } from "react";
-import { TransactionContext } from "./TransactionContext.js";
+import { TransactionContext } from "@/context/TransactionContext";
+import {
+  getTransactionsByMonth,
+  addTransaction as postTransaction,
+  updateTransaction as patchTransaction,
+  deleteTransaction as removeTransaction,
+} from "@/api";
 
 export const TransactionProvider = ({ children }) => {
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  // 거래 추가
-  const addTransaction = (newTx) => {
-    setTransactions((prev) => [...prev, newTx]);
-  };
-
-  const changeMonth = (offset) => {
-    setCurrentDate((prev) => {
-      const newDate = new Date(prev);
-      newDate.setMonth(newDate.getMonth() + offset);
-      return newDate;
-    });
+  const fetchTransactions = async () => {
+    try {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      const data = await getTransactionsByMonth(year, month);
+      setTransactions(data);
+    } catch (err) {
+      console.error("데이터 불러오기 오류:", err);
+    }
   };
 
   useEffect(() => {
-    console.log("현재 거래 목록:", transactions);
-  }, [transactions]);
+    fetchTransactions();
+  }, [currentDate]);
+
+  const addTransaction = async (tx) => {
+    await postTransaction(tx);
+    await fetchTransactions();
+  };
+
+  const updateTransaction = async (id, data) => {
+    await patchTransaction(id, data);
+    await fetchTransactions();
+  };
+
+  const deleteTransaction = async (id) => {
+    await removeTransaction(id);
+    await fetchTransactions();
+  };
 
   return (
     <TransactionContext.Provider
       value={{
         transactions,
-        addTransaction,
+        setTransactions,
         currentDate,
         setCurrentDate,
-        changeMonth,
+        addTransaction,
+        updateTransaction,
+        deleteTransaction,
+        selectedTransaction,
+        setSelectedTransaction,
       }}
     >
       {children}

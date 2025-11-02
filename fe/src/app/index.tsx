@@ -41,7 +41,7 @@ function App() {
       {tab === "List" ? (
         <ListView />
       ) : tab === "Calendar" ? (
-        <CalendarView />
+        <CalendarView date={date} />
       ) : tab === "Analytics" ? (
         <div>Analytics View - to be implemented</div>
       ) : null}

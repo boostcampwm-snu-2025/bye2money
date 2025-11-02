@@ -1,13 +1,15 @@
-import dayjs from "dayjs";
+import { Dayjs } from "dayjs";
 
-const temp = dayjs("2023-08-13").startOf("month");
-const day = temp.day();
-const date = temp.daysInMonth();
+interface Props {
+  date: Dayjs;
+}
 
-const start = -day;
-const end = date + (7 - ((date + day) % 7));
+function CalendarView({ date }: Props) {
+  const day = date.day();
+  const daysInMonth = date.daysInMonth();
+  const start = -day;
+  const end = daysInMonth + (7 - ((daysInMonth + day) % 7));
 
-function CalendarView() {
   return (
     <>
       <table className="w-[846px] bg-[#FFFFFF]">
@@ -27,7 +29,7 @@ function CalendarView() {
             <tr key={dates.join(".")}>
               {dates.map((i) => (
                 <td className="border-[0.5px] h-[120px]" key={i}>
-                  {i < 0 || i >= date ? null : (
+                  {i < 0 || i >= daysInMonth ? null : (
                     <div className="h-full p-[8px] flex flex-col justify-between">
                       <div>
                         <div className="text-[16px] leading-[24px] tracking-normal font-semibold font-[Pretendard]"></div>

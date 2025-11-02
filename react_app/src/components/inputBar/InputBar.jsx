@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { toYMD } from '../../utils/formatDate';
 import { formatAmountInput, parseAmount } from '../../utils/formatCurrency';
-import { useTransactions } from '../../context/TransactionContext';
+import DescriptionInput from './DescriptionInput';
 import CategoryDropdown from './CategoryDropdown';
 import PaymentDropdown from './PaymentDropdown';
 import './inputbar.css';
 
 export default function InputBar({ className = '' }) {
-  const { addTransaction } = useTransactions();
+
   const [date, setDate] = useState(toYMD(new Date()));
   const [type, setType] = useState('expense');
   const [amountUI, setAmountUI] = useState('');
@@ -45,52 +45,64 @@ export default function InputBar({ className = '' }) {
   useEffect(() => setDate(toYMD(new Date())), []);
 
   return (
-    <section className={`inputbar-flex ${className}`}>
-      <div className="col">
-        <div className="col-header">일자</div>
-        <input type="date" value={date} onChange={e => setDate(e.target.value)} />
-      </div>
-
-      <div className="col">
-        <div className="col-header">금액</div>
-        <div className="amount-row">
-          <button type="button" className={`pm ${type}`} onClick={toggleType}>
-            {type === 'expense' ? '−' : '+'}
-          </button>
-          <input
-            value={amountUI}
-            onChange={e => onAmountChange(e.target.value)}
-            placeholder="0"
-            style={{ textAlign: 'right' }}
-          />
+    <div className='input-bar-wrapper'>
+      <section className={`inputbar-flex ${className}`}>
+        <div className="col">
+          <div className="col-header">일자</div>
+          <input type="date" value={date} onChange={e => setDate(e.target.value)} />
         </div>
-      </div>
 
-      <div className="col">
-        <div className="col-header">내용</div>
-        <input
-          value={desc}
-          onChange={e => setDesc(e.target.value.slice(0, 32))}
-          placeholder="입력하세요"
-        />
-      </div>
+        <div className="col">
+          <div className="col-header">금액</div>
+          <div className="amount-row">
+            <button type="button" className={`pm ${type}`} onClick={toggleType}>
+              {type === 'expense' ? '−' : '+'}
+            </button>
+            <div style={{ position: 'relative' }}>
+              <input
+                value={amountUI}
+                onChange={e => onAmountChange(e.target.value)}
+                placeholder="0"
+                style={{ textAlign: 'right', paddingRight: '30px' }}
+              />
+              <span
+                style={{
+                  position: 'absolute',
+                  right: '6px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: '#555',
+                  fontSize: '14px',
+                }}
+              >
+                원
+              </span>
+            </div>
+          </div>
+        </div>
 
-      <div className="col">
-        <div className="col-header">결제수단</div>
-        <PaymentDropdown value={payment} onChange={setPayment} />
-      </div>
+        <div className="col">
+          <DescriptionInput desc={desc} setDesc={setDesc} />
+        </div>
 
-      <div className="col">
-        <div className="col-header">분류</div>
-        <CategoryDropdown type={type} value={category} onChange={setCategory} />
-      </div>
+        <div className="col">
+          <div className="col-header">결제수단</div>
+          <PaymentDropdown value={payment} onChange={setPayment} />
+        </div>
 
-      <div className="col col-check">
-        <div className="col-header">&nbsp;</div>
-        <button className="btn primary check-btn" disabled={!valid} onClick={onSubmit}>
-          ✅
-        </button>
-      </div>
-    </section>
+        <div className="col">
+          <div className="col-header">분류</div>
+          <CategoryDropdown type={type} value={category} onChange={setCategory} />
+        </div>
+
+        <div className="col col-check">
+          
+          <button className="btn primary check-btn" disabled={!valid} onClick={onSubmit}>
+            <span className="check-icon"></span>
+          </button>
+        </div>
+      </section>
+    </div>
+
   );
 }

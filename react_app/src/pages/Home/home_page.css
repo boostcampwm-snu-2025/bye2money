@@ -6,7 +6,11 @@ main {
 .input-section {
     display: flex;
     justify-content: center;
+
     width: 100%;
+    position: relative;
+  top: -50px;
+ 
 }
 
 
@@ -14,7 +18,8 @@ main {
     width: 80%;
     border: 1px solid #000;   /* black border */
     border-radius: 4px;       /* small rounded corners */
-    padding: 8px;             /* optional: add a bit of breathing room */
+    padding: 12px;             /* optional: add a bit of breathing room */
+    background-color: white;
 }
 
 

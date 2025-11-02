@@ -1,16 +1,27 @@
 import { useEffect, useRef, useState } from "react";
-import { useTransactions } from "../../context/TransactionContext";
+import { createPortal } from "react-dom";
 import ConfirmModal from "../Modal/ConfirmModal";
+import "./paymentdropdown.css";
 
-export default function PaymentDropdown({ value, onChange }) {
-  const { paymentMethods, deletePaymentMethod, addPaymentMethod } = useTransactions();
+export default function PaymentDropdown({
+  value,
+  onChange,
+  verticalGap = 14,
+}) {
+  // Local payment method list (no context)
+  const [paymentMethods, setPaymentMethods] = useState([
+    { id: "cash", name: "현금" },
+    { id: "visa", name: "VISA카드" },
+  ]);
+
   const [open, setOpen] = useState(false);
   const [askDeleteId, setAskDeleteId] = useState(null);
   const [askAdd, setAskAdd] = useState(false);
   const [newName, setNewName] = useState("");
+  const [menuStyle, setMenuStyle] = useState({});
   const ref = useRef(null);
 
-  // close dropdown when clicking outside
+  // Close dropdown when clicking outside
   useEffect(() => {
     const onDocClick = (e) => {
       if (!ref.current?.contains(e.target)) setOpen(false);
@@ -19,39 +30,77 @@ export default function PaymentDropdown({ value, onChange }) {
     return () => document.removeEventListener("click", onDocClick);
   }, []);
 
+  // Calculate dropdown position relative to the button
+  useEffect(() => {
+    if (open && ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setMenuStyle({
+        position: "absolute",
+        top: `${rect.bottom + verticalGap}px`,
+        left: `${rect.left}px`,
+        width: `${rect.width}px`,
+      });
+    }
+  }, [open, verticalGap]);
+
+  // Delete and add handlers
   const confirmDelete = () => {
-    if (askDeleteId) deletePaymentMethod(askDeleteId);
+    setPaymentMethods((prev) => prev.filter((p) => p.id !== askDeleteId));
+    setAskDeleteId(null);
   };
 
   const confirmAdd = () => {
     const name = newName.trim();
     if (!name) return;
-    const pm = addPaymentMethod(name);
-    onChange(pm.name);
+    const newPm = { id: Math.random().toString(36).slice(2), name };
+    setPaymentMethods((prev) => [...prev, newPm]);
+    onChange(name);
     setNewName("");
     setAskAdd(false);
     setOpen(false);
   };
 
+  // Floating dropdown menu (rendered via portal)
+  const dropdownMenu = (
+    <div className="dropdown-menu" style={menuStyle}>
+      {paymentMethods.map((pm) => (
+        <div key={pm.id} className="option row">
+          <span
+            onClick={() => {
+              onChange(pm.name);
+              setOpen(false);
+            }}
+            className="option-text"
+          >
+            {pm.name}
+          </span>
+          <button
+            type="button"
+            className="x"
+            onClick={() => setAskDeleteId(pm.id)}
+          >
+            ×
+          </button>
+        </div>
+      ))}
+      <div className="separator" />
+      <div className="option add" onClick={() => setAskAdd(true)}>
+        + 추가하기
+      </div>
+    </div>
+  );
+
   return (
-    <div className="field" ref={ref}>
-      <label>결제수단</label>
-      <button type="button" className="select" onClick={() => setOpen((o) => !o)}>
+    <div ref={ref} className="dropdown-wrapper">
+      <button
+        type="button"
+        className="select"
+        onClick={() => setOpen((o) => !o)}
+      >
         {value || "결제수단 선택"}
       </button>
 
-      {open && (
-        <div className="dropdown">
-          {paymentMethods.map((pm) => (
-            <div key={pm.id} className="option row">
-              <span onClick={() => { onChange(pm.name); setOpen(false); }}>{pm.name}</span>
-              <button type="button" className="x" onClick={() => setAskDeleteId(pm.id)}>X</button>
-            </div>
-          ))}
-          <div className="separator" />
-          <div className="option add" onClick={() => setAskAdd(true)}>+ 추가하기</div>
-        </div>
-      )}
+      {open && createPortal(dropdownMenu, document.body)}
 
       {/* Delete confirmation modal */}
       <ConfirmModal
@@ -62,7 +111,7 @@ export default function PaymentDropdown({ value, onChange }) {
         onClose={() => setAskDeleteId(null)}
       />
 
-      {/* Add new payment modal */}
+      {/* Add modal */}
       {askAdd && (
         <div className="modal-backdrop">
           <div className="modal">
@@ -81,8 +130,12 @@ export default function PaymentDropdown({ value, onChange }) {
               }}
             />
             <div className="modal-actions">
-              <button className="btn ghost" onClick={() => setAskAdd(false)}>취소</button>
-              <button className="btn" onClick={confirmAdd}>추가</button>
+              <button className="btn ghost" onClick={() => setAskAdd(false)}>
+                취소
+              </button>
+              <button className="btn" onClick={confirmAdd}>
+                추가
+              </button>
             </div>
           </div>
         </div>

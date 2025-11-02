@@ -11,7 +11,7 @@
     background-color: var(--header-bg);
     width: 100%;
     min-width: 1000px;
-    height: 216px;
+    height: 296px;
     display: flex;
     justify-content: center; /* horizontally center */
 }

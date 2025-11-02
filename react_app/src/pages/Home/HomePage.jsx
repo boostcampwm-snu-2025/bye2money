@@ -8,9 +8,9 @@ export default function HomePage() {
   return (
     <main>
       <div className='input-section'>
-        <div className='input-bar-wrapper'>
+
           <InputBar className='input-bar' />
-        </div>
+
 
       </div>
 

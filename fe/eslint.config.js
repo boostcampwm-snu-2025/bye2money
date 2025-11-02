@@ -16,7 +16,7 @@ export default defineConfig([
       reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite,
       perfectionist.configs["recommended-natural"],
-      tanstackQuery.configs.recommended,
+      tanstackQuery.configs["flat/recommended"],
     ],
     rules: {
       "no-unused-vars": "off",

@@ -38,7 +38,7 @@ type RawItem = {
   paymentMethod: string;
 };
 
-export async function createTransaction(transaction: Omit<Item, "id">, signal?: AbortSignal | null) {
+export async function createTransaction(transaction: Omit<RawItem, "id">, signal?: AbortSignal | null) {
   const response = await fetch(`${baseUrl}/api/transactions`, {
     body: JSON.stringify(transaction),
     headers: {
@@ -64,9 +64,9 @@ export async function deleteTransaction(id: number, signal?: AbortSignal | null)
   }
 }
 
-export async function readTransactions(date: Dayjs, signal?: AbortSignal | null) {
+export async function readTransactions(month: number, year: number, signal?: AbortSignal | null) {
   const response = await fetch(
-    `${baseUrl}/api/transactions?month=${date.month() + 1}&year=${date.year()}`,
+    `${baseUrl}/api/transactions?month=${month}&year=${year}`,
     { signal },
   );
   if (!response.ok) {
@@ -76,7 +76,7 @@ export async function readTransactions(date: Dayjs, signal?: AbortSignal | null)
   return data.map((item) => ({ ...item, date: dayjs(item.date) }));
 }
 
-export async function updateTransaction(id: number, updates: Partial<Omit<Item, "id">>, signal?: AbortSignal | null) {
+export async function updateTransaction(id: number, updates: Partial<Omit<RawItem, "id">>, signal?: AbortSignal | null) {
   const response = await fetch(`${baseUrl}/api/transactions/${id}`, {
     body: JSON.stringify(updates),
     headers: {

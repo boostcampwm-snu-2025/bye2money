@@ -1,51 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import dayjs, { type Dayjs } from "dayjs";
+import { type Dayjs } from "dayjs";
 
-type Category = ExpenseCategory | IncomeCategory;
-type ExpenseCategory =
-  | "교통"
-  | "문화/여가"
-  | "미분류"
-  | "생활"
-  | "쇼핑/뷰티"
-  | "식비"
-  | "의료/건강";
-type IncomeCategory = "기타 수입" | "용돈" | "월급";
+import { readTransactions } from "../../api";
 
 interface Props {
   date: Dayjs;
 }
 
-type RawItem = {
-  amount: number;
-  category: Category;
-  date: string;
-  description: string;
-  id: number;
-  paymentMethod: string;
-};
-
 function CalendarView({ date }: Props) {
-  const day = date.day();
   const daysInMonth = date.daysInMonth();
-  const start = -day;
-  const end = daysInMonth + (7 - ((daysInMonth + day) % 7));
+  const start = -date.day();
+  const end = daysInMonth + (7 - ((daysInMonth + start) % 7));
+  const month = date.month() + 1;
+  const year = date.year();
 
   const query = useQuery({
-    queryFn: async ({ signal }) => {
-      const response = await fetch(
-        `http://localhost:3001/api/transactions?month=${
-          date.month() + 1
-        }&year=${date.year()}`,
-        { signal }
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = (await response.json()) as RawItem[];
-      return data.map((item) => ({ ...item, date: dayjs(item.date) }));
-    },
-    queryKey: ["transactions", date.month(), date.year()],
+    queryFn: async ({ signal }) => readTransactions(month, year, signal),
+    queryKey: ["transactions", { month, year }],
     select: (data) => {
       const dailyData = Array(daysInMonth).fill(0).map(() => ({
         totalAmount: 0,

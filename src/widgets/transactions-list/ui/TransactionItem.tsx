@@ -1,5 +1,5 @@
 import { CategoryBadge } from "../../../entities/category/ui/categoryBadge";
-import { formatAmount } from "../../../features/add-transaction/lib/amountUtils";
+import { formatAmount } from "../../../shared/lib/amountUtils";
 import type { Transaction } from "../../../entities/transaction/model/transactionTypes";
 
 interface TransactionItemProps {

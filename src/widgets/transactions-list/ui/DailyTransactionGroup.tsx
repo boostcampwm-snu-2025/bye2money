@@ -1,5 +1,5 @@
 import { TransactionItem } from "./TransactionItem";
-import { formatAmount } from "../../../features/add-transaction/lib/amountUtils";
+import { formatAmount } from "../../../shared/lib/amountUtils";
 import type { DailyTransactionSummary } from "../../../entities/transaction/model/transactionTypes";
 
 interface DailyTransactionGroupProps {

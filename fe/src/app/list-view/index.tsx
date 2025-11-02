@@ -129,7 +129,7 @@ function ListView({ date }: Props) {
     },
   });
 
-  if (query.data === undefined)
+  if (query.status !== 'success')
     return null;
 
   const filteredData = query.data.filteredData;

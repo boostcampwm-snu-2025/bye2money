@@ -80,7 +80,7 @@ function CalendarView({ date }: Props) {
     },
   });
 
-  if (query.data === undefined) return null;
+  if (query.status !== 'success') return null;
 
   return (
     <>

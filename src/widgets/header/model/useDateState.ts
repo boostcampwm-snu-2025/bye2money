@@ -1,24 +1,29 @@
-import { useState } from "react";
+import { useQueryStates, parseAsInteger } from "nuqs";
 
 export const useDateState = () => {
-  const [year, setYear] = useState<number>(new Date().getFullYear());
-  const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
+  const [{ year, month }, setDate] = useQueryStates(
+    {
+      year: parseAsInteger.withDefault(new Date().getFullYear()),
+      month: parseAsInteger.withDefault(new Date().getMonth() + 1),
+    },
+    {
+      history: "push",
+    },
+  );
 
   const goToPreviousMonth = () => {
     if (month === 1) {
-      setMonth(12);
-      setYear(year - 1);
+      setDate({ month: 12, year: year - 1 });
     } else {
-      setMonth(month - 1);
+      setDate({ month: month - 1 });
     }
   };
 
   const goToNextMonth = () => {
     if (month === 12) {
-      setMonth(1);
-      setYear(year + 1);
+      setDate({ month: 1, year: year + 1 });
     } else {
-      setMonth(month + 1);
+      setDate({ month: month + 1 });
     }
   };
 

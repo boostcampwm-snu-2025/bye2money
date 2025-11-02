@@ -56,7 +56,7 @@ router.patch("/:id", async (req, res) => {
     res.status(404).json({ message: "존재하지 않는 항목입니다." });
     return;
   }
-  items[index] = { ...items[index], ...req.body };
+  items[index] = { ...items[index], ...req.body, id: Number(id) };
   res.json(items[index]);
 });
 

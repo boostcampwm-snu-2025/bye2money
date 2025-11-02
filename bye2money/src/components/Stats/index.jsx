@@ -13,7 +13,7 @@ export function Stats() {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "center",
-                    alignContent: "center",
+                    alignItems: "center",
                     width: "846px",
                     height: "517px",
                     gap: "8px",

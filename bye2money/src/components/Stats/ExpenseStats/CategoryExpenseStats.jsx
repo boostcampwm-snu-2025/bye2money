@@ -15,7 +15,7 @@ export function CategoryExpenseStats({ stats }) {
                 "&:hover": {
                     backgroundColor: "#EEEEEE"
                 }}}
-                onClick={() => showDetails(category)}>
+                onClick={() => showDetails(stats.category)}>
             <Box
                 sx={{
                     flex: 1,

@@ -65,7 +65,7 @@ export function StatsContextProvider({ children }) {
 
     useEffect(() => {    
         fetchTransactions();
-    });
+    }, [yearMonth]);
 
     const statsContextValue = {
         expenses, setExpenses,

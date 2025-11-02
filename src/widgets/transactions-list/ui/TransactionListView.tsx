@@ -13,7 +13,7 @@ export const TransactionListView = () => {
   const { data } = useMonthlyTransactions(year, month);
 
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex w-full justify-center py-20">
       <div className="flex w-3/5 flex-col gap-10">
         <TransactionFilterBar
           totalCount={data?.totalCount ?? 0}

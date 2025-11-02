@@ -1,10 +1,13 @@
+import { Providers } from "./app/Providers";
 import { Header } from "./widgets/header";
 
 function App() {
   return (
-    <div>
-      <Header />
-    </div>
+    <Providers>
+      <div>
+        <Header />
+      </div>
+    </Providers>
   );
 }
 

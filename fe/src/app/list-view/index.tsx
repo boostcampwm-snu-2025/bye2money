@@ -96,16 +96,17 @@ const useFilter = () => {
 
 function ListView({ date }: Props) {
   const query = useQuery({
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const response = await fetch(
         `http://localhost:3001/api/transactions?month=${
           date.month() + 1
-        }&year=${date.year()}`
+        }&year=${date.year()}`,
+        { signal }
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      const data = await response.json() as RawItem[];
+      const data = (await response.json()) as RawItem[];
       return data.map((item) => ({ ...item, date: dayjs(item.date) }));
     },
     queryKey: ["transactions", date.month(), date.year()],

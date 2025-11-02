@@ -45,7 +45,7 @@ const router = Router();
 router.get("/transactions", async (req, res) => {
   await delay(1000);
   const { month } = req.query;
-  const filteredItems = items.filter(item => new Date(item.date).getMonth() + 1 === Number(month));
+  const filteredItems = items.filter(item => item.date === month);
   res.json(filteredItems);
 });
 

@@ -1,6 +1,6 @@
-import Closed from "~/assets/icons/closed.svg";
+import type { Category } from "~/api/transactions";
 
-import type { Category } from "../../../api/transactions";
+import Closed from "~/assets/icons/closed.svg";
 
 interface Props {
   amount: number;

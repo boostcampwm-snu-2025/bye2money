@@ -3,7 +3,8 @@ import type { Dayjs } from "dayjs";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { readTransactions } from "../../api/transactions";
+import { readTransactions } from "~/api/transactions";
+
 import DailyInfo from "./daily-info";
 import DailyListDetail from "./daily-list-detail";
 import { filter, groupByDate } from "./helper";

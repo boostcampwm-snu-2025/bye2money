@@ -1,6 +1,6 @@
 import type { Dayjs } from "dayjs";
 
-import type { Item } from "../../api/transactions";
+import type { Item } from "~/api/transactions";
 
 export function filter(item: Item, expense: boolean, income: boolean) {
   if (item.amount > 0 && !income) {

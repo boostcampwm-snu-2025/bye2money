@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { type Dayjs } from "dayjs";
 
-import { readTransactions } from "../../api/transactions";
+import { readTransactions } from "~/api/transactions";
+
 import { dailyTotals, fold, range } from "./helper";
 
 interface Props {

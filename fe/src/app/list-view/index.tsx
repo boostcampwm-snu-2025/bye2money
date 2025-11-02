@@ -92,6 +92,13 @@ const useFilter = () => {
 };
 
 function ListView({ date }: Props) {
+  const {
+    expenseFilter,
+    incomeFilter,
+    onExpenseFilterChange,
+    onIncomeFilterChange,
+  } = useFilter();
+
   const query = useQuery({
     queryFn: async ({ signal }) => {
       const response = await fetch(
@@ -122,16 +129,12 @@ function ListView({ date }: Props) {
     },
   });
 
-  const {
-    expenseFilter,
-    incomeFilter,
-    onExpenseFilterChange,
-    onIncomeFilterChange,
-  } = useFilter();
-  const filteredData = query.data?.filteredData || [];
+  if (query.data === undefined)
+    return null;
 
-  const totalIncome = query.data?.totalIncome || 0;
-  const totalExpense = query.data?.totalExpense || 0;
+  const filteredData = query.data.filteredData;
+  const totalIncome = query.data.totalIncome;
+  const totalExpense = query.data.totalExpense;
 
   return (
     <>

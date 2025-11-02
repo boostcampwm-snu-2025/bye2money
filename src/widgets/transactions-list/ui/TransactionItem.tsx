@@ -1,6 +1,6 @@
-import { CategoryBadge } from "../../../entities/category/ui/categoryBadge";
+import { CategoryBadge } from "../../../entities/category";
 import { formatAmount } from "../../../shared/lib/amountUtils";
-import type { Transaction } from "../../../entities/transaction/model/transactionTypes";
+import type { Transaction } from "../../../entities/transaction";
 
 interface TransactionItemProps {
   transaction: Transaction;

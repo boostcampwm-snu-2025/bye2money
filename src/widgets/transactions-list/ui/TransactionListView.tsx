@@ -4,7 +4,7 @@ import { DailyTransactionGroup } from "./DailyTransactionGroup";
 import { TransactionFilterBar } from "./TransactioinFilterBar";
 import { useMonthlyTransactions } from "../model/useMonthlyTransactions";
 import { useTransactionFilter } from "../model/useTransactionFilter";
-import type { DailyTransactionSummary } from "../../../entities/transaction/model/transactionTypes";
+import type { DailyTransactionSummary } from "../../../entities/transaction";
 
 export const TransactionListView = () => {
   const [{ year, month }] = useQueryStates({

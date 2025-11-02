@@ -1,6 +1,6 @@
 import { useQueryState, parseAsStringLiteral } from "nuqs";
 import { Header } from "../../../widgets/header";
-import { TransactionListView } from "../../../widgets/transactions-list/ui/TransactionListView";
+import { TransactionListView } from "../../../widgets/transactions-list";
 
 const VIEW_OPTIONS = ["doc", "calendar", "chart"] as const;
 

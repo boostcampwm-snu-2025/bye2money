@@ -5,6 +5,7 @@ import Chart from "~/assets/icons/chart.svg";
 import ChevronLeft from "~/assets/icons/chevron-left.svg";
 import ChevronRight from "~/assets/icons/chevron-right.svg";
 import Doc from "~/assets/icons/doc.svg";
+import { cn } from "~/lib/utils";
 
 interface Props {
   currentTab: "Analytics" | "Calendar" | "List";
@@ -46,7 +47,7 @@ function Header({
             {date.format("M")}
           </span>
           <span className="w-[120px] text-[14px] leading-[24px] tracking-normal font-light text-center font-[Pretendard]">
-            {date.locale('en').format("MMMM")}
+            {date.locale("en").format("MMMM")}
           </span>
         </div>
         <img
@@ -59,28 +60,28 @@ function Header({
       <nav>
         <li className="w-[132px] flex justify-end gap-[4px]">
           <ul
-            className={
-              "w-[40px] h-[40px] p-[8px] rounded-[22px]" +
-              (currentTab === "List" ? " bg-[#FFFFFF]" : "")
-            }
+            className={cn(
+              "w-[40px] h-[40px] p-[8px] rounded-[22px]",
+              currentTab === "List" && "bg-[#FFFFFF]"
+            )}
             onClick={() => onTabChange?.("List")}
           >
             <img alt="List" className="w-[24px] h-[24px]" src={Doc} />
           </ul>
           <ul
-            className={
-              "w-[40px] h-[40px] p-[8px] rounded-[22px]" +
-              (currentTab === "Calendar" ? " bg-[#FFFFFF]" : "")
-            }
+            className={cn(
+              "w-[40px] h-[40px] p-[8px] rounded-[22px]",
+              currentTab === "Calendar" && "bg-[#FFFFFF]"
+            )}
             onClick={() => onTabChange?.("Calendar")}
           >
             <img alt="Calender" className="w-[24px] h-[24px]" src={Calender} />
           </ul>
           <ul
-            className={
-              "w-[40px] h-[40px] p-[8px] rounded-[22px]" +
-              (currentTab === "Analytics" ? " bg-[#FFFFFF]" : "")
-            }
+            className={cn(
+              "w-[40px] h-[40px] p-[8px] rounded-[22px]",
+              currentTab === "Analytics" && "bg-[#FFFFFF]"
+            )}
             onClick={() => onTabChange?.("Analytics")}
           >
             <img alt="Analytics" className="w-[24px] h-[24px]" src={Chart} />

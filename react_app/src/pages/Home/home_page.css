@@ -22,4 +22,12 @@ main {
     background-color: white;
 }
 
+.transaction-list-wrapper-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
+.transaction-list-wrapper {
+    width: 80%;
+}

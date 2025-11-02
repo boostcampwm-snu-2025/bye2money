@@ -1,0 +1,73 @@
+.transaction-day-group {
+  border-top: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+/* Each transaction in a single row */
+.transaction-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-top: 1px solid #eee;
+  transition: background 0.2s ease;
+}
+
+.transaction-row.first {
+  border-top: none;
+}
+
+.transaction-row.last {
+  border-bottom: none;
+}
+
+.transaction-row:hover {
+  background: #f8f9fb;
+}
+
+/* Category badge */
+.tx-category {
+  
+}
+
+/* Description text */
+.tx-desc {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+  padding: 0 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Payment method */
+.tx-payment {
+  flex: 0 0 30px;
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Amount */
+.tx-amount {
+  flex: 0 0 20px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.tx-amount.expense {
+  color: #e74c3c;
+}
+
+.tx-amount.income {
+  color: #1e8449;
+}
+

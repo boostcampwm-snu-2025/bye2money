@@ -26,10 +26,9 @@ export default function InputBar({ className = '' }) {
     return date && amt > 0 && category && payment && desc.length <= 32;
   }, [date, amountUI, category, payment, desc]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!valid) return;
     const tx = {
-      id: crypto.randomUUID?.() ?? Math.random().toString(36).slice(2),
       date,
       type,
       amount: parseAmount(amountUI),
@@ -37,10 +36,34 @@ export default function InputBar({ className = '' }) {
       paymentMethod: payment,
       description: desc.trim(),
     };
-    addTransaction(tx);
-    setAmountUI('');
-    setDesc('');
+
+    // const tx = {
+    //   "date": "2025-11-02",
+    //   "type": "expense",
+    //   "amount": 1000,
+    //   "category": "Food",
+    //   "paymentMethod": "Card",
+    //   "description": "Lunch"
+    // }
+
+    try {
+      const response = await fetch('http://localhost:8080/api/transactions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(tx),
+      });
+
+      if (!response.ok) throw new Error('Failed to save transaction');
+
+      console.log('Transaction saved!');
+      setAmountUI('');
+      setDesc('');
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error saving transaction.');
+    }
   };
+
 
   useEffect(() => setDate(toYMD(new Date())), []);
 
@@ -96,7 +119,7 @@ export default function InputBar({ className = '' }) {
         </div>
 
         <div className="col col-check">
-          
+
           <button className="btn primary check-btn" disabled={!valid} onClick={onSubmit}>
             <span className="check-icon"></span>
           </button>

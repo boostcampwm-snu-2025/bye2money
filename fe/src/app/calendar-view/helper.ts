@@ -1,7 +1,7 @@
 import type { Item } from "~/api/transactions";
 
 export function dailyTotals(data: Item[], daysInMonth: number) {
-  const dailyData = Array(daysInMonth).map(() => ({
+  const dailyData = Array(daysInMonth).fill(null).map(() => ({
       totalAmount: 0,
       totalExpense: 0,
       totalIncome: 0,

@@ -1,16 +1,14 @@
 import Closed from "~/assets/icons/closed.svg";
 
-type Category =
-  | "allowance"
-  | "culture"
-  | "etc-expense"
-  | "etc-income"
-  | "food"
-  | "health"
-  | "life"
-  | "salary"
-  | "shopping"
-  | "transport";
+type Category = ExpenseCategory | IncomeCategory;
+type ExpenseCategory = "교통"
+  | "문화/여가"
+  | "미분류"
+  | "생활"
+  | "쇼핑/뷰티"
+  | "식비"
+  | "의료/건강";
+type IncomeCategory = "기타 수입" | "용돈" | "월급";
 
 interface Props {
   amount: number;
@@ -21,29 +19,16 @@ interface Props {
 }
 
 const CATEGORY_COLOR: Record<Category, string> = {
-  allowance: "bg-[#AACD7E]",
-  culture: "bg-[#BDA6E1]",
-  "etc-expense": "bg-[#F0B0D3]",
-  "etc-income": "bg-[##A28878]",
-  food: "bg-[#C5E0EB]",
-  health: "bg-[#BCDFD3]",
-  life: "bg-[#A7B9E9]",
-  salary: "bg-[#E39D5D]",
-  shopping: "bg-[#D7CA6B]",
-  transport: "bg-[#7DB7BF]",
-};
-
-const CATEGORY_NAME_KR: Record<Category, string> = {
-  allowance: "용돈",
-  culture: "문화/여가",
-  "etc-expense": "미분류",
-  "etc-income": "기타 수입",
-  food: "식비",
-  health: "의료/건강",
-  life: "생활",
-  salary: "월급",
-  shopping: "쇼핑/뷰티",
-  transport: "교통",
+  '교통': "bg-[#7DB7BF]",
+  '기타 수입': "bg-[##A28878]",
+  '문화/여가': "bg-[#BDA6E1]",
+  '미분류': "bg-[#F0B0D3]",
+  '생활': "bg-[#A7B9E9]",
+  '쇼핑/뷰티': "bg-[#D7CA6B]",
+  '식비': "bg-[#C5E0EB]",
+  '용돈': "bg-[#AACD7E]",
+  '월급': "bg-[#E39D5D]",
+  '의료/건강': "bg-[#BCDFD3]",
 };
 
 function DailyListDetail({
@@ -58,7 +43,7 @@ function DailyListDetail({
       <div
         className={`w-[92px] h-[56px] px-[8px] py-[4px] text-[12px] leading-[24px] tracking-normal font-light font-[Pretendard] flex justify-center items-center ${CATEGORY_COLOR[category]}`}
       >
-        {CATEGORY_NAME_KR[category]}
+        {category}
       </div>
       <div className="w-[400px] text-[14px] leading-[24px] tracking-normal font-light font-[Pretendard] flex items-center">
         {description}

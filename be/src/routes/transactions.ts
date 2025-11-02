@@ -4,14 +4,14 @@ import sample from "../../data/sample.json" with { type: "json" };
 import { delay } from "../utils";
 
 type Category = ExpenseCategory | IncomeCategory;
-type ExpenseCategory = "culture"
-  | "etc-income"
-  | "food"
-  | "health"
-  | "life"
-  | "shopping"
-  | "transport";
-type IncomeCategory = "allowance" | "etc-income" | "salary";
+type ExpenseCategory = "교통"
+  | "문화/여가"
+  | "미분류"
+  | "생활"
+  | "쇼핑/뷰티"
+  | "식비"
+  | "의료/건강";
+type IncomeCategory = "기타 수입" | "용돈" | "월급";
 
 type Item = {
   amount: number;

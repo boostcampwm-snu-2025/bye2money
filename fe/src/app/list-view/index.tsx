@@ -9,18 +9,15 @@ import DailyListDetail from "./daily-list-detail";
 import InputBar from "./input-bar";
 import MonthlyInfo from "./monthly-info";
 
-// TODO: group by date, calculation을 서버에서 할 지, 클라이언트에서 할 지 결정 필요
-type Category =
-  | "allowance"
-  | "culture"
-  | "etc-expense"
-  | "etc-income"
-  | "food"
-  | "health"
-  | "life"
-  | "salary"
-  | "shopping"
-  | "transport";
+type Category = ExpenseCategory | IncomeCategory;
+type ExpenseCategory = "교통"
+  | "문화/여가"
+  | "미분류"
+  | "생활"
+  | "쇼핑/뷰티"
+  | "식비"
+  | "의료/건강";
+type IncomeCategory = "기타 수입" | "용돈" | "월급";
 
 type Item = {
   amount: number;

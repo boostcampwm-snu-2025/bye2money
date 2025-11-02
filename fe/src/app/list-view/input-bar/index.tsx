@@ -204,19 +204,19 @@ function InputBar() {
               {(sign) =>
                 sign === "expenses" ? (
                   <>
-                    <option value="life">생활</option>
-                    <option value="food">식비</option>
-                    <option value="transport">교통</option>
-                    <option value="shopping">쇼핑/뷰티</option>
-                    <option value="health">의료/건강</option>
-                    <option value="culture">문화/여가</option>
-                    <option value="etc-expense">미분류</option>
+                    <option value="생활">생활</option>
+                    <option value="식비">식비</option>
+                    <option value="교통">교통</option>
+                    <option value="쇼핑/뷰티">쇼핑/뷰티</option>
+                    <option value="의료/건강">의료/건강</option>
+                    <option value="문화/여가">문화/여가</option>
+                    <option value="미분류">미분류</option>
                   </>
                 ) : sign === "income" ? (
                   <>
-                    <option value="salary">월급</option>
-                    <option value="allowance">용돈</option>
-                    <option value="etc-income">기타 수입</option>
+                    <option value="월급">월급</option>
+                    <option value="용돈">용돈</option>
+                    <option value="기타 수입">기타 수입</option>
                   </>
                 ) : null
               }

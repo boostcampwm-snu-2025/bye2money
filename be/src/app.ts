@@ -27,7 +27,7 @@ type Item = {
 
 const items = sample as Item[];
 let id = items.length + 1;
-const payments = [] as string[];
+const payments = ["현금", "신용카드"] as string[];
 
 const app = express();
 const PORT = 3001;
@@ -42,7 +42,7 @@ app.use(express.json());  // JSON 파싱
 const router = Router();
 
 // 조회
-router.get("/account/list", async (req, res) => {
+router.get("/transactions", async (req, res) => {
   await delay(1000);
   const { month } = req.query;
   const filteredItems = items.filter(item => new Date(item.date).getMonth() + 1 === Number(month));
@@ -50,7 +50,7 @@ router.get("/account/list", async (req, res) => {
 });
 
 // 생성
-router.post("/account/item", async (req, res) => {
+router.post("/transactions", async (req, res) => {
   await delay(1000);
   const newItem = { id: id++, ...req.body } as Item;
   items.push(newItem);
@@ -58,7 +58,7 @@ router.post("/account/item", async (req, res) => {
 });
 
 // 수정
-router.patch("/account/item/:id", async (req, res) => {
+router.patch("/transactions/:id", async (req, res) => {
   await delay(1000);
   const { id } = req.params;
   const index = items.findIndex(item => item.id === Number(id));
@@ -71,7 +71,7 @@ router.patch("/account/item/:id", async (req, res) => {
 });
 
 // 삭제
-router.delete("/account/item/:id", async (req, res) => {
+router.delete("/transactions/:id", async (req, res) => {
   await delay(1000);
   const { id } = req.params;
   const index = items.findIndex(item => item.id === Number(id));
@@ -84,15 +84,15 @@ router.delete("/account/item/:id", async (req, res) => {
 });
 
 // 조회
-router.get("/payment/list", async (req, res) => {
+router.get("/payment-methods", async (_req, res) => {
   await delay(1000);
   res.json(payments);
 });
 
 // 생성
-router.put("/payment/:payment", async (req, res) => {
+router.post("/payment-methods", async (req, res) => {
   await delay(1000);
-  const { payment } = req.params;
+  const { payment } = req.body;
   if (payments.includes(payment)) {
     res.status(409).json({ message: "이미 존재하는 결제수단입니다." });
     return;
@@ -102,10 +102,10 @@ router.put("/payment/:payment", async (req, res) => {
 });
 
 // 삭제
-router.delete("/payment/:payment", async (req, res) => {
+router.delete("/payment-methods/:id", async (req, res) => {
   await delay(1000);
-  const { payment } = req.params;
-  const index = payments.indexOf(payment);
+  const { id } = req.params;
+  const index = payments.indexOf(id);
   if (index === -1) {
     res.status(404).json({ message: "존재하지 않는 결제수단입니다." });
     return;

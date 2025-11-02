@@ -12,11 +12,14 @@ export function CalendarHeader() {
     return (
         <Box
             sx={{
+                position: "absolute",
+                top: "180px",
                 display: "flex",
                 flexDirection: "row",
                 width: "846px",
                 height: "48px",
-                border: "0.5px solid black"}}>
+                border: "0.5px solid black",
+                backgroundColor: "#FFFFFF"}}>
             <Box sx={dayBoxStyle}>
                 <Typography>일</Typography>
             </Box>

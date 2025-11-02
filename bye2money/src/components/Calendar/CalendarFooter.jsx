@@ -1,4 +1,4 @@
-import { useCalendarContext } from "@/contexts/CalendarContent";
+import { useCalendarContext } from "@/contexts/CalendarContext";
 import { Box, Typography } from "@mui/material";
 
 export function CalendarFooter() {

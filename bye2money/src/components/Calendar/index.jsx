@@ -1,4 +1,4 @@
-import { CalendarContextProvider } from "@/contexts/CalendarContent";
+import { CalendarContextProvider } from "@/contexts/CalendarContext";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarBody } from "./CalendarBody";
 import { CalendarFooter } from "./CalendarFooter";

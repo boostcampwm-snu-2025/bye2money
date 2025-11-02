@@ -51,7 +51,6 @@ function DailyListDetail({
         {amount.toLocaleString()}원
       </div>
       <button className="hidden group-hover:flex text-[12px] leading-[16px] tracking-normal font-semibold font-[Pretendard] text-[#E93B5A] items-center gap-[4px]">
-        {/* TODO: 아이콘 흰색 */}
         <img alt="closed" className="w-[16px] h-[16px] p-[4px] rounded-[20px] bg-[#E93B5A]" src={Closed} />
         삭제
       </button>

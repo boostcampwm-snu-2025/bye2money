@@ -1,0 +1,106 @@
+[
+  {
+    "amount": -10900,
+    "category": "문화/여가",
+    "date": "2025-11-14",
+    "description": "스트리밍 서비스 정기 결제",
+    "id": 13,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -45340,
+    "category": "교통",
+    "date": "2025-11-14",
+    "description": "후불 교통비 결제",
+    "id": 12,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -10000,
+    "category": "미분류",
+    "date": "2025-11-13",
+    "description": "온라인 세미나 신청",
+    "id": 11,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -9500,
+    "category": "식비",
+    "date": "2025-11-10",
+    "description": "잔치국수와 김밥",
+    "id": 10,
+    "payment": "현대카드"
+  },
+  {
+    "amount": 2010580,
+    "category": "월급",
+    "date": "2025-11-10",
+    "description": "8월 급여",
+    "id": 9,
+    "payment": "현금"
+  },
+  {
+    "amount": -19140,
+    "category": "식비",
+    "date": "2025-11-09",
+    "description": "두유 4개",
+    "id": 8,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -500000,
+    "category": "생활",
+    "date": "2025-11-09",
+    "description": "8월 월세",
+    "id": 7,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -56000,
+    "category": "쇼핑/뷰티",
+    "date": "2025-11-07",
+    "description": "여름 의류",
+    "id": 6,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -9900,
+    "category": "문화/여가",
+    "date": "2025-11-07",
+    "description": "영화 스트리밍",
+    "id": 5,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -200,
+    "category": "미분류",
+    "date": "2025-11-04",
+    "description": "출력소(컬러인쇄)",
+    "id": 4,
+    "payment": "현금"
+  },
+  {
+    "amount": -6500,
+    "category": "식비",
+    "date": "2025-11-04",
+    "description": "토마토소스 오므라이스",
+    "id": 3,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -125300,
+    "category": "의료/건강",
+    "date": "2025-11-04",
+    "description": "체육관 수강 등록",
+    "id": 2,
+    "payment": "현대카드"
+  },
+  {
+    "amount": -5400,
+    "category": "식비",
+    "date": "2025-11-03",
+    "description": "커피",
+    "id": 1,
+    "payment": "현대카드"
+  }
+]

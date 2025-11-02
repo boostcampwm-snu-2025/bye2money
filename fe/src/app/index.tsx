@@ -39,7 +39,7 @@ function App() {
         onTabChange={setTab}
       />
       {tab === "List" ? (
-        <ListView />
+        <ListView date={date} />
       ) : tab === "Calendar" ? (
         <CalendarView date={date} />
       ) : tab === "Analytics" ? (

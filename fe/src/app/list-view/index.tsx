@@ -1,5 +1,6 @@
 import type { Dayjs } from "dayjs";
 
+import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { useState } from "react";
 
@@ -26,117 +27,22 @@ type Item = {
   category: Category;
   date: Dayjs;
   description: string;
-  // id는 생성한 시간 순으로 부여됩니다.
   id: number;
   paymentMethod: string;
 };
 
-const data: Item[] = [
-  {
-    amount: -10_900,
-    category: "culture",
-    date: dayjs("2025-08-14"),
-    description: "스트리밍 서비스 정기 결제",
-    id: 13,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -45_340,
-    category: "transport",
-    date: dayjs("2025-08-14"),
-    description: "후불 교통비 결제",
-    id: 12,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -10_000,
-    category: "etc-expense",
-    date: dayjs("2025-08-13"),
-    description: "온라인 세미나 신청",
-    id: 11,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -9_500,
-    category: "food",
-    date: dayjs("2025-08-10"),
-    description: "잔치국수와 김밥",
-    id: 10,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: 2_010_580,
-    category: "salary",
-    date: dayjs("2025-08-10"),
-    description: "8월 급여",
-    id: 9,
-    paymentMethod: "현금",
-  },
-  {
-    amount: -19_140,
-    category: "food",
-    date: dayjs("2025-08-09"),
-    description: "두유 4개",
-    id: 8,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -500_000,
-    category: "life",
-    date: dayjs("2025-08-09"),
-    description: "8월 월세",
-    id: 7,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -56_000,
-    category: "shopping",
-    date: dayjs("2025-08-07"),
-    description: "여름 의류",
-    id: 6,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -9_900,
-    category: "culture",
-    date: dayjs("2025-08-07"),
-    description: "영화 스트리밍",
-    id: 5,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -200,
-    category: "etc-expense",
-    date: dayjs("2025-08-04"),
-    description: "출력소(컬러인쇄)",
-    id: 4,
-    paymentMethod: "현금",
-  },
-  {
-    amount: -6_500,
-    category: "food",
-    date: dayjs("2025-08-04"),
-    description: "토마토소스 오므라이스",
-    id: 3,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -125_300,
-    category: "health",
-    date: dayjs("2025-08-04"),
-    description: "체육관 수강 등록",
-    id: 2,
-    paymentMethod: "현대카드",
-  },
-  {
-    amount: -5_400,
-    category: "food",
-    date: dayjs("2025-08-03"),
-    description: "커피",
-    id: 1,
-    paymentMethod: "현대카드",
-  },
-];
+interface Props {
+  date: Dayjs;
+}
+
+type RawItem = {
+  amount: number;
+  category: Category;
+  date: string;
+  description: string;
+  id: number;
+  paymentMethod: string;
+};
 
 function filter(item: Item, expense: boolean, income: boolean) {
   if (item.amount > 0 && !income) {
@@ -188,23 +94,46 @@ const useFilter = () => {
   };
 };
 
-function ListView() {
+function ListView({ date }: Props) {
+  const query = useQuery({
+    queryFn: async () => {
+      const response = await fetch(
+        `http://localhost:3001/api/transactions?month=${
+          date.month() + 1
+        }&year=${date.year()}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json() as RawItem[];
+      return data.map((item) => ({ ...item, date: dayjs(item.date) }));
+    },
+    queryKey: ["transactions", date.month(), date.year()],
+    select: (data) => {
+      return {
+        filteredData: data.filter((item) =>
+          filter(item, expenseFilter, incomeFilter)
+        ),
+        totalExpense: data
+          .filter((item) => item.amount < 0)
+          .reduce((acc, item) => acc - item.amount, 0),
+        totalIncome: data
+          .filter((item) => item.amount > 0)
+          .reduce((acc, item) => acc + item.amount, 0),
+      };
+    },
+  });
+
   const {
     expenseFilter,
     incomeFilter,
     onExpenseFilterChange,
     onIncomeFilterChange,
   } = useFilter();
-  const filteredData = data.filter((item) =>
-    filter(item, expenseFilter, incomeFilter)
-  );
+  const filteredData = query.data?.filteredData || [];
 
-  const totalIncome = data
-    .filter((item) => item.amount > 0)
-    .reduce((acc, item) => acc + item.amount, 0);
-  const totalExpense = data
-    .filter((item) => item.amount < 0)
-    .reduce((acc, item) => acc - item.amount, 0);
+  const totalIncome = query.data?.totalIncome || 0;
+  const totalExpense = query.data?.totalExpense || 0;
 
   return (
     <>

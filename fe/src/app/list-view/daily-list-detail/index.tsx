@@ -1,14 +1,6 @@
 import Closed from "~/assets/icons/closed.svg";
 
-type Category = ExpenseCategory | IncomeCategory;
-type ExpenseCategory = "교통"
-  | "문화/여가"
-  | "미분류"
-  | "생활"
-  | "쇼핑/뷰티"
-  | "식비"
-  | "의료/건강";
-type IncomeCategory = "기타 수입" | "용돈" | "월급";
+import type { Category } from "../../../api/transactions";
 
 interface Props {
   amount: number;

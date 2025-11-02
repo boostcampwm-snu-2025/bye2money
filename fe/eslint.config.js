@@ -1,28 +1,28 @@
-import js from '@eslint/js'
+import js from "@eslint/js";
+import tanstackQuery from "@tanstack/eslint-plugin-query";
 import perfectionist from "eslint-plugin-perfectionist";
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig, globalIgnores } from "eslint/config";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
     extends: [
       js.configs.recommended,
       tseslint.configs.recommendedTypeChecked,
-      reactHooks.configs['recommended-latest'],
+      reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite,
       perfectionist.configs["recommended-natural"],
+      tanstackQuery.configs.recommended,
     ],
-    rules: 
-      {
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "error",
-      }
-    ,
-    files: ['**/*.{ts,tsx}'],
+    rules: {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error",
+    },
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -32,4 +32,4 @@ export default defineConfig([
       },
     },
   },
-])
+]);

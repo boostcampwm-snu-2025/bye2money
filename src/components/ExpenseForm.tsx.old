@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import AddOptionModal from './AddOptionModal'
-import { useExpenses, Expense } from '../contexts/ExpenseContext'
 
 interface ExpenseFormData {
   date: string
@@ -11,13 +10,24 @@ interface ExpenseFormData {
   type: 'income' | 'expense'
 }
 
+interface Expense {
+  id: string
+  date: string
+  amount: number
+  description: string
+  paymentMethod: string
+  category: string
+  type: 'income' | 'expense'
+  createdAt: string
+}
+
 interface ExpenseFormProps {
   editingExpense: Expense | null
   onClearEdit: () => void
+  onExpenseUpdated: () => void
 }
 
-function ExpenseForm({ editingExpense, onClearEdit }: ExpenseFormProps) {
-  const { addExpense, updateExpense } = useExpenses()
+function ExpenseForm({ editingExpense, onClearEdit, onExpenseUpdated }: ExpenseFormProps) {
   const [formData, setFormData] = useState<ExpenseFormData>({
     date: '2023. 08. 17',
     amount: 0,
@@ -36,36 +46,22 @@ function ExpenseForm({ editingExpense, onClearEdit }: ExpenseFormProps) {
   const paymentDropdownRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
 
-  // 분류 관리 state
-  const [categories, setCategories] = useState<{income: string[], expense: string[]}>({
-    income: ['월급', '용돈', '기타수입'],
-    expense: ['생활', '식비', '교통', '쇼핑/뷰티', '의료/건강', '문화/여가', '미분류']
-  })
-  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false)
-  const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState(false)
-  const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState(false)
-  const [categoryToDelete, setCategoryToDelete] = useState<string>('')
-  const categoryDropdownRef = useRef<HTMLDivElement>(null)
-
   // 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (paymentDropdownRef.current && !paymentDropdownRef.current.contains(event.target as Node)) {
         setIsPaymentDropdownOpen(false)
       }
-      if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target as Node)) {
-        setIsCategoryDropdownOpen(false)
-      }
     }
 
-    if (isPaymentDropdownOpen || isCategoryDropdownOpen) {
+    if (isPaymentDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside)
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [isPaymentDropdownOpen, isCategoryDropdownOpen])
+  }, [isPaymentDropdownOpen])
 
   // 수정 모드: editingExpense가 변경될 때 formData 업데이트
   useEffect(() => {
@@ -87,6 +83,23 @@ function ExpenseForm({ editingExpense, onClearEdit }: ExpenseFormProps) {
     expense: paymentMethods
   }
 
+  // 수입/지출 타입에 따른 카테고리 옵션
+  const categoryOptions = {
+    income: [
+      { value: '월급', label: '월급' },
+      { value: '용돈', label: '용돈' },
+      { value: '기타수입', label: '기타수입' }
+    ],
+    expense: [
+      { value: '생활', label: '생활' },
+      { value: '식비', label: '식비' },
+      { value: '교통', label: '교통' },
+      { value: '쇼핑/뷰티', label: '쇼핑/뷰티' },
+      { value: '의료/건강', label: '의료/건강' },
+      { value: '문화/여가', label: '문화/여가' },
+      { value: '미분류', label: '미분류' }
+    ]
+  }
 
   // 모든 필드가 입력되었는지 확인
   const isFormValid = () => {
@@ -142,16 +155,25 @@ function ExpenseForm({ editingExpense, onClearEdit }: ExpenseFormProps) {
 
     try {
       const isEditMode = editingExpense !== null
+      const url = isEditMode
+        ? `http://localhost:8000/api/expenses/${editingExpense.id}`
+        : 'http://localhost:8000/api/expenses'
+      const method = isEditMode ? 'PUT' : 'POST'
 
-      // Context API의 메서드 사용 (Flux 패턴)
-      if (isEditMode) {
-        await updateExpense(editingExpense.id, formData)
-        console.log('Expense updated via Context')
-        onClearEdit()
-      } else {
-        await addExpense(formData)
-        console.log('Expense created via Context')
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error(isEditMode ? 'Failed to update expense' : 'Failed to create expense')
       }
+
+      const data = await response.json()
+      console.log(isEditMode ? 'Expense updated:' : 'Expense created:', data)
 
       // 폼 초기화
       setFormData({
@@ -217,38 +239,6 @@ function ExpenseForm({ editingExpense, onClearEdit }: ExpenseFormProps) {
     }
     setIsPaymentDeleteModalOpen(false)
     setPaymentToDelete('')
-  }
-
-  // 분류 추가
-  const handleAddCategory = (newCategory: string) => {
-    if (newCategory.trim() && !categories[formData.type].includes(newCategory)) {
-      setCategories({
-        ...categories,
-        [formData.type]: [...categories[formData.type], newCategory]
-      })
-      setFormData({ ...formData, category: newCategory })
-    }
-    setIsCategoryAddModalOpen(false)
-  }
-
-  // 분류 삭제 확인
-  const handleDeleteCategoryConfirm = (category: string) => {
-    setCategoryToDelete(category)
-    setIsCategoryDeleteModalOpen(true)
-  }
-
-  // 분류 삭제 실행
-  const handleDeleteCategory = () => {
-    setCategories({
-      ...categories,
-      [formData.type]: categories[formData.type].filter(c => c !== categoryToDelete)
-    })
-    // 현재 선택된 분류가 삭제되는 경우 빈칸으로 설정
-    if (formData.category === categoryToDelete) {
-      setFormData({ ...formData, category: '' })
-    }
-    setIsCategoryDeleteModalOpen(false)
-    setCategoryToDelete('')
   }
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => { //사용자가 입력한 객체
@@ -390,69 +380,20 @@ function ExpenseForm({ editingExpense, onClearEdit }: ExpenseFormProps) {
       </div>
 
       {/* 분류 */}
-      <div ref={categoryDropdownRef} className="flex flex-col gap-1 px-4 py-2 min-w-[140px] relative">
+      <div className="flex flex-col gap-1 px-4 py-2 min-w-[140px]">
         <label className="text-xs text-gray-500 font-normal whitespace-nowrap">분류</label>
-        <div
-          onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
-          className="text-base font-medium text-gray-900 outline-none bg-transparent border-0 p-0 cursor-pointer flex items-center justify-between"
+        <select
+          value={formData.category}
+          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+          className="text-base font-medium text-gray-900 outline-none bg-transparent border-0 p-0 cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2710%27%20height%3D%276%27%20viewBox%3D%270%200%2010%206%27%20fill%3D%27none%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M1%201L5%205L9%201%27%20stroke%3D%27%23999%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27/%3E%3C/svg%3E')] bg-no-repeat bg-[right_center] pr-6"
         >
-          <span>{formData.category || '선택하세요'}</span>
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="ml-2">
-            <path d="M1 1L5 5L9 1" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
-
-        {/* 커스텀 드롭다운 패널 */}
-        {isCategoryDropdownOpen && (
-          <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
-            <div
-              onClick={() => {
-                setFormData({ ...formData, category: '' })
-                setIsCategoryDropdownOpen(false)
-              }}
-              className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm text-gray-500"
-            >
-              선택하세요
-            </div>
-            {categories[formData.type].map((category) => (
-              <div
-                key={category}
-                className="px-4 py-2 hover:bg-gray-50 cursor-pointer flex items-center justify-between group"
-              >
-                <span
-                  onClick={() => {
-                    setFormData({ ...formData, category: category })
-                    setIsCategoryDropdownOpen(false)
-                  }}
-                  className="flex-1 text-sm text-gray-900"
-                >
-                  {category}
-                </span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleDeleteCategoryConfirm(category)
-                    setIsCategoryDropdownOpen(false)
-                  }}
-                  className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-opacity ml-2"
-                >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </button>
-              </div>
-            ))}
-            <div
-              onClick={() => {
-                setIsCategoryAddModalOpen(true)
-                setIsCategoryDropdownOpen(false)
-              }}
-              className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm text-blue-500 font-medium border-t border-gray-200"
-            >
-              + 추가하기
-            </div>
-          </div>
-        )}
+          <option value="">선택하세요</option>
+          {categoryOptions[formData.type].map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* 제출 버튼 */}
@@ -503,48 +444,6 @@ function ExpenseForm({ editingExpense, onClearEdit }: ExpenseFormProps) {
               </button>
               <button
                 onClick={handleDeletePaymentMethod}
-                className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600"
-              >
-                삭제
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 분류 추가 모달 */}
-      <AddOptionModal
-        isOpen={isCategoryAddModalOpen}
-        onClose={() => setIsCategoryAddModalOpen(false)}
-        onAdd={handleAddCategory}
-        title="추가하실 분류를 입력해주세요"
-      />
-
-      {/* 분류 삭제 확인 모달 */}
-      {isCategoryDeleteModalOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
-          onClick={() => setIsCategoryDeleteModalOpen(false)}
-        >
-          <div
-            className="bg-white rounded-lg p-6 w-80"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
-              해당 분류를 삭제하시겠습니까?
-            </h3>
-            <p className="text-sm text-gray-600 mb-6">
-              삭제한 분류로 작성된 수입지출내역은 빈칸으로 남습니다.
-            </p>
-            <div className="flex gap-3 justify-end">
-              <button
-                onClick={() => setIsCategoryDeleteModalOpen(false)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded hover:bg-gray-200"
-              >
-                취소
-              </button>
-              <button
-                onClick={handleDeleteCategory}
                 className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600"
               >
                 삭제

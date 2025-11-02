@@ -2,19 +2,26 @@ import { useState, useRef, useEffect } from 'react'
 import ExpenseList from './components/ExpenseList'
 import ExpenseForm from './components/ExpenseForm'
 import Calendar from './components/Calendar'
-import { ExpenseProvider, Expense } from './contexts/ExpenseContext'
+
+interface Expense {
+  id: string
+  date: string
+  amount: number
+  description: string
+  paymentMethod: string
+  category: string
+  type: 'income' | 'expense'
+  createdAt: string
+}
 
 type ViewMode = 'list' | 'calendar'
 
-function AppContent() {
+function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('list')
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null)
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
   const formRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
-
-  // 월 필터링 state (현재 날짜 기준)
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1) // 1-12
 
   const handleEditExpense = (expense: Expense) => {
     setEditingExpense(expense)
@@ -24,23 +31,8 @@ function AppContent() {
     setEditingExpense(null)
   }
 
-  // 월 변경 핸들러
-  const handlePreviousMonth = () => {
-    if (currentMonth === 1) {
-      setCurrentYear(currentYear - 1)
-      setCurrentMonth(12)
-    } else {
-      setCurrentMonth(currentMonth - 1)
-    }
-  }
-
-  const handleNextMonth = () => {
-    if (currentMonth === 12) {
-      setCurrentYear(currentYear + 1)
-      setCurrentMonth(1)
-    } else {
-      setCurrentMonth(currentMonth + 1)
-    }
+  const handleExpenseUpdated = () => {
+    setRefreshTrigger(prev => prev + 1)
   }
 
   // ExpenseForm 외부 클릭 시 선택 상태 해제
@@ -136,45 +128,18 @@ function AppContent() {
 
         {viewMode === 'list' ? (
           <div className="px-5">
-            {/* Month Navigation */}
-            <div className="py-6 flex items-center justify-center bg-gray-100">
-              <button
-                onClick={handlePreviousMonth}
-                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="#374151" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-              <div className="mx-8 text-center min-w-[120px]">
-                <div className="text-sm text-gray-600">{currentYear}</div>
-                <div className="text-3xl font-bold text-gray-900">{currentMonth}</div>
-                <div className="text-sm text-gray-600">
-                  {new Date(currentYear, currentMonth - 1).toLocaleString('en-US', { month: 'long' })}
-                </div>
-              </div>
-              <button
-                onClick={handleNextMonth}
-                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 18L15 12L9 6" stroke="#374151" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-            </div>
-
             <div className="mb-6" ref={formRef}>
               <ExpenseForm
                 editingExpense={editingExpense}
                 onClearEdit={handleClearEdit}
+                onExpenseUpdated={handleExpenseUpdated}
               />
             </div>
             <div ref={listRef}>
               <ExpenseList
                 onEditExpense={handleEditExpense}
+                refreshTrigger={refreshTrigger}
                 selectedExpenseId={editingExpense?.id || null}
-                currentYear={currentYear}
-                currentMonth={currentMonth}
               />
             </div>
           </div>
@@ -183,15 +148,6 @@ function AppContent() {
         )}
       </div>
     </div>
-  )
-}
-
-// App with Provider
-function App() {
-  return (
-    <ExpenseProvider>
-      <AppContent />
-    </ExpenseProvider>
   )
 }
 

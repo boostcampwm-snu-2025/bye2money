@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-interface AddOptionModalProps {
+interface AddOptionModalProps { //인터페이스 
   isOpen: boolean
   onClose: () => void
   onAdd: (value: string) => void

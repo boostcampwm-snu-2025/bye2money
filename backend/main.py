@@ -26,6 +26,7 @@ class ExpenseCreate(BaseModel):
     description: str
     paymentMethod: str
     category: str
+    type: str = "expense"  # 기본값 expense
 
 class Expense(ExpenseCreate):
     id: str
@@ -74,3 +75,55 @@ def create_expense(expense: ExpenseCreate):
     expenses_db.append(new_expense)
     save_expenses(expenses_db)  # JSON 파일에 저장
     return new_expense
+
+# 경로 3: 지출 삭제
+@app.delete("/api/expenses/{expense_id}")
+def delete_expense(expense_id: str):
+    global expenses_db
+
+    # 해당 ID의 지출 찾기
+    expense_index = None
+    for i, expense in enumerate(expenses_db):
+        if expense.id == expense_id:
+            expense_index = i
+            break
+
+    if expense_index is None:
+        raise HTTPException(status_code=404, detail="Expense not found")
+
+    # 삭제
+    deleted_expense = expenses_db.pop(expense_index)
+    save_expenses(expenses_db)  # JSON 파일에 저장
+
+    return {"message": "Expense deleted successfully", "id": expense_id}
+
+# 경로 4: 지출 수정
+@app.put("/api/expenses/{expense_id}", response_model=Expense)
+def update_expense(expense_id: str, expense: ExpenseCreate):
+    global expenses_db
+
+    # 해당 ID의 지출 찾기
+    expense_index = None
+    for i, exp in enumerate(expenses_db):
+        if exp.id == expense_id:
+            expense_index = i
+            break
+
+    if expense_index is None:
+        raise HTTPException(status_code=404, detail="Expense not found")
+
+    # 기존 지출의 createdAt 유지하면서 업데이트
+    updated_expense = Expense(
+        id=expense_id,
+        date=expense.date,
+        amount=expense.amount,
+        description=expense.description,
+        paymentMethod=expense.paymentMethod,
+        category=expense.category,
+        createdAt=expenses_db[expense_index].createdAt
+    )
+
+    expenses_db[expense_index] = updated_expense
+    save_expenses(expenses_db)  # JSON 파일에 저장
+
+    return updated_expense

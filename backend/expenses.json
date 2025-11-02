@@ -1,132 +1,232 @@
 [
   {
-    "date": "2023. 08. 17",
-    "amount": 40000,
-    "description": "나는 배가 고프다.",
-    "paymentMethod": "현대카드",
-    "category": "식비",
-    "type": "income",
-    "id": "4c588ba1-4dfc-4cdd-a197-82feefa1b9d4",
-    "createdAt": "2025-10-19T13:05:43.287342"
-  },
-  {
-    "date": "2023. 08. 17",
-    "amount": -10900,
-    "description": "스트리밍 서비스 정기 결제",
-    "paymentMethod": "현대카드",
-    "category": "문화/여가",
-    "type": "expense",
-    "id": "expense-1",
-    "createdAt": "2025-10-19T13:22:20.410442"
-  },
-  {
-    "date": "2023. 08. 17",
-    "amount": -45340,
+    "date": "2025. 11. 01",
+    "amount": 24534,
     "description": "후불 교통비 결제",
     "paymentMethod": "현대카드",
     "category": "교통",
     "type": "expense",
     "id": "expense-2",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-11-01T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 14",
-    "amount": -10000,
+    "date": "2025. 11. 01",
+    "amount": 10000,
     "description": "온라인 세미나 신청",
     "paymentMethod": "현대카드",
     "category": "문화/여가",
     "type": "expense",
     "id": "expense-3",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-11-01T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 13",
-    "amount": -9500,
+    "date": "2025. 10. 31",
+    "amount": 9500,
     "description": "전자구수용 김밥",
     "paymentMethod": "현대카드",
     "category": "식비",
     "type": "expense",
     "id": "expense-4",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-31T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 10",
+    "date": "2025. 10. 31",
     "amount": 2010580,
-    "description": "8월 급여",
+    "description": "10월 급여",
     "paymentMethod": "현금",
     "category": "월급",
     "type": "income",
     "id": "expense-5",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-31T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 09",
-    "amount": -19140,
+    "date": "2025. 10. 30",
+    "amount": 19140,
     "description": "두유 4개",
     "paymentMethod": "현대카드",
     "category": "식비",
     "type": "expense",
     "id": "expense-6",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-30T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 09",
-    "amount": -500000,
-    "description": "8월 월세",
+    "date": "2025. 10. 30",
+    "amount": 500000,
+    "description": "11월 월세",
     "paymentMethod": "현대카드",
     "category": "생활",
     "type": "expense",
     "id": "expense-7",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-30T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 07",
-    "amount": -56000,
-    "description": "여름 의류",
+    "date": "2025. 10. 29",
+    "amount": 56000,
+    "description": "가을 의류",
     "paymentMethod": "현대카드",
     "category": "쇼핑/뷰티",
     "type": "expense",
     "id": "expense-8",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-29T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 07",
-    "amount": -9900,
+    "date": "2025. 10. 29",
+    "amount": 9900,
     "description": "영화 스트리밍",
     "paymentMethod": "현대카드",
     "category": "문화/여가",
     "type": "expense",
     "id": "expense-9",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-29T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 04",
-    "amount": -200,
+    "date": "2025. 10. 28",
+    "amount": 200,
     "description": "출퇴소(콜라인생)",
     "paymentMethod": "현금",
     "category": "문화/여가",
     "type": "expense",
     "id": "expense-10",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-28T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 04",
-    "amount": -6500,
+    "date": "2025. 10. 28",
+    "amount": 6500,
     "description": "토마토즈소 오므라이스",
     "paymentMethod": "현대카드",
     "category": "식비",
     "type": "expense",
     "id": "expense-11",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-28T13:22:20.410442"
   },
   {
-    "date": "2023. 08. 06",
+    "date": "2025. 10. 27",
     "amount": 125000,
     "description": "복권 당첨 작은",
     "paymentMethod": "현금",
     "category": "미분류",
     "type": "income",
     "id": "expense-12",
-    "createdAt": "2025-10-19T13:22:20.410442"
+    "createdAt": "2025-10-27T13:22:20.410442"
+  },
+  {
+    "date": "2025. 11. 02",
+    "amount": 3213,
+    "description": "라면먹고싶다",
+    "paymentMethod": "현대카드",
+    "category": "식비",
+    "type": "expense",
+    "id": "b6fb1d5f-5ce8-4f67-b59c-e70928102b33",
+    "createdAt": "2025-11-02T17:31:44.333608"
+  },
+  {
+    "date": "2025. 11. 01",
+    "amount": 312323,
+    "description": "공강해줘...",
+    "paymentMethod": "현금",
+    "category": "교통",
+    "type": "expense",
+    "id": "a115adc5-3e13-44fb-9700-c379839fedf5",
+    "createdAt": "2025-11-01T21:13:49.088610"
+  },
+  {
+    "date": "2025. 10. 31",
+    "amount": 323,
+    "description": "123213",
+    "paymentMethod": "카드",
+    "category": "식비",
+    "type": "expense",
+    "id": "955e1416-e291-4534-aca0-3e4736897b41",
+    "createdAt": "2025-10-31T21:13:59.416242"
+  },
+  {
+    "date": "2025. 10. 30",
+    "amount": 5005,
+    "description": "너구리 라면",
+    "paymentMethod": "현대카드",
+    "category": "식비",
+    "type": "expense",
+    "id": "11bebd25-38d5-4c6c-9d57-d44c8828cffb",
+    "createdAt": "2025-10-30T12:53:20.492867"
+  },
+  {
+    "date": "2025. 10. 29",
+    "amount": 123,
+    "description": "123",
+    "paymentMethod": "카드",
+    "category": "식비",
+    "type": "expense",
+    "id": "0c3c5b72-d699-4122-a0df-6372c1b2dccc",
+    "createdAt": "2025-10-29T12:56:17.967053"
+  },
+  {
+    "date": "2023. 08. 17",
+    "amount": 333,
+    "description": "333",
+    "paymentMethod": "국민카드",
+    "category": "식비",
+    "type": "expense",
+    "id": "28a65821-04b9-4d18-9970-af147737cc33",
+    "createdAt": "2025-11-02T22:06:57.997178"
+  },
+  {
+    "date": "2023. 11. 02",
+    "amount": 222,
+    "description": "22",
+    "paymentMethod": "현대카드",
+    "category": "생활",
+    "type": "expense",
+    "id": "7bf538d3-32cf-4afc-bf9d-c26693117981",
+    "createdAt": "2025-11-02T22:07:16.381879"
+  },
+  {
+    "date": "2023. 11. 02",
+    "amount": 22,
+    "description": "22",
+    "paymentMethod": "현대카드",
+    "category": "생활",
+    "type": "expense",
+    "id": "2fb3a405-1c82-451b-9e23-1aa8053c5f25",
+    "createdAt": "2025-11-02T22:09:34.065877"
+  },
+  {
+    "date": "2023. 08. 15",
+    "amount": 222,
+    "description": "222",
+    "paymentMethod": "현대카드",
+    "category": "식비",
+    "type": "expense",
+    "id": "c13bfea2-d8f8-4438-af4b-769fff228c2b",
+    "createdAt": "2025-11-02T22:10:34.386152"
+  },
+  {
+    "date": "2023. 08. 11",
+    "amount": 222,
+    "description": "232123232313",
+    "paymentMethod": "국민카드",
+    "category": "생활",
+    "type": "expense",
+    "id": "a2db4b71-a0ca-4292-b88f-ead4244fa0fc",
+    "createdAt": "2025-11-02T22:13:59.220899"
+  },
+  {
+    "date": "2023. 11. 02",
+    "amount": 222,
+    "description": "222",
+    "paymentMethod": "현대카드",
+    "category": "식비",
+    "type": "expense",
+    "id": "0a3fa7e5-ce9a-4332-8f0c-82b4b6724379",
+    "createdAt": "2025-11-02T23:09:49.044720"
+  },
+  {
+    "date": "2025. 11. 02",
+    "amount": 222,
+    "description": "2222",
+    "paymentMethod": "현대카드",
+    "category": "생활",
+    "type": "expense",
+    "id": "71298617-09e8-41e4-81e3-073e2a0cd2df",
+    "createdAt": "2025-11-02T23:13:03.476400"
   }
 ]

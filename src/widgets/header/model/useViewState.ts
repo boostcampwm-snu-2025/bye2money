@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useQueryState, parseAsStringLiteral } from "nuqs";
 
-export type ViewType = "doc" | "calendar" | "chart";
+const VIEW_OPTIONS = ["doc", "calendar", "chart"] as const;
+export type ViewType = (typeof VIEW_OPTIONS)[number];
 
 export const useViewState = () => {
-  const [view, setView] = useState<ViewType>("doc");
-  return { view, setView };
+  const [view, setView] = useQueryState(
+    "view",
+    parseAsStringLiteral(VIEW_OPTIONS).withDefault("doc"),
+  );
+
+  return { view: view as ViewType, setView };
 };

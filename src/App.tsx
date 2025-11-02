@@ -1,12 +1,10 @@
 import { Providers } from "./app/Providers";
-import { Header } from "./widgets/header";
+import { HomePage } from "./pages/home";
 
 function App() {
   return (
     <Providers>
-      <div>
-        <Header />
-      </div>
+      <HomePage />
     </Providers>
   );
 }

@@ -33,7 +33,7 @@ export default function PageHeader({year, month, handleYM, view, setView}) {
           <button
             type="button"
             onClick={() => setView("list")}
-            className={`w-10 h-10 flex items-center justify-center rounded-md transition
+            className={`w-10 h-10 flex items-center justify-center rounded-full transition
               ${view === "list" ? "bg-gray-200" : "hover:bg-gray-100"}`}
           >
             <FileText size={24} />
@@ -41,7 +41,7 @@ export default function PageHeader({year, month, handleYM, view, setView}) {
           <button
             type="button"
             onClick={() => setView("calendar")}
-            className={`w-10 h-10 flex items-center justify-center rounded-md transition
+            className={`w-10 h-10 flex items-center justify-center rounded-full transition
               ${view === "calendar" ? "bg-gray-200" : "hover:bg-gray-100"}`}
           >
             <Calendar size={24} />
@@ -49,7 +49,7 @@ export default function PageHeader({year, month, handleYM, view, setView}) {
           <button
             type="button"
             onClick={() => setView("stats")}
-            className={`w-10 h-10 flex items-center justify-center rounded-md transition
+            className={`w-10 h-10 flex items-center justify-center rounded-full transition
               ${view === "stats" ? "bg-gray-200" : "hover:bg-gray-100"}`}
           >
             <BarChart2 size={24} />

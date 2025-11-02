@@ -62,7 +62,7 @@ export default function MainPage() {
           />
         )}
         {view === "calendar" && (
-          <TransactionCalendarView transactions={filteredTransactions} />
+          <TransactionCalendarView transactions={filteredTransactions} year={currentYM.year} month={currentYM.month} />
         )}
         {view === "stats" && (
           <TransactionStatsView transactions={filteredTransactions} />

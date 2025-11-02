@@ -1,4 +1,4 @@
-import type { Item } from "../../api";
+import type { Item } from "../../api/transactions";
 
 export function dailyTotals(data: Item[], daysInMonth: number) {
   const dailyData = Array(daysInMonth).map(() => ({

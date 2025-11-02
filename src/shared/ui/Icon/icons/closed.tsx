@@ -12,14 +12,14 @@ export const ClosedIcon = (props: SVGProps<SVGSVGElement>) => (
     <path
       d="M7.75732 8.25739L16.2426 16.7427"
       stroke="black"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M7.75732 16.7426L16.2426 8.25733"
       stroke="black"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

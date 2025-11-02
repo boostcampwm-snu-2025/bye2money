@@ -13,8 +13,8 @@ export const CheckboxIcon = (props: SVGProps<SVGSVGElement>) => (
     <path
       d="M17 9.5L10.125 16.1667L7 13.1364"
       stroke="white"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

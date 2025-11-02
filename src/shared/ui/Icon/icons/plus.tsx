@@ -12,14 +12,14 @@ export const PlusIcon = (props: SVGProps<SVGSVGElement>) => (
     <path
       d="M6 12.5H18"
       stroke="black"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M12 18.5V6.5"
       stroke="black"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

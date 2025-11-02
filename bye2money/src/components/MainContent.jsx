@@ -5,6 +5,7 @@ import { InputBar } from "@/components/InputBar";
 import { Transactions } from "@/components/Transactions";
 import { Calendar } from "@/components/Calendar";
 import { useAppContext } from "@/contexts/AppContext";
+import { Stats } from "./Stats";
 
 export function MainContent() {
   const { view } = useAppContext();
@@ -23,7 +24,7 @@ export function MainContent() {
         }
         {
           view === "stats" && 
-          <Statistics/>
+          <Stats/>
         }
     </Layout>
   )

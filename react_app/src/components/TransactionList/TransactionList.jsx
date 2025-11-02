@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import "./TransactionList.css";
+import "./TransactionItem.css";
 
 const getWeekday = (dateStr) => {
     const date = new Date(dateStr);

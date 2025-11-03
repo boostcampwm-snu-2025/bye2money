@@ -1,0 +1,297 @@
+/* logs.css */
+
+/* 전체 로그 컨테이너 */
+.logs-container {
+  padding: 16px;
+  background-color: #f4f4f4; /* 배경색을 약간 줌 */
+}
+
+/* 1. 월별 요약 (상단) */
+.monthly-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.monthly-summary .summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-grow: 1;
+}
+
+.monthly-summary .summary-label {
+  font-size: 14px;
+  color: #555;
+}
+
+.monthly-summary .summary-value {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 수입/지출 색상 */
+.amount-income {
+  color: #2a9d8f; /* 수입 (초록) */
+}
+.amount-expense {
+  color: #d9534f; /* 지출 (빨강) */
+}
+
+
+/* 2. 일별 로그 목록 */
+.daily-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* 날짜 그룹 간 간격 */
+}
+
+/* 3. 일별 로그 그룹 (하나의 카드) */
+.daily-log-group {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* border-radius 적용용 */
+}
+
+/* 3-1. 일별 헤더 (날짜, 그날의 총계) */
+.daily-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.daily-date {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.daily-totals {
+  font-size: 14px;
+  display: flex;
+  gap: 12px;
+}
+
+/* 3-2. 개별 로그 항목 리스트 */
+.log-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 3-3. 개별 로그 항목 */
+.log-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+/* 마지막 항목은 밑줄 제거 */
+.log-item:last-child {
+  border-bottom: none;
+}
+
+.log-category {
+  font-size: 13px;
+  color: #fff;
+  background-color: #888;
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 40px; /* '식비' 등 짧은 글자 고정폭 */
+  text-align: center;
+}
+
+.log-content {
+  flex-grow: 1; /* 남는 공간 다 차지 */
+  font-size: 15px;
+  color: #444;
+}
+
+.log-payment {
+  font-size: 14px;
+  color: #777;
+  margin-left: auto; /* 우측으로 밀어냄 */
+}
+
+.log-amount {
+  font-size: 16px;
+  font-weight: 700;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* 4. 내역 없음 */
+.no-logs-message {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+/* .log-item에 relative를 추가하여 버튼 위치의 기준점으로 설정 */
+.log-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.log-item:last-child {
+  border-bottom: none;
+}
+
+/* 다음 단계(수정)를 위해 호버 스타일 추가 */
+.log-item:hover {
+  background-color: #fafafa;
+}
+
+/* 삭제 버튼 (평소에는 숨김) */
+.log-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background-color: #e0e0e0;
+  color: #888;
+  border: none;
+  border-radius: 50%; /* 원형 버튼 */
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  
+  /* 숨김 처리 */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  
+  /* 위치 조정 (우측 정렬) */
+  margin-left: 8px; 
+}
+
+/* .log-item에 마우스를 올렸을 때 삭제 버튼 표시 */
+.log-item:hover .log-delete-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.log-delete-btn:hover {
+  background-color: #d9534f; /* 삭제 (빨강) */
+  color: white;
+}
+
+/* 삭제 확인 모달 스타일 */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.delete-modal-content {
+  background-color: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+}
+
+.delete-modal-header {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.delete-modal-prompt {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+/* 모달 내부에 보여줄 삭제 내역 미리보기 */
+.delete-modal-body {
+  margin-bottom: 24px;
+}
+.log-item-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  font-size: 14px;
+}
+.log-item-preview span:nth-child(2) {
+  flex-grow: 1;
+  margin: 0 12px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.log-item-preview span:last-child {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+/* 모달 버튼 영역 (우측 정렬) */
+.delete-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-btn-cancel {
+  background-color: #e0e0e0;
+  color: #555;
+}
+.modal-btn-cancel:hover {
+  background-color: #ccc;
+}
+
+.modal-btn-confirm {
+  background-color: #d9534f;
+  color: white;
+}
+.modal-btn-confirm:hover {
+  background-color: #c9302c;
+}

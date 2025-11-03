@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
 import './inputbox.css'
 
-function InputBox() {
+// add commas to number string (moved from component body to avoid re-creation on each render)
+const formatNumber = (s) => {
+  if (!s) return ''
+  return s.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+// ⚠️ setLogs prop은 App.jsx에서 InputBox로 전달되지만 사용되지 않아 제거했습니다.
+// 원본: function InputBox({ setLogs, addLogs}) {
+function InputBox({ addLogs }) {
   // 기본값: 오늘 날짜 (YYYY-MM-DD)
   const [date, setDate] = React.useState(() => {
     const d = new Date()
@@ -28,13 +36,7 @@ function InputBox() {
 
   // 내용 상태 (최대 32자)
   const [content, setContent] = useState('')
-
-  // 숫자 문자열을 천 단위 콤마로 포맷
-  const formatNumber = (s) => {
-    if (!s) return ''
-    return s.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
+  
   const handleAmountChange = (e) => {
     // 입력에서 비숫자 제거(콤마 포함), 최대 길이 제한
     const raw = e.target.value.replace(/[^\d]/g, '').slice(0, 12)
@@ -66,18 +68,15 @@ function InputBox() {
       category,
       createdAt: new Date().toISOString(),
     }
-    const key = 'bye2money_logs'
-    const arr = JSON.parse(localStorage.getItem(key) || '[]')
-    arr.unshift(log) // 최신을 앞에
-    localStorage.setItem(key, JSON.stringify(arr))
-    // 이벤트로 로그 갱신 알림
-    window.dispatchEvent(new CustomEvent('logsUpdated', { detail: log }))
+    
+    addLogs(log)
+
     // 폼 초기화(필요하면 조절)
     setAmount('')
     setContent('')
     setCategory('')
     setPayment('')
-  }
+}
 
   return (
 	<>

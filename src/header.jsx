@@ -1,23 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './header.css'
 
-function Header() {
-  const [date, setDate] = useState(new Date())
-  
-  const handleNavigate = (path) => {
-    window.location.href = path
-  }
+const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December']
 
-  // Month manipulation functions
+function Header({ date, setDate }) {
+
+	const handleNavigate = (path) => {
+		window.location.href = path
+	}
+
+  // Month manipulation & reading functions
   const prevMonth = () => {
     setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1))
   }
   const nextMonth = () => {
     setDate(new Date(date.getFullYear(), date.getMonth() + 1, 1))
   }
-
-  // English month names and current month text
-  const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December']
   const monthEnglish = MONTHS_EN[date.getMonth()]
 
   return (

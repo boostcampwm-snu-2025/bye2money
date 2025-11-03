@@ -6,7 +6,7 @@ import logo from "../assets/logo.svg";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { currentDate, setCurrentDate } = useContext(TransactionContext); // ✅ Context에서 상태 불러오기
+  const { currentDate, setCurrentDate } = useContext(TransactionContext); // TransactionContext에서 상태 불러오기
   const [activeIcon, setActiveIcon] = React.useState(null);
 
   const year = currentDate.getFullYear();
@@ -27,7 +27,7 @@ const Header = () => {
   ];
   const monthName = monthNames[currentDate.getMonth()];
 
-  // ✅ Context의 currentDate 변경 (TransactionContext의 useEffect가 서버 재요청 수행)
+  // Context의 currentDate 변경 (TransactionContext의 useEffect가 서버 재요청 수행)
   const handlePrevMonth = () => {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() - 1);
@@ -42,11 +42,11 @@ const Header = () => {
 
   return (
     <div className="w-full fixed top-0 left-0 right-0 z-50 font-sans">
-      {/* 상단 파란색 배경 */}
       <div className="h-[200px] bg-gradient-to-b from-[#7DB3D8] to-[#6BA3CA] py-10 pb-20 flex items-center justify-center relative">
         <div className="w-[1000px] px-10 flex items-center justify-between relative">
           {/* 로고 */}
           <div
+            //홈으로 돌아가기
             onClick={() => navigate("/")}
             role="button"
             tabIndex={0}

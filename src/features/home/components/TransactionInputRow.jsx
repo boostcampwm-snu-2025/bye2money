@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { TransactionContext } from "@/context/TransactionContext.js";
 
 const TransactionInputRow = () => {
+  // TransactionContext에서 필요한 상태와 함수 불러오기
   const {
     addTransaction,
     updateTransaction,
@@ -10,6 +11,7 @@ const TransactionInputRow = () => {
     setSelectedTransaction,
   } = useContext(TransactionContext);
 
+  // selectedTransaction이 변경될 때마다 폼에 해당 transaction의 데이터 채우기
   useEffect(() => {
     if (selectedTransaction) {
       const d = new Date(selectedTransaction.date);
@@ -27,6 +29,7 @@ const TransactionInputRow = () => {
     }
   }, [selectedTransaction]);
 
+  // selectedTransaction이 null일 때 폼 초기화
   useEffect(() => {
     if (!selectedTransaction) {
       setAmount("");
@@ -42,24 +45,38 @@ const TransactionInputRow = () => {
       2,
       "0"
     )}. ${String(d.getDate()).padStart(2, "0")}`;
-  });
+  }); // 폼에 표시되는 날짜 문자열을 관리
 
-  const [type, setType] = useState("+");
-  const [amount, setAmount] = useState("");
-  const [content, setContent] = useState("");
-  const [paymentMethods, setPaymentMethods] = useState(["현금", "신용카드"]);
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const [category, setCategory] = useState("");
-  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [newMethod, setNewMethod] = useState("");
-  const [targetMethod, setTargetMethod] = useState("");
+  const [type, setType] = useState("+"); // 수입("+") 또는 지출("-") 구분 상태
 
+  const [amount, setAmount] = useState(""); // 금액 입력값 상태
+
+  const [content, setContent] = useState(""); // 메모/내용 입력값 상태 (최대 32자)
+
+  const [paymentMethods, setPaymentMethods] = useState(["현금", "신용카드"]); // 사용 가능한 결제수단 목록
+
+  const [paymentMethod, setPaymentMethod] = useState(""); // 선택된 결제수단
+
+  const [category, setCategory] = useState(""); // 선택된 분류(카테고리)
+
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false); // 결제수단 드롭다운 열림 여부
+
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false); // 분류 드롭다운 열림 여부
+
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false); // 결제수단 추가 모달 표시 여부
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // 결제수단 삭제 확인 모달 표시 여부
+
+  const [newMethod, setNewMethod] = useState(""); // 추가할 새로운 결제수단 입력값
+
+  const [targetMethod, setTargetMethod] = useState(""); // 삭제 대상 결제수단
+
+  // 수입/지출 토글 핸들러 함수
   const handleTypeToggle = () => setType(type === "+" ? "-" : "+");
+  // 내용 입력 핸들러 함수 (최대 32자 제한)
   const handleContentChange = (e) => setContent(e.target.value.slice(0, 32));
 
+  // 결제수단 추가 핸들러 함수
   const handleAddMethod = () => {
     if (newMethod.trim() && !paymentMethods.includes(newMethod.trim())) {
       setPaymentMethods([...paymentMethods, newMethod.trim()]);
@@ -68,17 +85,20 @@ const TransactionInputRow = () => {
     setIsAddModalOpen(false);
   };
 
+  // 결제수단 삭제 핸들러 함수
   const handleDeleteMethod = (method) => {
     setTargetMethod(method);
     setIsDeleteModalOpen(true);
   };
 
+  // 결제수단 삭제 확인 함수
   const confirmDelete = () => {
     setPaymentMethods(paymentMethods.filter((m) => m !== targetMethod));
     if (paymentMethod === targetMethod) setPaymentMethod("");
     setIsDeleteModalOpen(false);
   };
 
+  // 폼 제출 핸들러 함수 (거래 추가/수정)
   const handleSubmit = () => {
     if (!amount || !category || !paymentMethod) return;
 
@@ -92,11 +112,11 @@ const TransactionInputRow = () => {
     };
 
     if (selectedTransaction) {
-      // ✅ 수정 모드
+      // 수정 모드
       updateTransaction(selectedTransaction.id, txData);
       setSelectedTransaction(null); // 수정 완료 후 해제
     } else {
-      // ✅ 추가 모드
+      // 추가 모드
       addTransaction(txData);
     }
 
@@ -108,7 +128,7 @@ const TransactionInputRow = () => {
   };
 
   return (
-    <div className="w-[1000px] justify-center bg-white shadow-sm border border-gray-200">
+    <div className="w-[1000px] bg-white shadow-sm border border-gray-200">
       <div className="flex items-center justify-between">
         {/* 왼쪽 섹션 */}
         <div className="flex items-center divide-x divide-gray-200">
@@ -124,26 +144,27 @@ const TransactionInputRow = () => {
           </div>
 
           {/* 금액 */}
-          <div className="flex flex-col px-4 py-3 min-w-[80px]">
+          <div className="flex flex-col px-4 py-3 min-w-[250px]">
             <label className="text-xs text-gray-500 mb-1">금액</label>
-            <button
-              onClick={handleTypeToggle}
-              className="text-2xl font-light text-gray-800 border-none outline-none bg-transparent cursor-pointer hover:text-blue-500 transition-colors"
-            >
-              {type}
-            </button>
-          </div>
-
-          <div className="flex flex-col px-4 py-3 min-w-[150px]">
-            <label className="text-xs text-gray-500 mb-1 opacity-0">금액</label>
-            <div className="flex items-center gap-1">
-              <input
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="text-sm text-gray-800 border-none outline-none bg-transparent w-full"
-              />
-              <span className="text-sm text-gray-600">원</span>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleTypeToggle}
+                className="text-2xl font-light text-gray-800 border-none outline-none bg-transparent cursor-pointer hover:text-blue-500 transition-colors"
+              >
+                {type}
+              </button>
+              <label className="text-xs text-gray-500 mb-1 opacity-0">
+                금액
+              </label>
+              <div className="flex items-center gap-1">
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  className="text-sm text-gray-800 border-none outline-none bg-transparent w-full"
+                />
+                <span className="text-sm text-gray-600">원</span>
+              </div>
             </div>
           </div>
 
@@ -323,7 +344,7 @@ const TransactionInputRow = () => {
         </div>
       </div>
 
-      {/* ➕ 추가 모달 */}
+      {/* 추가 모달 */}
       {isAddModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-20">
           <div className="bg-white w-[300px] rounded-md overflow-hidden shadow-lg">
@@ -357,7 +378,7 @@ const TransactionInputRow = () => {
         </div>
       )}
 
-      {/* ❌ 삭제 모달 */}
+      {/* 삭제 모달 */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-20">
           <div className="bg-white w-[300px] rounded-md overflow-hidden shadow-lg">

@@ -3,7 +3,7 @@ import { openDb } from "../models/database.js";
 
 const router = express.Router();
 
-// ✅ 거래 삭제 API 추가
+//특정 거래 삭제
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -16,12 +16,14 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+//모든 거래 조회
 router.get("/", async (req, res) => {
   const db = await openDb();
   const transactions = await db.all("SELECT * FROM transactions");
   res.json(transactions);
 });
 
+//월별 거래 조회
 router.get("/month", async (req, res) => {
   const { month } = req.query;
   const db = await openDb();
@@ -32,6 +34,7 @@ router.get("/month", async (req, res) => {
   res.json(transactions);
 });
 
+//거래 추가
 router.post("/", async (req, res) => {
   const { date, category, amount, memo, paymentMethod, type } = req.body;
   const db = await openDb();
@@ -42,6 +45,7 @@ router.post("/", async (req, res) => {
   res.status(201).json({ message: "Transaction added successfully" });
 });
 
+//거래 수정
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const { date, category, amount, memo, paymentMethod, type } = req.body;

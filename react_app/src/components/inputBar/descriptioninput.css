@@ -1,0 +1,28 @@
+.description-box {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.desc-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+.char-count {
+  color: #777;
+  font-weight: normal;
+}
+
+.desc-input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #ccc;
+  padding: 4px 8px;
+  height: 32px;
+  font-size: 14px;
+  text-align: center;
+}

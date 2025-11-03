@@ -8,7 +8,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #ddd; /* ✅ 각 섹션 사이 세로줄 */
+  border-right: 1px solid #000; /* ✅ 각 섹션 사이 세로줄 */
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /* 마지막 열은 오른쪽 줄 제거 */
@@ -19,7 +21,7 @@
 /* ✅ 가로줄 제거 — 배경만 약간 구분 */
 .col-header {
 
-  text-align: center;
+  text-align: left;
   font-weight: 600;
   font-size: 14px;
   padding: 6px;
@@ -57,16 +59,57 @@
 .pm.expense { color: #e5484d; }
 .pm.income { color: #0d7a2b; }
 
-.check-btn {
-  width: 100%;
-  height: 34px;
-  font-size: 18px;
-  border: none;
-  background: #111;
-  color: #fff;
-  cursor: pointer;
+.col-check {
+  display: flex;
+  align-items: center; /* centers the button vertically */
+  justify-content: center;
 }
+
+.check-btn {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #b0b0b0; /* base gray */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.check-btn:hover:not([disabled]) {
+  background: #888; /* darker gray on hover */
+  transform: scale(1.08);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.check-btn:active:not([disabled]) {
+  transform: scale(0.95);
+  background: #777;
+}
+
+/* Disabled look */
 .check-btn[disabled] {
   opacity: 0.5;
-  cursor: not-allowed;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* White checkmark */
+.check-icon {
+  position: relative;
+  display: inline-block;
+  width: 14px;
+  height: 8px;
+  border-left: 3px solid white;
+  border-bottom: 3px solid white;
+  transform: rotate(-45deg);
+  transition: all 0.25s ease;
+}
+
+/* Slight glow on hover */
+.check-btn:hover:not([disabled]) .check-icon {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
 }

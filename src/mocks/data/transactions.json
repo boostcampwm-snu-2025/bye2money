@@ -1,0 +1,567 @@
+{
+  "2025-9": {
+    "year": 2025,
+    "month": 9,
+    "totalCount": 15,
+    "totalIncome": 3500000,
+    "totalExpense": 850000,
+    "dailyGroups": [
+      {
+        "date": "2025-09-25",
+        "dayOfWeek": "목요일",
+        "totalIncome": 3000000,
+        "totalExpense": 0,
+        "transactions": [
+          {
+            "id": "tx-sep-001",
+            "date": "2025-09-25",
+            "type": "income",
+            "amount": 3000000,
+            "description": "9월 급여",
+            "category": "salary",
+            "paymentMethod": "국민은행",
+            "createdAt": "2025-09-25T09:00:00Z",
+            "updatedAt": "2025-09-25T09:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-09-15",
+        "dayOfWeek": "일요일",
+        "totalIncome": 500000,
+        "totalExpense": 0,
+        "transactions": [
+          {
+            "id": "tx-sep-002",
+            "date": "2025-09-15",
+            "type": "income",
+            "amount": 500000,
+            "description": "프리랜서 수입",
+            "category": "otherIncome",
+            "paymentMethod": "카카오뱅크",
+            "createdAt": "2025-09-15T14:20:00Z",
+            "updatedAt": "2025-09-15T14:20:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-09-10",
+        "dayOfWeek": "화요일",
+        "totalIncome": 0,
+        "totalExpense": 450000,
+        "transactions": [
+          {
+            "id": "tx-sep-003",
+            "date": "2025-09-10",
+            "type": "expense",
+            "amount": 250000,
+            "description": "명절 용돈",
+            "category": "uncategorized",
+            "paymentMethod": "현금",
+            "createdAt": "2025-09-10T10:00:00Z",
+            "updatedAt": "2025-09-10T10:00:00Z"
+          },
+          {
+            "id": "tx-sep-004",
+            "date": "2025-09-10",
+            "type": "expense",
+            "amount": 200000,
+            "description": "명절 선물",
+            "category": "shoppingBeauty",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-09-10T15:30:00Z",
+            "updatedAt": "2025-09-10T15:30:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-09-05",
+        "dayOfWeek": "목요일",
+        "totalIncome": 0,
+        "totalExpense": 400000,
+        "transactions": [
+          {
+            "id": "tx-sep-005",
+            "date": "2025-09-05",
+            "type": "expense",
+            "amount": 120000,
+            "description": "관리비",
+            "category": "livingExpenses",
+            "paymentMethod": "자동이체",
+            "createdAt": "2025-09-05T09:00:00Z",
+            "updatedAt": "2025-09-05T09:00:00Z"
+          },
+          {
+            "id": "tx-sep-006",
+            "date": "2025-09-05",
+            "type": "expense",
+            "amount": 80000,
+            "description": "마트 장보기",
+            "category": "food",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-09-05T16:20:00Z",
+            "updatedAt": "2025-09-05T16:20:00Z"
+          },
+          {
+            "id": "tx-sep-007",
+            "date": "2025-09-05",
+            "type": "expense",
+            "amount": 200000,
+            "description": "통신비 + 전기세",
+            "category": "livingExpenses",
+            "paymentMethod": "자동이체",
+            "createdAt": "2025-09-05T09:05:00Z",
+            "updatedAt": "2025-09-05T09:05:00Z"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-10": {
+    "year": 2025,
+    "month": 10,
+    "totalCount": 22,
+    "totalIncome": 3200000,
+    "totalExpense": 1150000,
+    "dailyGroups": [
+      {
+        "date": "2025-10-25",
+        "dayOfWeek": "토요일",
+        "totalIncome": 3000000,
+        "totalExpense": 0,
+        "transactions": [
+          {
+            "id": "tx-oct-001",
+            "date": "2025-10-25",
+            "type": "income",
+            "amount": 3000000,
+            "description": "10월 급여",
+            "category": "salary",
+            "paymentMethod": "국민은행",
+            "createdAt": "2025-10-25T09:00:00Z",
+            "updatedAt": "2025-10-25T09:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-10-15",
+        "dayOfWeek": "수요일",
+        "totalIncome": 200000,
+        "totalExpense": 0,
+        "transactions": [
+          {
+            "id": "tx-oct-002",
+            "date": "2025-10-15",
+            "type": "income",
+            "amount": 200000,
+            "description": "용돈",
+            "category": "allowance",
+            "paymentMethod": "카카오뱅크",
+            "createdAt": "2025-10-15T12:00:00Z",
+            "updatedAt": "2025-10-15T12:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-10-10",
+        "dayOfWeek": "금요일",
+        "totalIncome": 0,
+        "totalExpense": 650000,
+        "transactions": [
+          {
+            "id": "tx-oct-003",
+            "date": "2025-10-10",
+            "type": "expense",
+            "amount": 400000,
+            "description": "자동차 보험",
+            "category": "transportation",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-10-10T10:00:00Z",
+            "updatedAt": "2025-10-10T10:00:00Z"
+          },
+          {
+            "id": "tx-oct-004",
+            "date": "2025-10-10",
+            "type": "expense",
+            "amount": 150000,
+            "description": "병원비",
+            "category": "medicalHealth",
+            "paymentMethod": "현금",
+            "createdAt": "2025-10-10T14:30:00Z",
+            "updatedAt": "2025-10-10T14:30:00Z"
+          },
+          {
+            "id": "tx-oct-005",
+            "date": "2025-10-10",
+            "type": "expense",
+            "amount": 100000,
+            "description": "외식",
+            "category": "food",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-10-10T19:00:00Z",
+            "updatedAt": "2025-10-10T19:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-10-05",
+        "dayOfWeek": "일요일",
+        "totalIncome": 0,
+        "totalExpense": 500000,
+        "transactions": [
+          {
+            "id": "tx-oct-006",
+            "date": "2025-10-05",
+            "type": "expense",
+            "amount": 300000,
+            "description": "옷 쇼핑",
+            "category": "shoppingBeauty",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-10-05T15:00:00Z",
+            "updatedAt": "2025-10-05T15:00:00Z"
+          },
+          {
+            "id": "tx-oct-007",
+            "date": "2025-10-05",
+            "type": "expense",
+            "amount": 200000,
+            "description": "영화 + 저녁",
+            "category": "entertainmentLeisure",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-10-05T18:30:00Z",
+            "updatedAt": "2025-10-05T18:30:00Z"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-11": {
+    "year": 2025,
+    "month": 11,
+    "totalCount": 28,
+    "totalIncome": 3500000,
+    "totalExpense": 1450000,
+    "dailyGroups": [
+      {
+        "date": "2025-11-25",
+        "dayOfWeek": "화요일",
+        "totalIncome": 3000000,
+        "totalExpense": 0,
+        "transactions": [
+          {
+            "id": "tx-nov-001",
+            "date": "2025-11-25",
+            "type": "income",
+            "amount": 3000000,
+            "description": "11월 급여",
+            "category": "salary",
+            "paymentMethod": "국민은행",
+            "createdAt": "2025-11-25T09:00:00Z",
+            "updatedAt": "2025-11-25T09:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-11-20",
+        "dayOfWeek": "목요일",
+        "totalIncome": 500000,
+        "totalExpense": 0,
+        "transactions": [
+          {
+            "id": "tx-nov-002",
+            "date": "2025-11-20",
+            "type": "income",
+            "amount": 500000,
+            "description": "보너스",
+            "category": "otherIncome",
+            "paymentMethod": "국민은행",
+            "createdAt": "2025-11-20T15:00:00Z",
+            "updatedAt": "2025-11-20T15:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-11-15",
+        "dayOfWeek": "토요일",
+        "totalIncome": 0,
+        "totalExpense": 850000,
+        "transactions": [
+          {
+            "id": "tx-nov-003",
+            "date": "2025-11-15",
+            "type": "expense",
+            "amount": 500000,
+            "description": "가족 여행",
+            "category": "entertainmentLeisure",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-11-15T10:00:00Z",
+            "updatedAt": "2025-11-15T10:00:00Z"
+          },
+          {
+            "id": "tx-nov-004",
+            "date": "2025-11-15",
+            "type": "expense",
+            "amount": 200000,
+            "description": "주유",
+            "category": "transportation",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-11-15T08:30:00Z",
+            "updatedAt": "2025-11-15T08:30:00Z"
+          },
+          {
+            "id": "tx-nov-005",
+            "date": "2025-11-15",
+            "type": "expense",
+            "amount": 150000,
+            "description": "레스토랑",
+            "category": "food",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-11-15T19:00:00Z",
+            "updatedAt": "2025-11-15T19:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-11-05",
+        "dayOfWeek": "수요일",
+        "totalIncome": 0,
+        "totalExpense": 600000,
+        "transactions": [
+          {
+            "id": "tx-nov-006",
+            "date": "2025-11-05",
+            "type": "expense",
+            "amount": 300000,
+            "description": "겨울 옷 구매",
+            "category": "shoppingBeauty",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-11-05T14:00:00Z",
+            "updatedAt": "2025-11-05T14:00:00Z"
+          },
+          {
+            "id": "tx-nov-007",
+            "date": "2025-11-05",
+            "type": "expense",
+            "amount": 150000,
+            "description": "관리비",
+            "category": "livingExpenses",
+            "paymentMethod": "자동이체",
+            "createdAt": "2025-11-05T09:00:00Z",
+            "updatedAt": "2025-11-05T09:00:00Z"
+          },
+          {
+            "id": "tx-nov-008",
+            "date": "2025-11-05",
+            "type": "expense",
+            "amount": 150000,
+            "description": "마트 장보기",
+            "category": "food",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-11-05T16:30:00Z",
+            "updatedAt": "2025-11-05T16:30:00Z"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-12": {
+    "year": 2025,
+    "month": 12,
+    "totalCount": 32,
+    "totalIncome": 3800000,
+    "totalExpense": 1850000,
+    "dailyGroups": [
+      {
+        "date": "2025-12-28",
+        "dayOfWeek": "일요일",
+        "totalIncome": 0,
+        "totalExpense": 125000,
+        "transactions": [
+          {
+            "id": "tx-dec-001",
+            "date": "2025-12-28",
+            "type": "expense",
+            "amount": 85000,
+            "description": "친구 생일 선물",
+            "category": "shoppingBeauty",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-12-28T14:30:00Z",
+            "updatedAt": "2025-12-28T14:30:00Z"
+          },
+          {
+            "id": "tx-dec-002",
+            "date": "2025-12-28",
+            "type": "expense",
+            "amount": 40000,
+            "description": "브런치 카페",
+            "category": "food",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-12-28T11:20:00Z",
+            "updatedAt": "2025-12-28T11:20:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-12-25",
+        "dayOfWeek": "목요일",
+        "totalIncome": 3000000,
+        "totalExpense": 0,
+        "transactions": [
+          {
+            "id": "tx-dec-003",
+            "date": "2025-12-25",
+            "type": "income",
+            "amount": 3000000,
+            "description": "12월 급여",
+            "category": "salary",
+            "paymentMethod": "국민은행",
+            "createdAt": "2025-12-25T09:00:00Z",
+            "updatedAt": "2025-12-25T09:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-12-24",
+        "dayOfWeek": "수요일",
+        "totalIncome": 0,
+        "totalExpense": 350000,
+        "transactions": [
+          {
+            "id": "tx-dec-004",
+            "date": "2025-12-24",
+            "type": "expense",
+            "amount": 200000,
+            "description": "크리스마스 선물",
+            "category": "shoppingBeauty",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-12-24T15:00:00Z",
+            "updatedAt": "2025-12-24T15:00:00Z"
+          },
+          {
+            "id": "tx-dec-005",
+            "date": "2025-12-24",
+            "type": "expense",
+            "amount": 150000,
+            "description": "크리스마스 저녁",
+            "category": "food",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-12-24T19:30:00Z",
+            "updatedAt": "2025-12-24T19:30:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-12-20",
+        "dayOfWeek": "토요일",
+        "totalIncome": 800000,
+        "totalExpense": 0,
+        "transactions": [
+          {
+            "id": "tx-dec-006",
+            "date": "2025-12-20",
+            "type": "income",
+            "amount": 800000,
+            "description": "연말 보너스",
+            "category": "otherIncome",
+            "paymentMethod": "국민은행",
+            "createdAt": "2025-12-20T10:00:00Z",
+            "updatedAt": "2025-12-20T10:00:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-12-15",
+        "dayOfWeek": "월요일",
+        "totalIncome": 0,
+        "totalExpense": 575000,
+        "transactions": [
+          {
+            "id": "tx-dec-007",
+            "date": "2025-12-15",
+            "type": "expense",
+            "amount": 300000,
+            "description": "연말 모임",
+            "category": "food",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-12-15T19:00:00Z",
+            "updatedAt": "2025-12-15T19:00:00Z"
+          },
+          {
+            "id": "tx-dec-008",
+            "date": "2025-12-15",
+            "type": "expense",
+            "amount": 200000,
+            "description": "헬스장 연회비",
+            "category": "entertainmentLeisure",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-12-15T10:00:00Z",
+            "updatedAt": "2025-12-15T10:00:00Z"
+          },
+          {
+            "id": "tx-dec-009",
+            "date": "2025-12-15",
+            "type": "expense",
+            "amount": 75000,
+            "description": "택시",
+            "category": "transportation",
+            "paymentMethod": "카카오페이",
+            "createdAt": "2025-12-15T23:30:00Z",
+            "updatedAt": "2025-12-15T23:30:00Z"
+          }
+        ]
+      },
+      {
+        "date": "2025-12-05",
+        "dayOfWeek": "금요일",
+        "totalIncome": 0,
+        "totalExpense": 800000,
+        "transactions": [
+          {
+            "id": "tx-dec-010",
+            "date": "2025-12-05",
+            "type": "expense",
+            "amount": 450000,
+            "description": "겨울 코트",
+            "category": "shoppingBeauty",
+            "paymentMethod": "현대카드",
+            "createdAt": "2025-12-05T15:00:00Z",
+            "updatedAt": "2025-12-05T15:00:00Z"
+          },
+          {
+            "id": "tx-dec-011",
+            "date": "2025-12-05",
+            "type": "expense",
+            "amount": 180000,
+            "description": "관리비 + 전기세",
+            "category": "livingExpenses",
+            "paymentMethod": "자동이체",
+            "createdAt": "2025-12-05T09:00:00Z",
+            "updatedAt": "2025-12-05T09:00:00Z"
+          },
+          {
+            "id": "tx-dec-012",
+            "date": "2025-12-05",
+            "type": "expense",
+            "amount": 120000,
+            "description": "장보기",
+            "category": "food",
+            "paymentMethod": "신한카드",
+            "createdAt": "2025-12-05T17:00:00Z",
+            "updatedAt": "2025-12-05T17:00:00Z"
+          },
+          {
+            "id": "tx-dec-013",
+            "date": "2025-12-05",
+            "type": "expense",
+            "amount": 50000,
+            "description": "통신비",
+            "category": "livingExpenses",
+            "paymentMethod": "자동이체",
+            "createdAt": "2025-12-05T09:05:00Z",
+            "updatedAt": "2025-12-05T09:05:00Z"
+          }
+        ]
+      }
+    ]
+  }
+}

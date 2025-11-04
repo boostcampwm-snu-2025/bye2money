@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority";
 import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 
 const textInputVariants = cva(
-  "rounded-xl transition-colors focus:outline-none text-neutral-text-weak",
+  "rounded-xl transition-colors focus:outline-none text-neutral-text-weak text-semibold-12",
   {
     variants: {
       type: {
@@ -42,7 +42,7 @@ type BaseTextInputProps = {
   disabled?: boolean;
   placeholder?: string;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
   className?: string;
 };
 
@@ -77,9 +77,9 @@ export const TextInput = ({
   );
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       {label && (
-        <label className="text-semibold-16 text-grayscale-400">{label}</label>
+        <label className="text-light-12 text-grayscale-400">{label}</label>
       )}
       <input
         type="text"

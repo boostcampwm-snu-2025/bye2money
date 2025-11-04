@@ -45,8 +45,9 @@ export const Button = ({
       disabled={disabled}
       className={clsx(
         buttonVariants({ variant, size, flexible }),
-        disabled && "cursor-not-allowed opacity-[0.32]",
-        !disabled && "hover:opacity-80 active:opacity-[0.64]",
+        disabled
+          ? "cursor-not-allowed opacity-[0.32]"
+          : "hover:opacity-80 active:opacity-[0.64]",
         layout === "text-icon" && "gap-2",
         layout === "icon" && "px-2 py-2",
         className,

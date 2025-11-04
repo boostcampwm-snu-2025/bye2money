@@ -1,5 +1,4 @@
-import { Trash2 } from "lucide-react";
-import { CATEGORIES } from "../constants/categories";
+import TransactionItem from "./TransactionItem.jsx";
 
 export default function TransactionList({ transactions, onSelect, onDelete, selected }) {
   // 날짜별 그룹
@@ -36,12 +35,12 @@ export default function TransactionList({ transactions, onSelect, onDelete, sele
               </span>
               <span>
                 {totalIncome > 0 && (
-                  <span className="text-brand-text-income">
+                  <span>
                     수입 {totalIncome.toLocaleString()}원
                   </span>
                 )}
                 {totalExpense > 0 && (
-                  <span className="text-brand-text-expense ml-4">
+                  <span className="ml-4">
                     지출 {totalExpense.toLocaleString()}원
                   </span>
                 )}
@@ -50,46 +49,16 @@ export default function TransactionList({ transactions, onSelect, onDelete, sele
 
             <div className="font-sans font-light text-sm flex flex-col border-t border-b">
               {daily.map((t) => (
-                <button
+                <TransactionItem
                   key={t.id}
-                  onClick={() => onSelect(t)}
-                  className="group flex justify-between items-center text-left hover:bg-gray-100"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-23 h-14 flex items-center justify-center text-xs text-black ${
-                        CATEGORIES[t.category] || ""
-                    }`}>
-                      {t.category || "기타"}
-                    </div>
-                    <span>{t.content}</span>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <span className="w-30">{t.payment}</span>
-                    <span
-                      className={`w-30 text-right mr-4 ${
-                        t.amount > 0 ? "text-brand-text-income" : "text-brand-text-expense"
-                      }`}
-                    >
-                      {t.amount > 0
-                        ? `+${t.amount.toLocaleString()}`
-                        : t.amount.toLocaleString()}
-                      원
-                    </span>
-                    <Trash2
-                      size={14}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onDelete(t.id);
-                      }}
-                      className={`${
-                        selected?.id === t.id ? "block" : "hidden group-hover:block"
-                      } text-danger-text-default opacity-60 hover:opacity-100 cursor-pointer`}
-                      />
-                  </div>
-                </button>
+                  t={t}
+                  selected={selected}
+                  onSelect={onSelect}
+                  onDelete={onDelete}
+                />
               ))}
             </div>
+
           </div>
         );
       })}

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useModal } from "../context/ModalContext";
+import { useModal } from "../../../../shared/context/ModalContext";
 
 export default function PaymentAddModal({ onAdd }) {
   const { closeModal } = useModal();
   const [value, setValue] = useState("");
 
   const handleSubmit = () => {
-    if (!value.trim()) return;
+    if (!value.trim()) return; // 공백 방지
     closeModal();
     onAdd(value.trim());
   };
@@ -31,8 +31,8 @@ export default function PaymentAddModal({ onAdd }) {
           취소
         </button>
         <button 
-        className="w-full border-[0.5px]"
-        onClick={handleSubmit}
+          className="w-full border-[0.5px]"
+          onClick={handleSubmit}
         >
           추가
         </button>

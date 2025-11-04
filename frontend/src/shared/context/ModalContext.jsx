@@ -8,7 +8,7 @@ export function ModalProvider({ children }) {
   const openModal = (component) => setModal(component);
   const closeModal = () => setModal(null);
   
-  // 스펙에는 없지만, 상식적인 동작 구현
+  // ESC로 모달 닫는, 상식적인 동작 구현
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") closeModal();

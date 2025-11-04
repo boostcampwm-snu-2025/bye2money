@@ -22,7 +22,7 @@ export default function TransactionSummaryBar({
           <CheckSquare
             size={14}
             className={`${
-              filters.income ? "text-brand-text-income" : "text-gray-300"
+              filters.income ? "text-neutral-text-default" : "text-neutral-text-weak"
             }`}
           />
           <span>
@@ -41,12 +41,12 @@ export default function TransactionSummaryBar({
           <CheckSquare
             size={14}
             className={`${
-              filters.expense ? "text-brand-text-expense" : "text-gray-300"
+              filters.expense ? "text-neutral-text-default" : "text-neutral-text-weak"
             }`}
           />
           <span>
             지출&nbsp;
-            <span className="font-semibold text-brand-text-expense">
+            <span className="font-semibold">
               {totalExpense.toLocaleString()}
             </span>
             원

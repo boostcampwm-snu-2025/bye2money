@@ -1,38 +1,41 @@
 import { useState, useEffect } from "react";
-import { useModal } from "../context/ModalContext";
+import { useModal } from "../../../../shared/context/ModalContext";
 import PaymentAddModal from "./PaymentAddModal";
+import PaymentDeleteModal from "./PaymentDeleteModal";
 import { ChevronDown } from "lucide-react";
+import { getPayments, addPayment, deletePayment } from "../../../../shared/api/payments";
+import { cleanupTransactions } from "../../../../shared/api/transactions";
 
-export default function PaymentDropdown({ value, onSelect }) {
+export default function PaymentDropdown({ value, onSelect, refreshTransactions }) {
   const { openModal } = useModal();
   const [isOpen, setIsOpen] = useState(false);
-  const [payments, setPayments] = useState(["현금", "신용카드"]);
+  const [payments, setPayments] = useState([]);
 
-  // localStorage에서 불러오기 
+  // 서버에서 데이터 불러오기
   useEffect(() => {
-    const saved = localStorage.getItem("payments");
-    if (saved) {
-      try {
-        setPayments(JSON.parse(saved));
-      } catch (err) {
-        console.error("Cannot parse payments from localStorage", err);
-      }
-    }
+    getPayments()
+      .then((data) => setPayments(data))
+      .catch((err) => console.error(err));
   }, []);
 
-  // payments 변경 시 localStorage에 저장
-  useEffect(() => {
-    localStorage.setItem("payments", JSON.stringify(payments));
-  }, [payments]);
-
-  const handleAdd = (newPayment) => {
-    setPayments((prev) => [...prev, newPayment]);
-    setIsModalOpen(false);
+  const handleAdd = async (item) => {
+    try {
+      const added = await addPayment(item);
+      setPayments((prev) => [...prev, added.name]); 
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleDelete = (item) => {
-    setPayments((prev) => prev.filter((p) => p !== item));
-    if (value === item) onSelect("");
+  const handleDelete = async (item) => {
+    try {
+      await cleanupTransactions(item);
+      await deletePayment(item);
+      setPayments((prev) => prev.filter((p) => p !== item));
+      refreshTransactions();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -69,8 +72,9 @@ export default function PaymentDropdown({ value, onSelect }) {
                 {p}
               </span>
               <button
-                onClick={() => handleDelete(p)}
-                className="font-sans font-light text-xs text-red-500"
+                type="button"
+                onClick={() => {openModal(<PaymentDeleteModal value={p} onDelete={handleDelete} />);}}
+                className="font-sans font-light text-xs text-danger-text-default"
               >
                 X
               </button>

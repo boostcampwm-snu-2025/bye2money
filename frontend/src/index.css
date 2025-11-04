@@ -1,6 +1,71 @@
 @import "tailwindcss";
 
-/* Pretendard Light (300) */
+@theme {
+  --font-sans: Pretendard, system-ui, sans-serif;
+  --font-serif: ChosunilboNM, serif;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 24px;
+  --font-size-xl: 48px;
+
+  --color-grayscale-50: #FFFFFF;
+  --color-grayscale-100: #FBFCFD;
+  --color-grayscale-200: #F1F4F8;
+  --color-grayscale-300: #777D84;
+  --color-grayscale-400: #000000;
+
+  --color-colorchip-10: #A28B78;
+  --color-colorchip-20: #E39D5D;
+  --color-colorchip-30: #D7C6AB;
+  --color-colorchip-40: #AACD7E;
+  --color-colorchip-50: #BCDDF3;
+  --color-colorchip-60: #C5E0EB;
+  --color-colorchip-70: #7DB7BF;
+  --color-colorchip-80: #79B2CA;
+  --color-colorchip-90: #73A4D0;
+  --color-colorchip-100: #A7B9E9;
+  --color-colorchip-110: #BDA6E1;
+  --color-colorchip-120: #C04646;
+
+  --color-neutral-surface-weak: #FBFCFD;
+  --color-neutral-surface-default: #FFFFFF;
+  --color-neutral-surface-point: #F1F4F8;
+
+  --color-neutral-text-weak: #777D84;
+  --color-neutral-text-default: #000000;
+  --color-neutral-border-default: #777D84;
+
+  --color-brand-surface-default: #F1F4F8;
+  --color-brand-text-income: #79B2CA;
+  --color-brand-text-expense: #C04646;
+
+  --color-danger-surface-default: #E9385A;
+  --color-danger-text-default: #E9385A;
+  --color-danger-border-default: #E9385A;
+
+  --color-pastel-jordyBlue: oklch(0.700 0.084 246.4);
+}
+
+@layer utilities {
+  /* Pretendard Light (font-sans + font-light) */
+  .font-sans.font-light.text-xs { font-size: 12px; line-height: 24px; }
+  .font-sans.font-light.text-sm { font-size: 14px; line-height: 24px; }
+  .font-sans.font-light.text-base { font-size: 16px; line-height: 32px; }
+
+  /* Pretendard SemiBold (font-sans + font-semibold) */
+  .font-sans.font-semibold.text-xs { font-size: 12px; line-height: 16px; }
+  .font-sans.font-semibold.text-sm { font-size: 14px; line-height: 16px; }
+  .font-sans.font-semibold.text-base { font-size: 16px; line-height: 24px; }
+
+  /* ChosunilboNM (font-serif) */
+  .font-serif.text-xs { font-size: 14px; line-height: 16px; }
+  .font-serif.text-sm { font-size: 24px; line-height: 32px; }
+  .font-serif.text-base { font-size: 48px; line-height: 56px; }
+}
+
+/* Pretendard Light */
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/Pretendard-Light.otf") format("opentype");
@@ -8,7 +73,7 @@
   font-style: normal;
 }
 
-/* Pretendard SemiBold (600) */
+/* Pretendard SemiBold */
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/Pretendard-Semibold.otf") format("opentype");
@@ -16,10 +81,9 @@
   font-style: normal;
 }
 
-/* 조선일보명조 (ChosunCentennial) */
 @font-face {
   font-family: "ChosunilboNM";
-  src: url("/fonts/ChosunCentennial.otf") format("opentype");
+  src: url("/fonts/Chosunilbo_myungjo.woff") format("opentype");
   font-weight: 400;
   font-style: normal;
 }

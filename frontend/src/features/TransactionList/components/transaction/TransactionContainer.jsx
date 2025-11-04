@@ -36,7 +36,6 @@ export default function TransactionContainer({ transactions, onSelect, onDelete,
         filters={filters}
         onFilterChange={handleFilterChange}
       />
-
       <TransactionList
         transactions={filteredTransactions}
         onSelect={onSelect}

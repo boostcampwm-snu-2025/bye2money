@@ -11,6 +11,12 @@ type Props = {
   setCategoryOpen: React.Dispatch<React.SetStateAction<boolean>>;
   category?: Category;
   setCategory: (c: Category) => void;
+
+  amount: string;
+  setAmount: (v: string) => void;
+  content: string;
+  setContent: (v: string) => void;
+  onAdd: () => void;
 };
 
 const SummaryCard: React.FC<Props> = ({
@@ -22,24 +28,46 @@ const SummaryCard: React.FC<Props> = ({
   setCategoryOpen,
   category,
   setCategory,
+  amount,
+  setAmount,
+  content,
+  setContent,
+  onAdd,
 }) => {
   return (
     <section className="summary-card">
       <div className="field">
         <div className="label">일자</div>
-        <div className="value">2023. 08. 01</div>
+        <div className="value">오늘</div>
       </div>
+
       <div className="divider" />
+
       <div className="field">
         <div className="label">금액</div>
-        <div className="value bold">- <span className="unit">원</span></div>
+        <input
+          className="value input"
+          placeholder="예: 12000"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          inputMode="numeric"
+        />
       </div>
+
       <div className="divider" />
+
       <div className="field grow">
         <div className="label">내용</div>
-        <div className="value">-</div>
+        <input
+          className="value input"
+          placeholder="예: 점심 식사"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
       </div>
+
       <div className="divider" />
+
       <div className="field dropdown">
         <div className="label">결제수단</div>
         <button className="dropdown-btn" onClick={() => setMethodOpen(v => !v)}>
@@ -59,7 +87,9 @@ const SummaryCard: React.FC<Props> = ({
           </div>
         )}
       </div>
+
       <div className="divider" />
+
       <div className="field dropdown">
         <div className="label">분류</div>
         <button className="dropdown-btn" onClick={() => setCategoryOpen(v => !v)}>
@@ -79,7 +109,8 @@ const SummaryCard: React.FC<Props> = ({
           </div>
         )}
       </div>
-      <button className="pill ok">✔</button>
+
+      <button className="pill ok" onClick={onAdd}>저장</button>
     </section>
   );
 };

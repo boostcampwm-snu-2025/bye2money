@@ -109,3 +109,10 @@ body{margin:0; background:var(--bg); color:var(--text); font:14px/1.5 system-ui,
   .account{grid-column:1 / 2}
   .amount{grid-column:2 / 3}
 }
+
+.input {
+  border: 1px solid #ddd;
+  padding: 6px 8px;
+  border-radius: 8px;
+  min-width: 140px;
+}

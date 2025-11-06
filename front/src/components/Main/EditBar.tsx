@@ -248,6 +248,7 @@ export const EditBar = () => {
             closeMethodAppendModal();
           }}
           close={closeMethodAppendModal}
+          placeholder="결제수단"
         />
       )}
       {methodRemoveModalOpened && (

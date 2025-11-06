@@ -10,6 +10,7 @@ interface ModalProps {
   actionTitle: string;
   actionColor: string;
   disabled: boolean;
+  placeholder?: string;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -21,6 +22,7 @@ export const Modal: React.FC<ModalProps> = ({
   setValue,
   close,
   disabled,
+  placeholder,
 }) => {
   return (
     <div className="fixed top-0 left-0 grid w-screen h-screen bg-gray-500/75 place-items-center z-50">
@@ -31,8 +33,8 @@ export const Modal: React.FC<ModalProps> = ({
             disabled={disabled}
             value={value}
             onChange={setValue}
-            placeholder="결제수단"
-            isHollow={false}
+            placeholder={placeholder ?? ""}
+            isHollow={placeholder ? false : true}
             width={320}
           />
         </div>

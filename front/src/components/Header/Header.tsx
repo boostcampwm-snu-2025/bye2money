@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
     <header className="flex flex-row relative w-layout h-[176px] items-start justify-center pt-[40px] bg-colorchip-80">
       <div className="flex flex-row w-[846px] h-[112px] justify-between items-center">
         <button
-          onClick={() => nav("main")}
+          onClick={() => nav("/")}
           className="flex flex-row gap-[4px] h-[32px] w-[132px]"
         >
           <h1 className="font-serif text-serif-md">Wise</h1>

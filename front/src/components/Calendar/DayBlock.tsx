@@ -38,19 +38,19 @@ export const DayBlock: React.FC<DayBlockProps> = ({
           {day}
         </div>
       )}
-      {!isBlank && spendings && spendings.length && (
+      {!isBlank && spendings && !!spendings.length && (
         <div className="flex flex-col">
-          {incomesSum && (
+          {!!incomesSum && (
             <h3 className="h-[24px] w-[104px] font-light font-sans text-sans-light-md text-brand-text-income">
               {formatMoney(false, incomesSum)}
             </h3>
           )}
-          {expendituresSum && (
+          {!!expendituresSum && (
             <h3 className="h-[24px] w-[104px] font-light font-sans text-sans-light-md text-brand-text-expense">
               {formatMoney(true, expendituresSum)}
             </h3>
           )}
-          {total && (
+          {!!total && (
             <h3 className="h-[24px] w-[104px] font-light font-sans text-sans-light-md text-neutral-text-default">
               {formatMoney(false, total)}
             </h3>

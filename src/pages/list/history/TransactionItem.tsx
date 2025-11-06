@@ -1,18 +1,43 @@
-import Amount from "@/components/Amount";
+import React, { useCallback, useMemo } from "react";
+import Amount from "../../../components/Amount";
+import cn from "classnames";
+import { categoryStyleMap, DEFAULT_STYLE } from "../../../assets/constants";
+import { Transaction } from "../../../store/globalType";
 
-const TransactionItem = ({ transaction, onEdit, onDelete }) => {
-    const handleDeleteClick = (event) => {
-        // 클릭 이벤트가 부모 div의 onEdit으로 전파되는 것을 막음
-        event.stopPropagation();
-        onDelete(transaction);
-    };
+interface TransactionItemProps {
+    transaction: Transaction;
+    onEdit: (transaction: Transaction) => void;
+    onDelete: (transaction: Transaction) => void;
+}
+
+const TransactionItem: React.FC<TransactionItemProps> = ({
+    transaction,
+    onEdit,
+    onDelete,
+}) => {
+    const handleDeleteClick = useCallback(
+        (event: React.MouseEvent) => {
+            event.stopPropagation();
+            onDelete(transaction);
+        },
+        [onDelete, transaction]
+    );
+
+    const { bgClass } = useMemo(() => {
+        return categoryStyleMap.get(transaction.category) || DEFAULT_STYLE;
+    }, [transaction.category]);
 
     return (
         <div
             onClick={() => onEdit(transaction)}
             className="group flex justify-between items-center h-[60px] hover:bg-gray-50 transition-colors"
         >
-            <div className="flex justify-center items-center w-[100px] h-full bg-[#9f9f9f] opacity-80">
+            <div
+                className={cn(
+                    "flex justify-center items-center w-[100px] h-full",
+                    bgClass
+                )}
+            >
                 <div className="text-xl">{transaction.category}</div>
             </div>
 

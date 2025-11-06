@@ -1,7 +1,15 @@
-const InputContent = ({ value, onChange }) => {
+import React from "react";
+
+// Props 타입 정의
+interface InputContentProps {
+    value: string;
+    onChange: (value: string) => void;
+}
+
+const InputContent: React.FC<InputContentProps> = ({ value, onChange }) => {
     const length = value.length;
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.value.length <= 32) {
             onChange(e.target.value);
         }

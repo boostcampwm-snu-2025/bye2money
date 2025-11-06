@@ -1,4 +1,15 @@
-const SignToggleButton = ({ isPlus, onChange }) => {
+import React from "react";
+
+// Props 타입 정의
+interface SignToggleButtonProps {
+    isPlus: boolean;
+    onChange: (newValue: boolean) => void;
+}
+
+const SignToggleButton: React.FC<SignToggleButtonProps> = ({
+    isPlus,
+    onChange,
+}) => {
     const handleToggle = () => {
         onChange(!isPlus);
     };

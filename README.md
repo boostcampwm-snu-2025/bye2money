@@ -1,21 +1,25 @@
--   개발 환경
-    [x] React-SWC vite 개발 환경 구축
-    [x] tailwindcss 적용
+-   피드백
+    [x] sementic version 반영
+    [x] App.jsx 간소화
+    [x] react router, layout file 활용하여 페이징
+    [x] classnames module을 활용해서 스타일 제어, 상수 관리하는 파일 만들어서 간소화
+    [x] react Hook api (useMemo, useReducer, useCallback) 찾아보고 적용
+    [x] SectionForm에 store로 쓸만한 library 찾아서 도입 -> Context-API
+    [x] Typescript로 변경 후 인터페이스 정의 (AI 도움 많이 받음)
 
--   메인화면
+-   셀프 보완 사항
+    [x] 항목을 눌렀을 때 결제수단이 form으로 제대로 올라가지 않는 문제 수정
+    [x] 총수입, 총수출 필터링 개선
+    [x] Header의 날짜 변경 시 월별 영어 표시 및 history filtering
+    [x] 카테고리 별 배경색을 다르게 하기
+    [ ] Actionmodal을 context API로 공유 -> 2개라서 그냥 내버려 둬도 될 것 같음
+    [x] custom Hook 사용
 
-    -   내역 입력바
-        [x] 날짜 인풋 박스 - 기본값은 오늘, 바꿀 수 있어야 함
-        [x] 마이너스 버튼 - 누르면 토글
-        [x] 금액 입력칸 - 세 자리마다 쉼표
-        [x] 내용 입력칸 - 최대 32자 - 글자 수 카운트
-        [x] 결제수단
-        [x] 분류
+-   캘린더 (선택사항)
+    [x] 달력 만들고 필요한 state 연결
+    [x] 현재 날짜에 해당하는 날의 배경을 차별화
 
-    -   헤더
-        [x] 날짜
-        [x] 아이콘
-
-    -   내역
-        [x] 전체 내역 - 전체 건수 - 전체 수입, 지출 각각 표시
-        [x] 날짜 별 내역 - 내림차순 - 날짜 별 수입, 지출 표시
+-   시각화 (선택사항, AI로 구현)
+    [x] 필요한 state 연결하고 카테고리 별 합계 계산
+    [x] 그래프 그리는 법 학습 후 구현
+    [ ] 카테고리 눌렀을 때 내역 띄우기

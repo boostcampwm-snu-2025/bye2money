@@ -1,4 +1,16 @@
-const ActionModal = ({
+import cn from "classnames";
+import React from "react";
+
+interface ActionModalProps {
+    size?: "m" | "l";
+    title: string;
+    confirmText: string;
+    children: React.ReactNode;
+    onConfirm: () => void;
+    onClose: () => void;
+}
+
+const ActionModal: React.FC<ActionModalProps> = ({
     size = "m",
     title,
     confirmText,
@@ -6,15 +18,13 @@ const ActionModal = ({
     onConfirm,
     onClose,
 }) => {
-    const sizeStyles = {
-        m: "w-[400px] h-[200px]",
-        l: "w-[400px] h-[260px]",
-    };
-
     return (
         <div className="fixed inset-0 flex justify-center items-center z-50">
             <div
-                className={`bg-white p-6 shadow-xl border border-black ${sizeStyles[size]}`}
+                className={cn("bg-white p-6 shadow-xl border border-black", {
+                    "w-[400px] h-[200px]": size === "m",
+                    "w-[400px] h-[260px]": size === "l",
+                })}
             >
                 <h3 className="text-xl text-black h-[40px]">{title}</h3>
 

@@ -1,6 +1,21 @@
-import CircleButton from "@/components/CircleButton";
+import React from "react";
+import CircleButton from "../../../components/CircleButton";
+import { Transaction } from "../../../store/globalType";
 
-const MonthlySummary = ({ transactions, filter, onFilterChange }) => {
+interface MonthlySummaryProps {
+    transactions: Transaction[];
+    filter: {
+        income: boolean;
+        expense: boolean;
+    };
+    onFilterChange: (filterType: "income" | "expense") => void;
+}
+
+const MonthlySummary: React.FC<MonthlySummaryProps> = ({
+    transactions,
+    filter,
+    onFilterChange,
+}) => {
     const totalCount = transactions.length;
     const totalIncome = transactions.reduce(
         (sum, tx) => (tx.amount > 0 ? sum + tx.amount : sum),
@@ -13,19 +28,18 @@ const MonthlySummary = ({ transactions, filter, onFilterChange }) => {
 
     return (
         <div className="flex justify-between items-center bg-white text-xl">
-            <button onClick={() => onFilterChange("all")}>
-                전체 내역 {totalCount}건
-            </button>
+            <span>전체 내역 {totalCount}건</span>
+
             <div className="flex items-center">
                 <div className="flex items-center space-x-2 w-[160px] justify-end">
                     <span>총수입 {totalIncome.toLocaleString()}원</span>
                     <CircleButton
                         size="s"
-                        isActive={filter === "income"}
+                        isActive={filter.income}
                         onClick={() => onFilterChange("income")}
                         imageUrl={"/images/checkLogo.png"}
-                        activeColor="rgba(0,0,0,1)"
-                        inactiveColor="rgba(140,140,140,0.6)"
+                        activeClass="bg-black"
+                        inactiveClass="bg-gray-400"
                     />
                 </div>
                 <div className="flex items-center space-x-2 w-[160px] justify-end">
@@ -34,11 +48,11 @@ const MonthlySummary = ({ transactions, filter, onFilterChange }) => {
                     </span>
                     <CircleButton
                         size="s"
-                        isActive={filter === "expense"}
+                        isActive={filter.expense}
                         onClick={() => onFilterChange("expense")}
                         imageUrl={"/images/checkLogo.png"}
-                        activeColor="rgba(0,0,0,1)"
-                        inactiveColor="rgba(140,140,140,0.6)"
+                        activeClass="bg-black"
+                        inactiveClass="bg-gray-400"
                     />
                 </div>
             </div>

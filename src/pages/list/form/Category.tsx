@@ -1,36 +1,37 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import ChevronDownIcon from "../../../components/ChevronDownIcon";
 
-const ChevronDownIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-4 h-4 text-gray-500"
-    >
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m19.5 8.25-7.5 7.5-7.5-7.5"
-        />
-    </svg>
-);
+// 카테고리/결제수단 옵션 공통 타입
+interface OptionType {
+    id: number | string; // id가 숫자 또는 문자일 수 있음
+    name: string;
+}
 
-const Category = ({ options, selectedOption, onSelect }) => {
+// Props 타입 정의
+interface CategoryProps {
+    options: OptionType[];
+    selectedOption: OptionType | null;
+    onSelect: (option: OptionType) => void;
+}
+
+const Category: React.FC<CategoryProps> = ({
+    options,
+    selectedOption,
+    onSelect,
+}) => {
     const [isOpen, setIsOpen] = useState(false);
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const handleSelect = (option) => {
+    const handleSelect = (option: OptionType) => {
         onSelect(option);
         setIsOpen(false);
     };
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
+        const handleClickOutside = (event: MouseEvent) => {
             if (
                 dropdownRef.current &&
-                !dropdownRef.current.contains(event.target)
+                !dropdownRef.current.contains(event.target as Node)
             ) {
                 setIsOpen(false);
             }
@@ -59,7 +60,7 @@ const Category = ({ options, selectedOption, onSelect }) => {
 
             {isOpen && (
                 <ul className="absolute mt-10 w-full bg-white border border-t-0 border-black z-10 divide-y divide-black">
-                    {options.map((option) => (
+                    {options.map((option: OptionType) => (
                         <li
                             key={option.id}
                             onClick={() => handleSelect(option)}

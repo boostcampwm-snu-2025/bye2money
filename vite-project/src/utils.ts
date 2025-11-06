@@ -1,3 +1,5 @@
+import type { Transaction } from './contexts/TransactionContext';
+
 // Local helper function
 const getTodayParts = () => {
     const today = new Date();
@@ -34,3 +36,13 @@ export const getTodayMonthName = (): string => {
 // export const getTodayMonthNameShort = (): string => {
 //     return getTodayParts().monthNameShort;
 // };
+
+// Helper function to compare two transactions for equality
+export const areTransactionsEqual = (t1: Transaction, t2: Transaction): boolean => {
+    return t1.date === t2.date &&
+           t1.amount === t2.amount &&
+           t1.content === t2.content &&
+           t1.paymentMethod === t2.paymentMethod &&
+           t1.category === t2.category &&
+           t1.type === t2.type;
+};

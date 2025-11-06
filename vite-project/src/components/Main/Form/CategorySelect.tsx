@@ -53,6 +53,9 @@ export default function CategorySelect({
     <InputGroup>
       <label>분류</label>
       <StyledCategorySelect value={value} onChange={onChange}>
+        <option value="" disabled hidden>
+          선택하세요
+        </option>
         {currentCategories.map((cat) => (
           <option key={cat} value={cat}>
             {cat}

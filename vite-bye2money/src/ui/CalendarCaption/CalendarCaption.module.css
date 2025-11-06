@@ -1,0 +1,14 @@
+.wrapper {
+	width: 846px;
+	height: 16px;
+	margin: 30px auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	color: var(--token-neutral-text-default);
+	font-family: "ChosunilboNM";
+	font-size: 14px;
+	line-height: 16px;
+	letter-spacing: 0;
+	font-weight: 400;
+}

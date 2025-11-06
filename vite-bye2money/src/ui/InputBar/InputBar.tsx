@@ -11,18 +11,13 @@ import PaymentSelectPanel from "../PaymentSelectPanel/PaymentSelectPanel";
 import { CATEGORY_TAG_LABELS } from "../../components/CategoryTag/const";
 import type { CategoryTagTone } from "../../types/types";
 
+import { createRecord } from "../../utils/api/recordDataApi";
+
 export interface InputBarProps {
 	date: string;
 	amount?: number;
 	maxContentLen?: number;
 	content?: string;
-	onSubmit?: (v: {
-		date: string;
-		amount: number;
-		content: string;
-		payment: string | null;
-		category: string | null;
-	}) => void;
 }
 
 const InputBar = ({
@@ -30,7 +25,6 @@ const InputBar = ({
 	amount = 0,
 	content = "",
 	maxContentLen = 32,
-	onSubmit,
 }: InputBarProps) => {
 	const [inputYear, setInputYear] = useState(
 		() => Number(date.slice(0, 4)) || 2025
@@ -48,6 +42,8 @@ const InputBar = ({
 	const [payment, setPayment] = useState<string | null>(null);
 	const [category, setCategory] = useState<CategoryTagTone | null>(null);
 
+	const [submitting, setSubmitting] = useState<boolean>(false);
+
 	const to2 = (n: number) => String(n).padStart(2, "0");
 
 	const signedAmount = useMemo(
@@ -61,28 +57,40 @@ const InputBar = ({
 		[absAmount, text, payment, category]
 	);
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		// Check if entered YYMMDD is valid.
 		// Ignore if invalid date is entered.
 
 		if (
 			!(inputYear >= 2000 && inputYear <= 2025) ||
 			!(inputMonth >= 1 && inputMonth <= 12) ||
-			!(inputDay >= 1 && inputDay <= 24) //
+			!(inputDay >= 1 && inputDay <= 31) //
 		) {
-			// Invalid date
 			return;
 		}
 
 		const validDate = `${inputYear}-${to2(inputMonth)}-${to2(inputDay)}`;
 
-		onSubmit?.({
-			date: validDate,
-			amount: signedAmount,
-			content: text.trim(),
-			payment,
-			category,
-		});
+		if (!payment || !category) return; // double check
+
+		try {
+			setSubmitting(true);
+
+			const created = await createRecord({
+				date: validDate,
+				category,
+				title: text.trim(),
+				payment,
+				amount: signedAmount,
+			});
+
+			setAbsAmount(0);
+			setText("");
+		} catch (e) {
+			console.error(e);
+		} finally {
+			setSubmitting(false);
+		}
 	};
 
 	return (
@@ -256,7 +264,7 @@ const InputBar = ({
 					tone="default"
 					aria-label="입력 완료"
 					onClick={handleSubmit}
-					disabled={!canSubmit}
+					disabled={!canSubmit || submitting}
 				/>
 			</div>
 		</div>

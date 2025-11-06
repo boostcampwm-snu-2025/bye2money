@@ -1,16 +1,69 @@
-/* Import theme variables */
-@import './themes/colors.css';
-@import './themes/spacing.css';
-@import './themes/typography.css';
+@import 'tailwindcss';
 
-/* Global App Styles */
-.app {
-  width: 100%;
-  min-height: 100vh;
-  background-color: var(--neutral-surface-weak);
-  display: flex;
-  justify-content: center;
+@font-face {
+  font-family: 'ChosunIlboMyungjo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+  font-weight: normal;
+  font-display: swap;
 }
+
+@theme {
+  --font-sans: 'Pretendard', sans-serif;
+
+  --color-*: initial;
+  --color-grayscale-50: #ffffff;
+  --color-grayscale-100: #fbfcfd;
+  --color-grayscale-200: #f1f4f8;
+  --color-grayscale-300: #777d84;
+  --color-grayscale-400: #000000;
+
+  --color-pastel-almondFrost: #a28878;
+  --color-pastel-porshce: #e39d5d;
+  --color-pastel-chenin: #d7ca6b;
+  --color-pastel-caper: #aacd7e;
+  --color-pastel-cruise: #bcdfd3;
+  --color-pastel-onahau: #c5e0eb;
+  --color-pastel-glacier: #7db7bf;
+  --color-pastel-seagull: #79b2ca;
+  --color-pastel-jordyBlue: #73a4d0;
+  --color-pastel-perano: #a7b9e9;
+  --color-pastel-perfume: #bda6e1;
+  --color-pastel-lavenderPink: #f0b0d3;
+  --color-pastel-amaranth: #e93b5a;
+  --color-pastel-chestnut: #c04646;
+
+  /* Tokens */
+  --color-neutral-surface-weak: var(--color-grayscale-100);
+  --color-neutral-surface-default: var(--color-grayscale-50);
+  --color-neutral-surface-point: var(--color-grayscale-200);
+  --color-neutral-text-weak: var(--color-grayscale-300);
+  --color-neutral-text-default: var(--color-grayscale-400);
+  --color-neutral-text-rev-default: var(--color-grayscale-50);
+  --color-neutral-border-default: var(--color-grayscale-400);
+
+  --color-brand-surface-default: var(--color-grayscale-50);
+  --color-brand-text-income: var(--color-pastel-seagull);
+  --color-brand-text-expense: var(--color-pastel-chestnut);
+
+  --color-danger-surface-default: var(--color-pastel-amaranth);
+  --color-danger-text-default: var(--color-pastel-amaranth);
+  --color-danger-text-rev-default: var(--color-grayscale-50);
+  --color-danger-border-default: var(--color-pastel-amaranth);
+
+  --color-10: var(--color-pastel-almondFrost);
+  --color-20: var(--color-pastel-porshce);
+  --color-30: var(--color-pastel-chenin);
+  --color-40: var(--color-pastel-caper);
+  --color-50: var(--color-pastel-cruise);
+  --color-60: var(--color-pastel-onahau);
+  --color-70: var(--color-pastel-glacier);
+  --color-80: var(--color-pastel-jordyBlue);
+  --color-90: var(--color-pastel-perano);
+  --color-100: var(--color-pastel-perfume);
+  --color-110: var(--color-pastel-lavenderPink);
+  --color-120: var(--color-pastel-chestnut);
+}
+
 
 /* Reset default margins and paddings */
 * {

@@ -1,5 +1,4 @@
 import MainPage from './pages/MainPage'
-import './styles/globals.css'
 
 function App() {
   return (

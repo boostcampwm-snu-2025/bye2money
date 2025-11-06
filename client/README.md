@@ -1,73 +1,164 @@
-# React + TypeScript + Vite
+# Wise Wallet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+가계부 관리 웹 애플리케이션입니다.
 
-Currently, two official plugins are available:
+## 기술 스택
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** + **TypeScript** + **Vite**
+- **Tailwind CSS** - 스타일링
+- **Context API + useReducer** - 상태 관리
+- **LocalStorage** - 데이터 영속성
 
-## React Compiler
+## 주요 기능
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ✅ 구현 완료
 
-## Expanding the ESLint configuration
+#### 1. 메인 화면 (리스트 뷰)
+- **헤더**
+  - 로고 (Wise Wallet) - 조선일보명조 폰트
+  - 연/월 표시 및 이동 (이전/다음 달)
+  - 탭 메뉴 (내역/달력/통계) - 아이콘 버튼
+- **입력 바 (EntryBar)**
+  - 헤더와 약간 겹치는 위치에 배치 (`-mt-6`)
+  - 일자 선택 (달력 아이콘, 클릭 시 날짜 선택)
+  - 금액 입력 (+/- 토글)
+  - 내용 (메모) 입력 (최대 32자)
+  - 결제수단 선택 및 관리 (드롭다운)
+  - 분류 선택 (수입/지출에 따라 다른 카테고리)
+  - 등록/수정 기능 (변경사항 감지)
+- **리스트 뷰**
+  - **고정 영역**: EntryBar + 필터 섹션
+  - **스크롤 영역**: 트랜잭션 리스트만 스크롤
+  - 날짜별 그룹핑 및 정렬
+  - 수입/지출 필터 (검은색 원형 버튼)
+  - 카테고리 색상 박스 (큰 박스 레이아웃, 검은색 텍스트)
+  - 트랜잭션 정보 표시:
+    - 카테고리 (색상 박스)
+    - 내용 (메모)
+    - 결제수단 (고정 열)
+    - 금액 (수입: 파란색, 지출: 빨간색)
+  - 편집/삭제 기능
+    - 클릭 시 편집 모드 진입
+    - 삭제 버튼 (hover 시 표시)
+    - 삭제 확인 모달 (상세 정보 표시)
+  - 일별 합계 표시 (검은색, 오른쪽 정렬)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+#### 2. 달력 뷰
+- **레이아웃**
+  - 헤더는 고정, EntryBar는 숨김
+  - 월별 달력 그리드 (7일 × 6주)
+- **날짜별 트랜잭션 표시**
+  - 날짜별 수입/지출/합계 표시
+  - 수입: 연한 파란색 (`text-brand-text-income`)
+  - 지출: 빨간색 (`text-brand-text-expense`)
+  - 합계: 검정색 (`text-zinc-900`)
+  - 금액 표시 시 "원" 단위 제거
+- **특수 기능**
+  - 오늘 날짜 배경색 하이라이트 (`bg-zinc-100`)
+  - 이전/다음 달 날짜 회색 배경으로 표시
+- **월별 총합**
+  - 하단에 총 수입/총 지출/총합 표시
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+#### 3. 통계 뷰
+- **레이아웃**
+  - 헤더는 고정, EntryBar는 숨김
+  - 왼쪽: 도넛 차트, 오른쪽: 통계 표
+- **월별 지출 통계**
+  - 도넛 차트: 카테고리별 지출 비율 시각화
+    - 세그먼트는 딱딱 끊어지는 스타일 (`strokeLinecap="butt"`)
+    - 카테고리별 색상 적용
+  - 통계 표:
+    - 제목 및 총 지출 금액 표시
+    - 구분선으로 분리
+    - 카테고리별 상세 정보 (카테고리명, 비율, 금액)
+    - 카테고리명은 색상 배경 블록으로 표시 (검은색 텍스트, `body-12`)
+- **카테고리 상세 분석**
+  - 카테고리 클릭 시 해당 카테고리의 소비 추이 표시
+  - 최근 6개월 소비 추이 라인 차트
+    - 그리드 라인 (수평/수직)
+    - 데이터 포인트 및 라벨
+    - X축: 월 레이블
+  - 상세 내역 리스트
+    - 날짜별 그룹핑
+    - 리스트 뷰와 동일한 형식으로 트랜잭션 표시
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 프로젝트 구조
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/          # 공통 컴포넌트
+│   ├── Header.tsx       # 헤더 (로고, 날짜 네비게이션, 탭)
+│   ├── Modal.tsx        # 모달 컴포넌트
+│   └── PaymentMethodSelect.tsx  # 결제수단 선택 드롭다운
+├── features/
+│   └── ledger/
+│       ├── EntryBar.tsx      # 입력 바
+│       ├── ListView.tsx      # 리스트 뷰
+│       ├── CalendarView.tsx  # 달력 뷰
+│       └── StatsView.tsx     # 통계 뷰
+├── stores/
+│   └── ledger-store.tsx     # 전역 상태 관리 (Context + Reducer)
+├── lib/                     # 유틸리티 함수
+│   ├── date.ts            # 날짜 관련 함수
+│   └── format.ts           # 포맷팅 함수
+└── types/
+    └── ledger.ts           # TypeScript 타입 정의
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 개발 가이드
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 설치 및 실행
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
+
+# 빌드
+npm run build
+
+# 빌드 결과 미리보기
+npm run preview
 ```
+
+### 주요 컴포넌트 설명
+
+- **EntryBar**: 트랜잭션 등록/수정을 위한 입력 폼
+  - 리스트 탭에서만 표시 (달력/통계 탭에서는 숨김)
+  - 즉시 초기화 및 편집 상태 관리
+- **ListView**: 날짜별로 그룹핑된 트랜잭션 리스트
+  - 수입/지출 필터 기능
+  - 카테고리 색상 박스 (검은색 텍스트)
+  - 편집/삭제 기능 및 상세 모달
+- **CalendarView**: 달력 형태의 트랜잭션 통계 뷰
+  - 월별 달력 그리드
+  - 날짜별 수입/지출/합계 표시
+  - 오늘 날짜 하이라이트
+- **StatsView**: 카테고리별 지출 통계 및 분석
+  - 도넛 차트로 비율 시각화
+  - 카테고리별 상세 통계 표
+  - 소비 추이 라인 차트
+- **PaymentMethodSelect**: 결제수단 선택 및 관리 드롭다운
+  - 추가/삭제 기능
+  - 색상 구분 (삭제 버튼 빨간색)
+
+### 상태 관리
+
+- `LedgerProvider`: 전역 상태 관리 컨텍스트
+- `useLedger`: 상태 및 dispatch 함수를 반환하는 훅
+- LocalStorage에 자동 저장 (200ms 디바운스)
+
+### 스타일링
+
+- Tailwind CSS 사용
+- 커스텀 타이포그래피 클래스:
+  - `body-12`, `body-14`, `body-16`: Pretendard Variable Light
+  - `title-sb-12`, `title-sb-14`, `title-sb-16`: Pretendard Variable Semibold
+- 폰트: Pretendard Variable, ChosunNm, Chosunilbo_myungjo
+
+## 참고사항
+
+- 데이터는 브라우저의 LocalStorage에 저장됩니다.
+- 초기 데이터는 `/public/data/seed.json`에서 로드됩니다.

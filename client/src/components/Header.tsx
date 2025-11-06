@@ -16,7 +16,7 @@ export function Header({
 
   return (
     <header className="sticky top-0 z-10 bg-brand-accent">
-      <div className="mx-auto max-w-4xl flex items-center gap-4 px-4 py-8 md:py-10">
+      <div className="mx-auto max-w-4xl flex items-center gap-4 px-4 py-12 md:py-14">
         {/* 로고 */}
         <button
           onClick={()=>onTab('list')}

@@ -1,0 +1,17 @@
+### 새 데이터 추가
+POST http://localhost:5000/api/transactions
+Content-Type: application/json
+
+{
+  "date": "2025-11-02",
+  "category": "식비",
+  "amount": 15000,
+  "memo": "점심 식사",
+  "type": "expense"
+}
+
+### 전체 내역 조회
+GET http://localhost:5000/api/transactions
+
+### 월별 조회
+GET http://localhost:5000/api/transactions/month?month=2025-11

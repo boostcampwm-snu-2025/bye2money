@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,29 +11,20 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BarChartIcon from "@mui/icons-material/BarChart";
 
+import { useAppContext } from "@/contexts/AppContext";
 
-export function Header({ year, setYear, month, setMonth, view, setView }) {
+export function Header() {
+  const { 
+    year, setYear,
+    month, setMonth,
+    view, setView,
+    monthChangeHandler,
+    viewChangeHandler
+  } = useAppContext();
+
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", 
                       "August", "September", "October", "November", "December"];
   
-  const monthChangeHandler = (newMonth) => {
-    if (newMonth > 12) {
-      setYear(year + 1);
-      setMonth(newMonth - 12);
-    } else if (newMonth <= 0) {
-      setYear(year - 1);
-      setMonth(newMonth + 12);
-    } else {
-      setMonth(newMonth);
-    }
-  };
-
-  const viewChangeHandler = (event, nextView) => {
-    if (nextView !== null) {
-      setView(nextView);
-    }
-  };
-
   return (
       <Box 
           sx={{ 
